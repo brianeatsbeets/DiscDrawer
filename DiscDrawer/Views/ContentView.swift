@@ -16,15 +16,17 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var discs: FetchedResults<Disc>
     
     @State private var showingAddScreen = false
-    @State private var viewMode = "grid"
+    @State private var viewMode = "list"
     
     var body: some View {
         NavigationView {
             Group {
                 if viewMode == "list" {
                     DiscList(discs: discs)
-                } else {
+                } else if viewMode == "grid" {
                     DiscGrid(discs: discs)
+                } else {
+                    DiscCarousel(discs: discs)
                 }
             }
            .navigationTitle("DiscDrawer")
@@ -260,6 +262,42 @@ struct ContentView: View {
 
             // Save the context
             try? moc.save()
+        }
+        
+    }
+    
+    struct DiscCarousel: View {
+        
+        // Managed object context
+        @Environment(\.managedObjectContext) var moc
+        
+        let discs: FetchedResults<Disc>
+        
+        var body: some View {
+            GeometryReader { geo in
+                    
+                // Stack
+                ZStack {
+                    
+                    // Stack item
+                    ForEach(discs) { disc in
+                        NavigationLink {
+                            AddEditDiscView(disc: disc)
+                        } label: {
+                            ZStack {
+                                Color.red
+                                    .clipShape(Circle())
+                                    .frame(width: geo.size.width / 2, height: geo.size.width / 2)
+                                Text(disc.name!)
+                            }
+                        }
+                        .padding(.bottom)
+                    }
+                }
+                .padding()
+                
+                Spacer()
+            }
         }
     }
 }
