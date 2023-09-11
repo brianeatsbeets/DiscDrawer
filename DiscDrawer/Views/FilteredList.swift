@@ -41,30 +41,45 @@ struct FilteredList: View {
         
         var body: some View {
             List {
-                ForEach(discs) { disc in
-                    NavigationLink {
-                        AddEditDiscView(disc: disc)
-                    } label: {
-                        HStack {
-                            Color.red
-                                .clipShape(Circle())
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 50)
-                            
-                            VStack(alignment: .leading) {
-                                Text(disc.name ?? "Unknown name")
-                                    .font(.headline)
-                                
-                                if disc.manufacturer != "" {
-                                    Text(disc.manufacturer ?? "Unknown manufacturer")
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                            .padding(.leading, 5)
+                Section("Putter") {
+                    ForEach(discs) { disc in
+                        
+                        if disc.type == "Putter" {
+                            DiscListItem(disc: disc)
                         }
                     }
+                    .onDelete(perform: deleteDiscs) // Perform when item is deleted // Enables swipe-to-delete
                 }
-                .onDelete(perform: deleteDiscs) // Perform when item is deleted // Enables swipe-to-delete
+                
+                Section("Midrange") {
+                    ForEach(discs) { disc in
+                        
+                        if disc.type == "Midrange" {
+                            DiscListItem(disc: disc)
+                        }
+                    }
+                    .onDelete(perform: deleteDiscs) // Perform when item is deleted // Enables swipe-to-delete
+                }
+                
+                Section("Fairway") {
+                    ForEach(discs) { disc in
+                        
+                        if disc.type == "Fairway" {
+                            DiscListItem(disc: disc)
+                        }
+                    }
+                    .onDelete(perform: deleteDiscs) // Perform when item is deleted // Enables swipe-to-delete
+                }
+                
+                Section("Driver") {
+                    ForEach(discs) { disc in
+                        
+                        if disc.type == "Driver" {
+                            DiscListItem(disc: disc)
+                        }
+                    }
+                    .onDelete(perform: deleteDiscs) // Perform when item is deleted // Enables swipe-to-delete
+                }
             }
         }
         
@@ -80,6 +95,34 @@ struct FilteredList: View {
 
             // Save the context
             try? moc.save()
+        }
+    }
+    
+    struct DiscListItem: View {
+        let disc: Disc
+        
+        var body: some View {
+            NavigationLink {
+                AddEditDiscView(disc: disc)
+            } label: {
+                HStack {
+                    Color.red
+                        .clipShape(Circle())
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 50)
+                    
+                    VStack(alignment: .leading) {
+                        Text(disc.name ?? "Unknown name")
+                            .font(.headline)
+                        
+                        if disc.manufacturer != "" {
+                            Text(disc.manufacturer ?? "Unknown manufacturer")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.leading, 5)
+                }
+            }
         }
     }
     
@@ -104,16 +147,69 @@ struct FilteredList: View {
                 // Grid
                 LazyVGrid(columns: columns) {
                     
-                    // Grid item
-                    ForEach(discs) { disc in
-                        NavigationLink {
-                            AddEditDiscView(disc: disc)
-                        } label: {
-                            DiscGridItem(disc: disc)
+                    Section("Putter") {
+                        
+                        // Grid item
+                        ForEach(discs) { disc in
+                            if disc.type == "Putter" {
+                                NavigationLink {
+                                    AddEditDiscView(disc: disc)
+                                } label: {
+                                    DiscGridItem(disc: disc)
+                                }
+                                .padding(.bottom)
+                            }
                         }
-                        .padding(.bottom)
+                        .onDelete(perform: deleteDiscs)
                     }
-                    .onDelete(perform: deleteDiscs)
+                    
+                    Section("Midrange") {
+                        
+                        // Grid item
+                        ForEach(discs) { disc in
+                            if disc.type == "Midrange" {
+                                NavigationLink {
+                                    AddEditDiscView(disc: disc)
+                                } label: {
+                                    DiscGridItem(disc: disc)
+                                }
+                                .padding(.bottom)
+                            }
+                        }
+                        .onDelete(perform: deleteDiscs)
+                    }
+                    
+                    Section("Fairway") {
+                        
+                        // Grid item
+                        ForEach(discs) { disc in
+                            if disc.type == "Fairway" {
+                                NavigationLink {
+                                    AddEditDiscView(disc: disc)
+                                } label: {
+                                    DiscGridItem(disc: disc)
+                                }
+                                .padding(.bottom)
+                            }
+                        }
+                        .onDelete(perform: deleteDiscs)
+                    }
+                    
+                    Section("Driver") {
+                        
+                        // Grid item
+                        ForEach(discs) { disc in
+                            if disc.type == "Driver" {
+                                NavigationLink {
+                                    AddEditDiscView(disc: disc)
+                                } label: {
+                                    DiscGridItem(disc: disc)
+                                }
+                                .padding(.bottom)
+                            }
+                        }
+                        .onDelete(perform: deleteDiscs)
+                    }
                 }
                 .padding()
                 
