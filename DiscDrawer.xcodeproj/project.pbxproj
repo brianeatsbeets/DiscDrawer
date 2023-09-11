@@ -14,6 +14,7 @@
 		E129A3412AA8B2C400A9E255 /* DiscDrawer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E129A33F2AA8B2C400A9E255 /* DiscDrawer.xcdatamodeld */; };
 		E129A3442AA8B3A100A9E255 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3432AA8B3A100A9E255 /* DataController.swift */; };
 		E129A3462AA8B4F700A9E255 /* AddEditDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */; };
+		E1CE52022AAF91B60044134D /* FilteredList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52012AAF91B60044134D /* FilteredList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		E129A3402AA8B2C400A9E255 /* DiscDrawer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DiscDrawer.xcdatamodel; sourceTree = "<group>"; };
 		E129A3432AA8B3A100A9E255 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditDiscView.swift; sourceTree = "<group>"; };
+		E1CE52012AAF91B60044134D /* FilteredList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
+				E1CE52012AAF91B60044134D /* FilteredList.swift */,
 				E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */,
 			);
 			path = Views;
@@ -164,6 +167,7 @@
 			files = (
 				E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */,
 				E129A3462AA8B4F700A9E255 /* AddEditDiscView.swift in Sources */,
+				E1CE52022AAF91B60044134D /* FilteredList.swift in Sources */,
 				E129A3442AA8B3A100A9E255 /* DataController.swift in Sources */,
 				E129A3412AA8B2C400A9E255 /* DiscDrawer.xcdatamodeld in Sources */,
 				E129A3312AA8B27900A9E255 /* DiscDrawerApp.swift in Sources */,
