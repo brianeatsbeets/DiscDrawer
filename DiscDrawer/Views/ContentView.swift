@@ -5,18 +5,32 @@
 //  Created by Aguirre, Brian P. on 9/6/23.
 //
 
+// MARK: - Imported libraries
+
 import SwiftUI
 
+// MARK: - Main struct
+
+// This struct provides a view that serves as the base container for the app
 struct ContentView: View {
+    
+    // MARK: - Properties
+    
+    // Environment
     
     // Managed object context
     @Environment(\.managedObjectContext) var moc
+    
+    // State
     
     @State private var showingAddScreen = false
     @State private var viewMode = "list"
     @State private var sortAsc = true
     @State private var sortItemIndex = 0
     
+    // Basic
+    
+    // Computed sort descriptor to pass to FilteredList
     var sortDescriptor: SortDescriptor<Disc> {
         if sortItemIndex == 0 {
             return SortDescriptor(\.name, order: sortAsc ? .forward : .reverse)
@@ -25,18 +39,27 @@ struct ContentView: View {
         }
     }
     
+    // MARK: - Body view
+    
     var body: some View {
+        
+        // Navigation view
         NavigationView {
             
+            // Main VStack
             VStack {
                 
+                // Sort and filter elements
                 HStack {
+                    
+                    // Sort button
                     Button {
                         sortAsc.toggle()
                     } label: {
                         Image(systemName: "arrow.up.arrow.down")
                     }
                     
+                    // Filter picker
                     Picker("Filter Field", selection: $sortItemIndex) {
                         Text("Name").tag(0)
                         Text("Manufacturer").tag(1)
@@ -45,24 +68,21 @@ struct ContentView: View {
                 }
                 .padding(.horizontal)
                 
+                // Disc list
                 FilteredList(viewMode: viewMode, sortDescriptor: sortDescriptor)
                     .navigationTitle("DiscDrawer")
                     .toolbar {
                         
                         // View mode button
                         ToolbarItem(placement: .navigationBarLeading) {
-                            Menu {
-                                Button("List") {
+                            Button {
+                                if viewMode == "list" {
+                                    viewMode = "grid"
+                                } else {
                                     viewMode = "list"
                                 }
-                                Button("Grid") {
-                                    viewMode = "grid"
-                                }
-                                Button("Carousel") {
-                                    viewMode = "carousel"
-                                }
                             } label: {
-                                Text("View mode")
+                                Image(systemName: viewMode == "grid" ? "list.bullet" : "square.grid.2x2")
                             }
                         }
                         
@@ -88,8 +108,10 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+// MARK: - Preview provider
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

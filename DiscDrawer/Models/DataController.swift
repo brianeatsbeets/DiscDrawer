@@ -5,15 +5,21 @@
 //  Created by Aguirre, Brian P. on 9/6/23.
 //
 
-import CoreData
-import Foundation
+// MARK: - Imported libraries
 
+import CoreData
+
+// MARK: - Main class
+
+// This class implements a controller for a Core Data container
 class DataController: ObservableObject {
     
-    // Create the Core Data container
+    // MARK: - Properties
+    
+    // Core Data container
     let container = NSPersistentContainer(name: "DiscDrawer")
     
-    // Initializer to load access to data
+    // Init access to data
     init() {
         container.loadPersistentStores { description, error in
             if let error = error {

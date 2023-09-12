@@ -15,6 +15,8 @@
 		E129A3442AA8B3A100A9E255 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3432AA8B3A100A9E255 /* DataController.swift */; };
 		E129A3462AA8B4F700A9E255 /* AddEditDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */; };
 		E1CE52022AAF91B60044134D /* FilteredList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52012AAF91B60044134D /* FilteredList.swift */; };
+		E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520C2AB094BA0044134D /* DiscList.swift */; };
+		E1CE52102AB098730044134D /* DiscGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520F2AB098730044134D /* DiscGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		E129A3432AA8B3A100A9E255 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditDiscView.swift; sourceTree = "<group>"; };
 		E1CE52012AAF91B60044134D /* FilteredList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredList.swift; sourceTree = "<group>"; };
+		E1CE520C2AB094BA0044134D /* DiscList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscList.swift; sourceTree = "<group>"; };
+		E1CE520F2AB098730044134D /* DiscGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
-				E1CE52012AAF91B60044134D /* FilteredList.swift */,
+				E1CE520E2AB096B70044134D /* Disc Listings */,
 				E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */,
 			);
 			path = Views;
@@ -93,6 +97,16 @@
 				E129A3432AA8B3A100A9E255 /* DataController.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E1CE520E2AB096B70044134D /* Disc Listings */ = {
+			isa = PBXGroup;
+			children = (
+				E1CE52012AAF91B60044134D /* FilteredList.swift */,
+				E1CE520C2AB094BA0044134D /* DiscList.swift */,
+				E1CE520F2AB098730044134D /* DiscGrid.swift */,
+			);
+			path = "Disc Listings";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +180,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */,
+				E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */,
+				E1CE52102AB098730044134D /* DiscGrid.swift in Sources */,
 				E129A3462AA8B4F700A9E255 /* AddEditDiscView.swift in Sources */,
 				E1CE52022AAF91B60044134D /* FilteredList.swift in Sources */,
 				E129A3442AA8B3A100A9E255 /* DataController.swift in Sources */,
@@ -314,9 +330,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianaguirre.DiscDrawer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -343,9 +362,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianaguirre.DiscDrawer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
