@@ -184,11 +184,10 @@ struct AddEditDiscView: View {
         if disc != nil {
             moc.delete(disc!)
         }
-            
+        
         // Create new Disc and assign values
         let newDisc = Disc(context: moc)
         
-        newDisc.id = UUID()
         newDisc.name = name
         newDisc.type = type
         newDisc.manufacturer = manufacturer
@@ -206,8 +205,8 @@ struct AddEditDiscView: View {
     }
 }
 
-struct AddEditDiscView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddEditDiscView(disc: nil)
-    }
-}
+//struct AddEditDiscView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddEditDiscView(disc: nil)
+//    }
+//}
