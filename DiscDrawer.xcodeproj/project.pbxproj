@@ -17,6 +17,7 @@
 		E1CE52022AAF91B60044134D /* FilteredList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52012AAF91B60044134D /* FilteredList.swift */; };
 		E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520C2AB094BA0044134D /* DiscList.swift */; };
 		E1CE52102AB098730044134D /* DiscGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520F2AB098730044134D /* DiscGrid.swift */; };
+		E1CE52142AB0A5850044134D /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52132AB0A5850044134D /* LogoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		E1CE52012AAF91B60044134D /* FilteredList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredList.swift; sourceTree = "<group>"; };
 		E1CE520C2AB094BA0044134D /* DiscList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscList.swift; sourceTree = "<group>"; };
 		E1CE520F2AB098730044134D /* DiscGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscGrid.swift; sourceTree = "<group>"; };
+		E1CE52132AB0A5850044134D /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +85,10 @@
 		E129A33E2AA8B29600A9E255 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E1CE52132AB0A5850044134D /* LogoView.swift */,
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
-				E1CE520E2AB096B70044134D /* Disc Listings */,
 				E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */,
+				E1CE520E2AB096B70044134D /* Disc Listings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */,
+				E1CE52142AB0A5850044134D /* LogoView.swift in Sources */,
 				E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */,
 				E1CE52102AB098730044134D /* DiscGrid.swift in Sources */,
 				E129A3462AA8B4F700A9E255 /* AddEditDiscView.swift in Sources */,
