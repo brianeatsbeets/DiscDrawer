@@ -5,6 +5,9 @@
 //  Created by Aguirre, Brian P. on 9/6/23.
 //
 
+// TODO: create view to display when no discs have been added
+// TODO: hide categories that have no discs
+
 // MARK: - Imported libraries
 
 import SwiftUI
@@ -34,7 +37,7 @@ struct ContentView: View {
     // Basic
     
     // Dev property to choose whether or not to display the logo view
-    var splashScreenEnabled = false
+    var splashScreenEnabled = true
     
     // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
@@ -147,25 +150,32 @@ struct ContentView: View {
     }
     
     // Fetch disc data from API
-    // TODO: Clean up
+    // TODO: Clean up and use response to verify
     func fetchDiscTemplateData() async {
         let url = URL(string: "https://discit-api.fly.dev/disc/")!
         
-        let (data, _) = try! await URLSession.shared.data(from: url)
-        
-        let decoder = JSONDecoder()
-        decoder.userInfo[CodingUserInfoKey.managedObjectContext] = moc
-        
-        if let decodedDiscs = try? decoder.decode([DiscTemplate].self, from: data) {
-            print(decodedDiscs)
-            UserDefaults.standard.set(true, forKey: "DownloadedInitialData")
+        if let (data, _) = try? await URLSession.shared.data(from: url) {
             
-            if moc.hasChanges {
-                try? moc.save()
+            let decoder = JSONDecoder()
+            decoder.userInfo[CodingUserInfoKey.managedObjectContext] = moc
+            
+            if let decodedDiscs = try? decoder.decode([DiscTemplate].self, from: data) {
+                print(decodedDiscs)
+                UserDefaults.standard.set(true, forKey: "DownloadedInitialData")
+                
+                if moc.hasChanges {
+                    do {
+                        try moc.save()
+                    } catch {
+                        print("Error saving to core data: \(error.localizedDescription)")
+                    }
+                }
+                
+            } else {
+                print("Failed to decode.")
             }
-            
         } else {
-            print("Failed to decode.")
+            print("Failed to get data from URLSession.")
         }
     }
 }
