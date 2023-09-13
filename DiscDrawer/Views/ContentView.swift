@@ -23,16 +23,20 @@ struct ContentView: View {
     
     // State
     
-    @State private var showingAddScreen = false
     @State private var viewMode = "list"
     @State private var sortAsc = true
     @State private var sortItemIndex = 0
     
     @State private var showingLogoView = true
+    @State private var showingAddView = false
+    @State private var showingTemplatesView = false
     
     // Basic
     
-    // Computed sort descriptor to pass to FilteredList
+    // Dev property to choose whether or not to display the logo view
+    var splashScreenEnabled = false
+    
+    // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
         if sortItemIndex == 0 {
             return SortDescriptor(\.name, order: sortAsc ? .forward : .reverse)
@@ -74,7 +78,7 @@ struct ContentView: View {
                     .padding(.horizontal)
                     
                     // Disc list
-                    FilteredList(viewMode: viewMode, sortDescriptor: sortDescriptor)
+                    FilteredDiscView(viewMode: viewMode, sortDescriptor: sortDescriptor)
                         .toolbar {
                             
                             // View mode button
@@ -93,39 +97,75 @@ struct ContentView: View {
                             // Add disc button
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
-                                    showingAddScreen.toggle()
+                                    showingAddView.toggle()
                                 } label: {
                                     Label("Add Disc", systemImage: "plus")
                                 }
                             }
                         }
-                        .sheet(isPresented: $showingAddScreen) {
+                        .sheet(isPresented: $showingAddView) {
                             
                             // Manually add navigation view here to avoid adding a second navigation view when passing a disc
                             NavigationView {
-                                AddEditDiscView()
+                                AddDiscView(showingAddView: $showingAddView)
                             }
                             .interactiveDismissDisabled()
                         }
                 }
                 .navigationTitle("Disc Drawer")
+                .navigationBarTitleDisplayMode(.inline)
             }
             
-            // Logo view
-            if showingLogoView {
-                LogoView()
-                    .zIndex(1) // Keep view on top while dismissing
-                    .transition(.move(edge: .top))
+            if splashScreenEnabled {
+                
+                // Logo view
+                if showingLogoView {
+                    LogoView()
+                        .zIndex(1) // Keep view on top while dismissing
+                        .transition(.move(edge: .top))
+                }
+            }
+        }
+        .task {
+            if UserDefaults.standard.object(forKey: "DownloadedInitialData") == nil {
+                print("Fetching data...")
+                await fetchDiscTemplateData()
+                print("Fetched data.")
             }
         }
         .onAppear {
-            
-            // Logo view dismiss animation
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation(.easeIn(duration: 0.2)) {
-                    showingLogoView.toggle()
+            if splashScreenEnabled {
+                
+                // Logo view dismiss animation
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        showingLogoView.toggle()
+                    }
                 }
             }
+        }
+    }
+    
+    // Fetch disc data from API
+    // TODO: Clean up
+    func fetchDiscTemplateData() async {
+        let url = URL(string: "https://discit-api.fly.dev/disc/")!
+        
+        let (data, _) = try! await URLSession.shared.data(from: url)
+        
+        let decoder = JSONDecoder()
+        decoder.userInfo[CodingUserInfoKey.managedObjectContext] = moc
+        
+        if let decodedDiscs = try? decoder.decode([DiscTemplate].self, from: data) {
+            print(decodedDiscs)
+            UserDefaults.standard.set(true, forKey: "DownloadedInitialData")
+            
+            if moc.hasChanges {
+                try? moc.save()
+            }
+            
+        } else {
+            print("Failed to decode.")
         }
     }
 }

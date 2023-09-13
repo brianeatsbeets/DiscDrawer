@@ -76,14 +76,14 @@ struct LogoView: View {
             .onAppear {
                 
                 // Disc drop animation
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     withAnimation(.linear(duration: discDropDuration)) {
                         setAllDiscsOffsetY(discOffsetYFinal)
                     }
                 }
                 
                 // Drawer + disc slight drop animation
-                DispatchQueue.main.asyncAfter(deadline: .now() + discDropDuration) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + discDropDuration + 0.3) {
                     withAnimation(.easeOut) {
                         drawerOffsetY = 50.0
                         setAllDiscsOffsetY(0.0)
@@ -91,7 +91,7 @@ struct LogoView: View {
                 }
                 
                 // Drawer + disc return animation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6 + 0.3) {
                     withAnimation(.easeIn(duration: 0.16)) {
                         drawerOffsetY = 0.0
                         setAllDiscsOffsetY(discOffsetYFinal)
@@ -99,7 +99,7 @@ struct LogoView: View {
                 }
                 
                 // Disc jump animation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.76) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.76 + 0.3) {
                     withAnimation(Animation.timingCurve(0.1, 1, 0.95, 1, duration: 0.2)) {
                         redOffsetY = discOffsetYFinal - 50
                         yellowOffsetY = discOffsetYFinal - 30
@@ -108,7 +108,7 @@ struct LogoView: View {
                 }
                 
                 // Disc return animation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.96) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.96 + 0.3) {
                     withAnimation(Animation.timingCurve(0.9, 0.05, 0.95, 1, duration: 0.2)) {
                         setAllDiscsOffsetY(discOffsetYFinal)
                     }

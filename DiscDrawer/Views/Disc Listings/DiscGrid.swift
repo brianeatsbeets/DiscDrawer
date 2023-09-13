@@ -93,14 +93,14 @@ struct DiscGrid: View {
                     VStack(spacing: 3) {
                         
                         // Disc name
-                        Text(disc.name ?? "Unknown name")
+                        Text(disc.wrappedName)
                             .font(.headline)
                             .foregroundColor(.black)
                             .minimumScaleFactor(0.8)
                         
                         // Disc manufacturer
                         if disc.manufacturer != "" {
-                            Text(disc.manufacturer ?? "Unknown manufacturer")
+                            Text(disc.wrappedManufacturer)
                                 .font(.caption.bold())
                                 .foregroundColor(.white)
                                 .minimumScaleFactor(0.1)

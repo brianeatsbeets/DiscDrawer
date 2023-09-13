@@ -94,12 +94,12 @@ struct DiscList: View {
                 VStack(alignment: .leading) {
                     
                     // Disc name
-                    Text(disc.name ?? "Unknown name")
+                    Text(disc.wrappedName)
                         .font(.headline)
                     
                     // Disc manufacturer
                     if disc.manufacturer != "" {
-                        Text(disc.manufacturer ?? "Unknown manufacturer")
+                        Text(disc.wrappedManufacturer)
                             .foregroundColor(.secondary)
                     }
                 }

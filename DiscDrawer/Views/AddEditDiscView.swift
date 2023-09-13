@@ -11,6 +11,8 @@ import SwiftUI
 
 // MARK: - Main struct
 
+// TODO: Add fields for flight path image and stability (computed?)
+
 // This struct provides a view that allows for editing of a current disc or creation of a new one
 struct AddEditDiscView: View {
     
@@ -21,6 +23,11 @@ struct AddEditDiscView: View {
     // Managed object context
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+    
+    // Bindings
+    
+    // Optional property used to dismiss multiple sheets at once
+    var showingAddView: Binding<Bool>?
     
     // State
     
@@ -41,6 +48,7 @@ struct AddEditDiscView: View {
     // Basic
     
     var disc: Disc? = nil
+    var discTemplate: DiscTemplate? = nil
     
     let types = ["Putter", "Midrange", "Fairway", "Driver"]
     let conditions = ["Great", "Good", "Fair", "Bad"]
@@ -61,14 +69,17 @@ struct AddEditDiscView: View {
     
     // MARK: - Initializers
     
-    init(disc: Disc? = nil) {
+    // Init with optional disc
+    init(disc: Disc? = nil, showingAddView: Binding<Bool>? = nil) {
+        
+        self.showingAddView = showingAddView ?? nil
         
         // Check if we were provided a disc
         guard let disc else { return }
         
         // Initialize state values
         _name = State(initialValue: disc.name ?? "")
-        _type = State(initialValue: disc.type ?? "Putter")
+        _type = State(initialValue: disc.wrappedType)
         _manufacturer = State(initialValue: disc.manufacturer ?? "")
         _plastic = State(initialValue: disc.plastic ?? "")
         _weight = State(initialValue: Int(disc.weight))
@@ -76,10 +87,25 @@ struct AddEditDiscView: View {
         _glide = State(initialValue: Int(disc.glide))
         _turn = State(initialValue: Int(disc.turn))
         _fade = State(initialValue: Int(disc.fade))
-        _condition = State(initialValue: disc.condition ?? "Great")
+        _condition = State(initialValue: disc.wrappedCondition)
         _inBag = State(initialValue: disc.inBag)
         
         self.disc = disc
+    }
+    
+    // Init with disc template
+    init(discTemplate: DiscTemplate, showingAddView: Binding<Bool>? = nil) {
+        
+        self.showingAddView = showingAddView ?? nil
+        
+        // Initialize state values
+        _name = State(initialValue: discTemplate.name ?? "")
+        _type = State(initialValue: discTemplate.wrappedType)
+        _manufacturer = State(initialValue: discTemplate.manufacturer ?? "")
+        _speed = State(initialValue: Int(discTemplate.speed ?? "") ?? 0)
+        _glide = State(initialValue: Int(discTemplate.glide ?? "") ?? 0)
+        _turn = State(initialValue: Int(discTemplate.turn ?? "") ?? 0)
+        _fade = State(initialValue: Int(discTemplate.fade ?? "") ?? 0)
     }
     
     // MARK: - Body view
@@ -189,7 +215,7 @@ struct AddEditDiscView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     saveDisc()
-                    dismiss()
+                    dismissFromContext()
                 } label: {
                     Text("Save")
                         .bold()
@@ -205,7 +231,7 @@ struct AddEditDiscView: View {
     func deleteDisc() {
         moc.delete(disc!)
         try? moc.save() // TODO: Catch errors
-        dismiss()
+        dismissFromContext()
     }
     
     // Save the disc information
@@ -232,6 +258,15 @@ struct AddEditDiscView: View {
         
         // Save disc to managed object context
         try? moc.save() // TODO: Catch errors
+    }
+    
+    // Dismiss the view and optionally dismiss additional parent views using a binding
+    func dismissFromContext() {
+        if showingAddView != nil {
+            showingAddView!.wrappedValue = false
+        } else {
+            dismiss()
+        }
     }
 }
 

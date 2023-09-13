@@ -1,5 +1,5 @@
 //
-//  FilteredList.swift
+//  FilteredDiscView.swift
 //  DiscDrawer
 //
 //  Created by Aguirre, Brian P. on 9/11/23.
@@ -12,7 +12,7 @@ import SwiftUI
 // MARK: - Main struct
 
 // This struct provides a sorted and filtered listing of discs
-struct FilteredList: View {
+struct FilteredDiscView: View {
     
     // MARK: - Properties
     
@@ -48,6 +48,6 @@ struct FilteredList: View {
 
 //struct FilteredList_Previews: PreviewProvider {
 //    static var previews: some View {
-//        FilteredList()
+//        FilteredDiscView()
 //    }
 //}
