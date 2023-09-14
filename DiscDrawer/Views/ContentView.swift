@@ -151,6 +151,8 @@ struct ContentView: View {
     
     // Fetch disc data from API
     // TODO: Clean up and use response to verify
+    // TODO: Crashes were occasionally happening on first launch before error handling and are now not happening, but no errors are showing up for some reason
+    // TODO: Retain the splash screen or show loading message when downloading disc data
     func fetchDiscTemplateData() async {
         let url = URL(string: "https://discit-api.fly.dev/disc/")!
         

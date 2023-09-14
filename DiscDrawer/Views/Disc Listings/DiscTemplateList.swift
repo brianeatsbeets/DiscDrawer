@@ -5,6 +5,8 @@
 //  Created by Aguirre, Brian P. on 9/13/23.
 //
 
+// TODO: Add more info to disc template item view
+
 // MARK: - Imported libraries
 
 import SwiftUI

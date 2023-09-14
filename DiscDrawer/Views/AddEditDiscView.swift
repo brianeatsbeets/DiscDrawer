@@ -12,6 +12,7 @@ import SwiftUI
 // MARK: - Main struct
 
 // TODO: Add fields for flight path image and stability (computed?)
+// TODO: Change 'Cancel' button to negular back button when loading from disc template
 
 // This struct provides a view that allows for editing of a current disc or creation of a new one
 struct AddEditDiscView: View {
@@ -36,10 +37,10 @@ struct AddEditDiscView: View {
     @State private var manufacturer = ""
     @State private var plastic = ""
     @State private var weight = 0
-    @State private var speed = 0
-    @State private var glide = 0
-    @State private var turn = 0
-    @State private var fade = 0
+    @State private var speed = 0.0
+    @State private var glide = 0.0
+    @State private var turn = 0.0
+    @State private var fade = 0.0
     @State private var condition = "Great"
     @State private var inBag = false
     
@@ -83,10 +84,10 @@ struct AddEditDiscView: View {
         _manufacturer = State(initialValue: disc.manufacturer ?? "")
         _plastic = State(initialValue: disc.plastic ?? "")
         _weight = State(initialValue: Int(disc.weight))
-        _speed = State(initialValue: Int(disc.speed))
-        _glide = State(initialValue: Int(disc.glide))
-        _turn = State(initialValue: Int(disc.turn))
-        _fade = State(initialValue: Int(disc.fade))
+        _speed = State(initialValue: Double(disc.speed))
+        _glide = State(initialValue: Double(disc.glide))
+        _turn = State(initialValue: Double(disc.turn))
+        _fade = State(initialValue: Double(disc.fade))
         _condition = State(initialValue: disc.wrappedCondition)
         _inBag = State(initialValue: disc.inBag)
         
@@ -102,10 +103,10 @@ struct AddEditDiscView: View {
         _name = State(initialValue: discTemplate.name ?? "")
         _type = State(initialValue: discTemplate.wrappedType)
         _manufacturer = State(initialValue: discTemplate.manufacturer ?? "")
-        _speed = State(initialValue: Int(discTemplate.speed ?? "") ?? 0)
-        _glide = State(initialValue: Int(discTemplate.glide ?? "") ?? 0)
-        _turn = State(initialValue: Int(discTemplate.turn ?? "") ?? 0)
-        _fade = State(initialValue: Int(discTemplate.fade ?? "") ?? 0)
+        _speed = State(initialValue: Double(discTemplate.speed ?? "") ?? 0)
+        _glide = State(initialValue: Double(discTemplate.glide ?? "") ?? 0)
+        _turn = State(initialValue: Double(discTemplate.turn ?? "") ?? 0)
+        _fade = State(initialValue: Double(discTemplate.fade ?? "") ?? 0)
     }
     
     // MARK: - Body view
@@ -249,10 +250,10 @@ struct AddEditDiscView: View {
         newDisc.manufacturer = manufacturer
         newDisc.plastic = plastic
         newDisc.weight = Int16(weight)
-        newDisc.speed = Int16(speed)
-        newDisc.glide = Int16(glide)
-        newDisc.turn = Int16(turn)
-        newDisc.fade = Int16(fade)
+        newDisc.speed = Double(speed)
+        newDisc.glide = Double(glide)
+        newDisc.turn = Double(turn)
+        newDisc.fade = Double(fade)
         newDisc.condition = condition
         newDisc.inBag = inBag
         
