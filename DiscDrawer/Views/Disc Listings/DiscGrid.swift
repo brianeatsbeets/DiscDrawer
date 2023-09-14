@@ -39,19 +39,23 @@ struct DiscGrid: View {
                 
                 // Create sections for disc types
                 ForEach(types, id: \.self) { type in
-                    Section(type) {
-                        
-                        // Display discs that match the section type
-                        ForEach(discs) { disc in
-                            if disc.type ==  type {
-                                
-                                // Link to AddEditDiscView
-                                NavigationLink {
-                                    AddEditDiscView(disc: disc)
-                                } label: {
-                                    DiscGridItem(disc: disc)
+                    
+                    // Only create a type section if it has matching discs
+                    if discs.contains(where: { $0.type == type }) {
+                        Section(type) {
+                            
+                            // Display discs that match the section type
+                            ForEach(discs) { disc in
+                                if disc.type ==  type {
+                                    
+                                    // Link to AddEditDiscView
+                                    NavigationLink {
+                                        AddEditDiscView(disc: disc)
+                                    } label: {
+                                        DiscGridItem(disc: disc)
+                                    }
+                                    .padding(.bottom)
                                 }
-                                .padding(.bottom)
                             }
                         }
                     }

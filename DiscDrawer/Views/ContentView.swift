@@ -6,7 +6,6 @@
 //
 
 // TODO: create view to display when no discs have been added
-// TODO: hide categories that have no discs
 
 // MARK: - Imported libraries
 
@@ -37,7 +36,7 @@ struct ContentView: View {
     // Basic
     
     // Dev property to choose whether or not to display the logo view
-    var splashScreenEnabled = true
+    var splashScreenEnabled = false
     
     // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
