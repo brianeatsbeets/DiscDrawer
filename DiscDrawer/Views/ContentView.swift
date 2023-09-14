@@ -35,7 +35,7 @@ struct ContentView: View {
     // Basic
     
     // Dev property to choose whether or not to display the logo view
-    var splashScreenEnabled = true
+    var splashScreenEnabled = false
     
     // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
@@ -164,7 +164,7 @@ struct ContentView: View {
     }
     
     // Fetch disc data from API
-    // TODO: Clean up and use response to verify
+    // TODO: Clean up and use response to verify successful data task
     // TODO: Crashes were occasionally happening on first launch before error handling and are now not happening, but no errors are showing up for some reason
     // TODO: Retain the splash screen or show loading message when downloading disc data
     func fetchDiscTemplateData() async {

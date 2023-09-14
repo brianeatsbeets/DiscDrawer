@@ -12,7 +12,6 @@ import SwiftUI
 // MARK: - Main struct
 
 // TODO: Add fields for flight path image and stability (computed?)
-// TODO: Change 'Cancel' button to negular back button when loading from disc template
 
 // This struct provides a view that allows for editing of a current disc or creation of a new one
 struct AddEditDiscView: View {
@@ -206,23 +205,15 @@ struct AddEditDiscView: View {
             }
         }
         .navigationTitle(navigationTitle)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel") {
-                    dismiss()
-                }
+            Button {
+                saveDisc()
+                dismissFromContext()
+            } label: {
+                Text("Save")
+                    .bold()
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    saveDisc()
-                    dismissFromContext()
-                } label: {
-                    Text("Save")
-                        .bold()
-                }
-                .disabled(!dataIsValid)
-            }
+            .disabled(!dataIsValid)
         }
     }
     
