@@ -47,8 +47,8 @@ struct AddEditDiscView: View {
     
     // Basic
     
-    var disc: Disc? = nil
-    var discTemplate: DiscTemplate? = nil
+    var disc: Disc?
+    var discTemplate: DiscTemplate?
     
     let types = ["Putter", "Midrange", "Fairway", "Driver"]
     let conditions = ["Great", "Good", "Fair", "Bad"]
@@ -229,24 +229,36 @@ struct AddEditDiscView: View {
     // Save the disc information
     func saveDisc() {
         
-        // If we're editing an existing disc, delete it and replace it below
-        if disc != nil {
-            moc.delete(disc!)
+        // If we're editing an existing disc, update it
+        if let disc {
+            
+            disc.name = name
+            disc.type = type
+            disc.manufacturer = manufacturer
+            disc.plastic = plastic
+            disc.weight = Int16(weight)
+            disc.speed = Double(speed)
+            disc.glide = Double(glide)
+            disc.turn = Double(turn)
+            disc.fade = Double(fade)
+            disc.condition = condition
+            disc.inBag = inBag
+        } else {
+            
+            // Create new Disc and assign values
+            let newDisc = Disc(context: moc)
+            newDisc.name = name
+            newDisc.type = type
+            newDisc.manufacturer = manufacturer
+            newDisc.plastic = plastic
+            newDisc.weight = Int16(weight)
+            newDisc.speed = Double(speed)
+            newDisc.glide = Double(glide)
+            newDisc.turn = Double(turn)
+            newDisc.fade = Double(fade)
+            newDisc.condition = condition
+            newDisc.inBag = inBag
         }
-        
-        // Create new Disc and assign values
-        let newDisc = Disc(context: moc)
-        newDisc.name = name
-        newDisc.type = type
-        newDisc.manufacturer = manufacturer
-        newDisc.plastic = plastic
-        newDisc.weight = Int16(weight)
-        newDisc.speed = Double(speed)
-        newDisc.glide = Double(glide)
-        newDisc.turn = Double(turn)
-        newDisc.fade = Double(fade)
-        newDisc.condition = condition
-        newDisc.inBag = inBag
         
         // Save disc to managed object context
         try? moc.save() // TODO: Catch errors

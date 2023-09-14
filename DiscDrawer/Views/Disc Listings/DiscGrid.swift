@@ -21,6 +21,10 @@ struct DiscGrid: View {
     // Managed object context
     @Environment(\.managedObjectContext) var moc
     
+    // State
+    
+    @State private var showingDetailForDisc: Disc? = nil
+    
     // Basic
     
     let discs: FetchedResults<Disc>
@@ -46,11 +50,11 @@ struct DiscGrid: View {
                             
                             // Display discs that match the section type
                             ForEach(discs) { disc in
-                                if disc.type ==  type {
+                                if disc.type == type {
                                     
                                     // Link to AddEditDiscView
-                                    NavigationLink {
-                                        AddEditDiscView(disc: disc)
+                                    Button {
+                                        showingDetailForDisc = disc
                                     } label: {
                                         DiscGridItem(disc: disc)
                                     }
@@ -62,6 +66,14 @@ struct DiscGrid: View {
                 }
             }
             .padding()
+            .sheet(item: $showingDetailForDisc) { disc in
+
+                // Manually add navigation view here to avoid adding a second navigation view when passing a disc
+                NavigationView {
+                    DiscDetailView(disc: disc)
+                }
+                .interactiveDismissDisabled()
+            }
             
             Spacer()
         }
@@ -74,7 +86,7 @@ struct DiscGrid: View {
         
         // MARK: - Properties
         
-        let disc: Disc
+        @ObservedObject var disc: Disc
         
         // MARK: - Body view
         

@@ -56,11 +56,11 @@ struct DiscDetailView: View {
                     }
                 }
                 
-                // TODO: Get this link to work
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: AddEditDiscView(disc: disc)) {
-                        Button("Edit") { }
+                        Text("Edit")
                     }
+                    .buttonStyle(.automatic)
                 }
             }
         }

@@ -47,25 +47,25 @@ struct DiscList: View {
                             if disc.type == type {
                                 
                                 // Link to AddEditDiscView
-                                // TODO: Re-add detail disclosure
-                                DiscListItem(disc: disc)
-                                    .onTapGesture {
-                                        showingDetailForDisc = disc
-                                    }
+                                Button {
+                                    showingDetailForDisc = disc
+                                } label: {
+                                    DiscListItem(disc: disc)
+                                }
                             }
                         }
                         .onDelete(perform: deleteDiscs)
-                        .sheet(item: $showingDetailForDisc) { disc in
-                            
-                            // Manually add navigation view here to avoid adding a second navigation view when passing a disc
-                            NavigationView {
-                                DiscDetailView(disc: disc)
-                            }
-                            .interactiveDismissDisabled()
-                        }
                     }
                 }
             }
+        }
+        .sheet(item: $showingDetailForDisc) { disc in
+
+            // Manually add navigation view here to avoid adding a second navigation view when passing a disc
+            NavigationView {
+                DiscDetailView(disc: disc)
+            }
+            .interactiveDismissDisabled()
         }
     }
     
@@ -91,7 +91,7 @@ struct DiscList: View {
         
         // MARK: - Properties
         
-        let disc: Disc
+        @ObservedObject var disc: Disc
         
         // MARK: - Body view
         
