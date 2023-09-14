@@ -5,8 +5,6 @@
 //  Created by Aguirre, Brian P. on 9/6/23.
 //
 
-// TODO: create view to display when no discs have been added
-
 // MARK: - Imported libraries
 
 import SwiftUI
@@ -22,6 +20,7 @@ struct ContentView: View {
     
     // Managed object context
     @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var discs: FetchedResults<Disc>
     
     // State
     
@@ -36,7 +35,7 @@ struct ContentView: View {
     // Basic
     
     // Dev property to choose whether or not to display the logo view
-    var splashScreenEnabled = false
+    var splashScreenEnabled = true
     
     // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
@@ -79,43 +78,59 @@ struct ContentView: View {
                     }
                     .padding(.horizontal)
                     
-                    // Disc list
-                    FilteredDiscView(viewMode: viewMode, sortDescriptor: sortDescriptor)
-                        .toolbar {
-                            
-                            // View mode button
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button {
-                                    if viewMode == "list" {
-                                        viewMode = "grid"
-                                    } else {
-                                        viewMode = "list"
-                                    }
-                                } label: {
-                                    Image(systemName: viewMode == "grid" ? "list.bullet" : "square.grid.2x2")
-                                }
-                            }
-                            
-                            // Add disc button
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button {
-                                    showingAddView.toggle()
-                                } label: {
-                                    Label("Add Disc", systemImage: "plus")
-                                }
-                            }
+                    // Only display the disc list if it's not empty
+                    if discs.isEmpty {
+                        
+                        Spacer()
+                        
+                        GroupBox {
+                            Text("It's a little dusty in here!")
+                                .font(.title.weight(.medium))
+                                .padding(.bottom, 20)
+                            Text("Tap the \(Image(systemName: "plus")) button to start adding discs.")
+                                .font(.body)
                         }
-                        .sheet(isPresented: $showingAddView) {
-                            
-                            // Manually add navigation view here to avoid adding a second navigation view when passing a disc
-                            NavigationView {
-                                AddDiscView(showingAddView: $showingAddView)
-                            }
-                            .interactiveDismissDisabled()
-                        }
+                        
+                        Spacer()
+                        Spacer()
+                    } else {
+                        FilteredDiscView(viewMode: viewMode, sortDescriptor: sortDescriptor)
+                    }
                 }
                 .navigationTitle("Disc Drawer")
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    
+                    // View mode button
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            if viewMode == "list" {
+                                viewMode = "grid"
+                            } else {
+                                viewMode = "list"
+                            }
+                        } label: {
+                            Image(systemName: viewMode == "grid" ? "list.bullet" : "square.grid.2x2")
+                        }
+                    }
+                    
+                    // Add disc button
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showingAddView.toggle()
+                        } label: {
+                            Label("Add Disc", systemImage: "plus")
+                        }
+                    }
+                }
+                .sheet(isPresented: $showingAddView) {
+                    
+                    // Manually add navigation view here to avoid adding a second navigation view when passing a disc
+                    NavigationView {
+                        AddDiscView(showingAddView: $showingAddView)
+                    }
+                    .interactiveDismissDisabled()
+                }
             }
             
             if splashScreenEnabled {
