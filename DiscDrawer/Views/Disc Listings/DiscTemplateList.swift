@@ -74,7 +74,22 @@ struct DiscTemplateList: View {
         // MARK: - Body view
         
         var body: some View {
-            Text(disc.wrappedName)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(disc.wrappedName)
+                        .font(.headline)
+                    Text(disc.wrappedManufacturer)
+                        .font(.subheadline)
+                }
+                
+                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    Text(disc.wrappedType)
+                        .font(.headline)
+                    Text("\(disc.wrappedSpeed) | \(disc.wrappedGlide) | \(disc.wrappedTurn) | \(disc.wrappedFade)")
+                }
+            }
         }
     }
 }
