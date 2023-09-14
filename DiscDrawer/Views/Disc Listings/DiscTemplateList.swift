@@ -5,8 +5,6 @@
 //  Created by Aguirre, Brian P. on 9/13/23.
 //
 
-// TODO: Add more info to disc template item view
-
 // MARK: - Imported libraries
 
 import SwiftUI
@@ -24,6 +22,10 @@ struct DiscTemplateList: View {
     
     // Fetch requests
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var discTemplates: FetchedResults<DiscTemplate>
+    
+    // State
+    
+    @State private var searchQuery = ""
     
     // Bindings
     
@@ -43,6 +45,21 @@ struct DiscTemplateList: View {
             }
         }
         .navigationTitle("Select a Disc")
+        .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Disc name")
+        .autocorrectionDisabled(true) 
+        .onChange(of: searchQuery) { newValue in
+            discTemplates.nsPredicate = searchPredicate(query: newValue)
+        }
+    }
+    
+    // MARK: - Functions
+    
+    func searchPredicate(query: String) -> NSPredicate? {
+        if query.isEmpty {
+            return nil
+        } else {
+            return NSPredicate(format: "name BEGINSWITH[cd] %@", query)
+        }
     }
     
     // MARK: - Nested structs
