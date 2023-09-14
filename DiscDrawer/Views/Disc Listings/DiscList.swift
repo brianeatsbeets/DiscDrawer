@@ -21,6 +21,10 @@ struct DiscList: View {
     // Managed object context
     @Environment(\.managedObjectContext) var moc
     
+    // State
+    
+    @State private var showingDetailForDisc: Disc? = nil
+    
     // Basic
     
     let discs: FetchedResults<Disc>
@@ -43,14 +47,22 @@ struct DiscList: View {
                             if disc.type == type {
                                 
                                 // Link to AddEditDiscView
-                                NavigationLink {
-                                    AddEditDiscView(disc: disc)
-                                } label: {
-                                    DiscListItem(disc: disc)
-                                }
+                                // TODO: Re-add detail disclosure
+                                DiscListItem(disc: disc)
+                                    .onTapGesture {
+                                        showingDetailForDisc = disc
+                                    }
                             }
                         }
                         .onDelete(perform: deleteDiscs)
+                        .sheet(item: $showingDetailForDisc) { disc in
+                            
+                            // Manually add navigation view here to avoid adding a second navigation view when passing a disc
+                            NavigationView {
+                                DiscDetailView(disc: disc)
+                            }
+                            .interactiveDismissDisabled()
+                        }
                     }
                 }
             }

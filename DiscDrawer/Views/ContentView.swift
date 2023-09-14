@@ -53,83 +53,97 @@ struct ContentView: View {
         // ZStack for LogoView
         ZStack {
             
-            // Navigation view
-            NavigationView {
+            TabView {
                 
-                // Main VStack
-                VStack {
+                // Tab item for discs
+                NavigationView {
                     
-                    // Sort and filter elements
-                    HStack {
+                    // Main VStack
+                    VStack {
                         
-                        // Sort button
-                        Button {
-                            sortAsc.toggle()
-                        } label: {
-                            Image(systemName: "arrow.up.arrow.down")
-                        }
-                        
-                        // Filter picker
-                        Picker("Filter Field", selection: $sortItemIndex) {
-                            Text("Name").tag(0)
-                            Text("Manufacturer").tag(1)
-                        }
-                        .pickerStyle(.segmented)
-                    }
-                    .padding(.horizontal)
-                    
-                    // Only display the disc list if it's not empty
-                    if discs.isEmpty {
-                        
-                        Spacer()
-                        
-                        GroupBox {
-                            Text("It's a little dusty in here!")
-                                .font(.title.weight(.medium))
-                                .padding(.bottom, 20)
-                            Text("Tap the \(Image(systemName: "plus")) button to start adding discs.")
-                                .font(.body)
-                        }
-                        
-                        Spacer()
-                        Spacer()
-                    } else {
-                        FilteredDiscView(viewMode: viewMode, sortDescriptor: sortDescriptor)
-                    }
-                }
-                .navigationTitle("Disc Drawer")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    
-                    // View mode button
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            if viewMode == "list" {
-                                viewMode = "grid"
-                            } else {
-                                viewMode = "list"
+                        // Sort and filter elements
+                        HStack {
+                            
+                            // Sort button
+                            Button {
+                                sortAsc.toggle()
+                            } label: {
+                                Image(systemName: "arrow.up.arrow.down")
                             }
-                        } label: {
-                            Image(systemName: viewMode == "grid" ? "list.bullet" : "square.grid.2x2")
+                            
+                            // Filter picker
+                            Picker("Filter Field", selection: $sortItemIndex) {
+                                Text("Name").tag(0)
+                                Text("Manufacturer").tag(1)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                        .padding(.horizontal)
+                        
+                        // Only display the disc list if it's not empty
+                        if discs.isEmpty {
+                            
+                            Spacer()
+                            
+                            GroupBox {
+                                Text("It's a little dusty in here!")
+                                    .font(.title.weight(.medium))
+                                    .padding(.bottom, 20)
+                                Text("Tap the \(Image(systemName: "plus")) button to start adding discs.")
+                                    .font(.body)
+                            }
+                            
+                            Spacer()
+                            Spacer()
+                        } else {
+                            FilteredDiscView(viewMode: viewMode, sortDescriptor: sortDescriptor)
                         }
                     }
-                    
-                    // Add disc button
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showingAddView.toggle()
-                        } label: {
-                            Label("Add Disc", systemImage: "plus")
+                    .navigationTitle("Disc Drawer")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        
+                        // View mode button
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                if viewMode == "list" {
+                                    viewMode = "grid"
+                                } else {
+                                    viewMode = "list"
+                                }
+                            } label: {
+                                Image(systemName: viewMode == "grid" ? "list.bullet" : "square.grid.2x2")
+                            }
                         }
+                        
+                        // Add disc button
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                showingAddView.toggle()
+                            } label: {
+                                Label("Add Disc", systemImage: "plus")
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $showingAddView) {
+                        
+                        // Manually add navigation view here to avoid adding a second navigation view when passing a disc
+                        NavigationView {
+                            AddDiscView(showingAddView: $showingAddView)
+                        }
+                        .interactiveDismissDisabled()
                     }
                 }
-                .sheet(isPresented: $showingAddView) {
-                    
-                    // Manually add navigation view here to avoid adding a second navigation view when passing a disc
-                    NavigationView {
-                        AddDiscView(showingAddView: $showingAddView)
-                    }
-                    .interactiveDismissDisabled()
+                .tabItem {
+                    Label("Discs", systemImage: "tray.full")
+                }
+                
+                // Tab item for disc finder
+                NavigationView {
+                    DiscTemplateList()
+                }
+                .tabItem {
+                    Label("Finder", systemImage: "magnifyingglass")
                 }
             }
             

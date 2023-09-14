@@ -55,7 +55,6 @@ extension Disc {
     public var wrappedStability: String {
         stability ?? "Stable"
     }
-
 }
 
 extension Disc : Identifiable {

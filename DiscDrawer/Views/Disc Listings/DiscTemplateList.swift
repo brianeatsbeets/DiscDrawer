@@ -29,7 +29,7 @@ struct DiscTemplateList: View {
     
     // Bindings
     
-    // Optional property used to dismiss multiple sheets at once
+    // Optional binding used to dismiss multiple sheets at once
     var showingAddView: Binding<Bool>?
     
     // MARK: - Body view
