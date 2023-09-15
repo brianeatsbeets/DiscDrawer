@@ -5,13 +5,25 @@
 //  Created by Aguirre, Brian P. on 9/14/23.
 //
 
-import CoreData
+// MARK: - Imported libraries
+
 import SwiftUI
 
+// MARK: - Main struct
+
+// This struct provides a view that displays information about a disc or disc template
 struct DiscDetailView: View {
+    // MARK: - Properties
+    
+    // Environment
     @Environment(\.dismiss) var dismiss
     
+    // ObservedObject
+    
     var disc: ObservedObject<Disc>?
+    
+    // Standard
+    
     let discTemplate: DiscTemplate?
     
     let name: String
@@ -22,10 +34,14 @@ struct DiscDetailView: View {
     let turn: String
     let fade: String
     
+    // These properties won't be used if we're passed a disc template
     let plastic: String?
     let weight: String?
     let condition: String?
     
+    // MARK: - Initializers
+    
+    // Init with disc
     init(disc: Disc) {
         self.disc = ObservedObject(initialValue: disc)
         discTemplate = nil
@@ -43,6 +59,7 @@ struct DiscDetailView: View {
         condition = disc.wrappedCondition
     }
 
+    // Init with disc template
     init(discTemplate: DiscTemplate) {
         self.discTemplate = discTemplate
         disc = nil
@@ -59,6 +76,8 @@ struct DiscDetailView: View {
         weight = nil
         condition = nil
     }
+    
+    // MARK: - Body view
     
     var body: some View {
         
@@ -95,6 +114,8 @@ struct DiscDetailView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .toolbar {
+                
+                // If we were passed a Disc, display these toolbar items
                 if disc != nil {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
@@ -117,7 +138,11 @@ struct DiscDetailView: View {
     
     // MARK: - Nested structs
     
+    // TODO: See if we can consolidate this with a ForEach (maybe use an array of tuples [("Speed", speed), ("Glide", glide), etc.])
+    // This struct provides a view that displays flight numbers
     struct FlightNumbers: View {
+        
+        // MARK: - Properties
         
         let speed: String
         let glide: String
@@ -126,6 +151,8 @@ struct DiscDetailView: View {
         
         let geo: GeometryProxy
         let shapeWidthFactor = 0.18
+        
+        // MARK: - Body view
         
         var body: some View {
             HStack {
@@ -211,7 +238,11 @@ struct DiscDetailView: View {
         }
     }
     
+    // TODO: See if we can consolidate this with a ForEach (maybe use an array of tuples [("Type", type), ("Plastic", plastic), etc.])
+    // This struct provides a view that displays additional disc information
     struct OtherInfo: View {
+        
+        // MARK: - Properties
         
         let type: String
         let plastic: String?
@@ -220,6 +251,8 @@ struct DiscDetailView: View {
         
         let geo: GeometryProxy
         let shapeWidthFactor = 0.37
+        
+        // MARK: - Body view
         
         var body: some View {
                 
