@@ -91,7 +91,7 @@ struct DiscDetailView: View {
                 Circle()
                     .foregroundColor(.red)
                     .scaledToFit()
-                    .frame(width: geo.size.width * 0.4)
+                    .frame(width: geo.size.width * 0.45)
                     .padding(.top, -50)
                 
                 // Disc name and manufacturer
@@ -103,15 +103,13 @@ struct DiscDetailView: View {
                 }
                 
                 // Flight numbers
-                FlightNumbers(speed: speed, glide: glide, turn: turn, fade: fade, geo: geo)
-                    .frame(maxWidth: geo.size.width * 0.85)
+                DiscFlightNumbers(speed: speed, glide: glide, turn: turn, fade: fade, geo: geo)
+                    .frame(width: geo.size.width * 0.9)
                 
                 // Other information
-                // Have frame be a 1:1 aspect ratio
-                // Use passed spacing value
-                // Have shape width be 90% and spacer width be 10%
-                OtherInfo(type: type, plastic: plastic, weight: weight, condition: condition, geo: geo)
-                    .frame(maxWidth: geo.size.width * 0.85, maxHeight: geo.size.height * 0.45)
+                DiscOtherInfo(type: type, plastic: plastic, weight: weight, condition: condition, geo: geo)
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: geo.size.width * 0.9)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .toolbar {
@@ -139,14 +137,14 @@ struct DiscDetailView: View {
     
     // MARK: - Nested structs
     
-    // This struct provides a view that displays flight numbers
-    struct FlightNumbers: View {
+    // This struct provides a view that displays flight numbers for a Disc
+    struct DiscFlightNumbers: View {
         
         // MARK: - Properties
         
         // State
         
-        @State private var attributes = [(String, String)]()
+        @State private var attributes = [(String, String, Color)]()
         
         // Basic
         
@@ -156,7 +154,19 @@ struct DiscDetailView: View {
         let fade: String
         
         let geo: GeometryProxy
-        let shapeWidthFactor = 0.18
+        let shapeWidthFactor = 0.2
+        
+        // MARK: - Initializers
+        
+        init(speed: String, glide: String, turn: String, fade: String, geo: GeometryProxy) {
+            self.speed = speed
+            self.glide = glide
+            self.turn = turn
+            self.fade = fade
+            self.geo = geo
+            
+            _attributes = State(initialValue: [("Speed", speed, .green), ("Glide", glide, .yellow), ("Turn", turn, .pink), ("Fade", fade, .blue)])
+        }
         
         // MARK: - Body view
         
@@ -171,7 +181,7 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 12)
-                            .foregroundColor(.green)
+                            .foregroundColor(attribute.2)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: geo.size.width * shapeWidthFactor)
                         
@@ -189,14 +199,11 @@ struct DiscDetailView: View {
                     }
                 }
             }
-            .onAppear {
-                attributes = [("Speed", speed), ("Glide", glide), ("Turn", turn), ("Fade", fade)]
-            }
         }
     }
     
-    // This struct provides a view that displays additional disc information
-    struct OtherInfo: View {
+    // This struct provides a view that displays additional disc information about a Disc
+    struct DiscOtherInfo: View {
         
         // MARK: - Properties
         
@@ -214,21 +221,34 @@ struct DiscDetailView: View {
         let condition: String?
         
         let geo: GeometryProxy
-        let shapeWidthFactor = 0.37
+        
+        // MARK: - Initializers
+        
+        init(type: String, plastic: String?, weight: String?, condition: String?, geo: GeometryProxy) {
+            self.type = type
+            self.plastic = plastic
+            self.weight = weight
+            self.condition = condition
+            self.geo = geo
+            
+            _rowOneAttributes = State(initialValue: [("Type", type), ("Plastic", plastic ?? "")])
+            _rowTwoAttributes = State(initialValue: [("Weight", weight ?? ""), ("Condition", condition ?? "")])
+            _attributeRows = State(initialValue: [rowOneAttributes, rowTwoAttributes])
+        }
         
         // MARK: - Body view
         
         var body: some View {
                 
             // 2x2 grid
-            VStack {
+            VStack(spacing: geo.size.width * 0.05) {
                 
                 // TODO: See if there is a better identifier to use here; it may not really matter in the end because the data is all manually constructed
                 // Loop through each attribute row
                 ForEach(attributeRows, id: \.first!.0) { row in
                     
                     // Row
-                    HStack {
+                    HStack(spacing: geo.size.width * 0.05) {
                         
                         // Loop through each attribute
                         ForEach(row, id: \.0) { attribute in
@@ -239,7 +259,7 @@ struct DiscDetailView: View {
                                 RoundedRectangle(cornerRadius: 20)
                                     .foregroundColor(.blue)
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: geo.size.width * shapeWidthFactor)
+                                    .frame(maxWidth: .infinity)
                                 
                                 // Field name
                                 Text(attribute.0)
@@ -254,16 +274,11 @@ struct DiscDetailView: View {
                             )
                             
                             if attribute != row.last! {
-                                Spacer()
+                                //Spacer()
                             }
                         }
                     }
                 }
-            }
-            .onAppear {
-                rowOneAttributes = [("Type", type), ("Plastic", plastic ?? "")]
-                rowTwoAttributes = [("Weight", weight ?? ""), ("Condition", condition ?? "")]
-                attributeRows = [rowOneAttributes, rowTwoAttributes]
             }
         }
     }
