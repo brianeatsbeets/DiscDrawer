@@ -13,6 +13,7 @@ import SwiftUI
 
 // This struct provides a view that displays information about a disc or disc template
 struct DiscDetailView: View {
+    
     // MARK: - Properties
     
     // Environment
@@ -138,11 +139,16 @@ struct DiscDetailView: View {
     
     // MARK: - Nested structs
     
-    // TODO: See if we can consolidate this with a ForEach (maybe use an array of tuples [("Speed", speed), ("Glide", glide), etc.])
     // This struct provides a view that displays flight numbers
     struct FlightNumbers: View {
         
         // MARK: - Properties
+        
+        // State
+        
+        @State private var attributes = [(String, String)]()
+        
+        // Basic
         
         let speed: String
         let glide: String
@@ -155,94 +161,52 @@ struct DiscDetailView: View {
         // MARK: - Body view
         
         var body: some View {
+            
+            // Main HStack
             HStack {
                 
-                // Speed
-                ZStack {
+                ForEach(attributes, id: \.0) { attribute in
                     
-                    // Background
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.green)
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .frame(width: geo.size.width * shapeWidthFactor)
+                    ZStack {
+                        
+                        // Background
+                        RoundedRectangle(cornerRadius: 12)
+                            .foregroundColor(.green)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(width: geo.size.width * shapeWidthFactor)
+                        
+                        // Text
+                        VStack {
+                            Text(attribute.1)
+                                .font(.largeTitle.weight(.semibold))
+                            Text(attribute.0)
+                                .font(.headline)
+                        }
+                    }
                     
-                    // Text
-                    VStack {
-                        Text(speed)
-                            .font(.largeTitle.weight(.semibold))
-                        Text("Speed")
-                            .font(.headline)
+                    if attribute != attributes.last! {
+                        Spacer()
                     }
                 }
-                
-                Spacer()
-                
-                // Glide
-                ZStack {
-                    
-                    // Background
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.yellow)
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .frame(width: geo.size.width * shapeWidthFactor)
-                    
-                    // Text
-                    VStack {
-                        Text(glide)
-                            .font(.largeTitle.weight(.semibold))
-                        Text("Glide")
-                            .font(.headline)
-                    }
-                }
-                
-                Spacer()
-                
-                // Turn
-                ZStack {
-                    
-                    // Background
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.pink)
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .frame(width: geo.size.width * shapeWidthFactor)
-                    
-                    // Text
-                    VStack {
-                        Text(turn)
-                            .font(.largeTitle.weight(.semibold))
-                        Text("Turn")
-                            .font(.headline)
-                    }
-                }
-                
-                Spacer()
-                
-                // Fade
-                ZStack {
-                    
-                    // Background
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.blue)
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .frame(width: geo.size.width * shapeWidthFactor)
-                    
-                    // Text
-                    VStack {
-                        Text(fade)
-                            .font(.largeTitle.weight(.semibold))
-                        Text("Fade")
-                            .font(.headline)
-                    }
-                }
+            }
+            .onAppear {
+                attributes = [("Speed", speed), ("Glide", glide), ("Turn", turn), ("Fade", fade)]
             }
         }
     }
     
-    // TODO: See if we can consolidate this with a ForEach (maybe use an array of tuples [("Type", type), ("Plastic", plastic), etc.])
     // This struct provides a view that displays additional disc information
     struct OtherInfo: View {
         
         // MARK: - Properties
+        
+        // State
+        
+        @State private var rowOneAttributes = [(String, String)]()
+        @State private var rowTwoAttributes = [(String, String)]()
+        @State private var attributeRows = [[(String, String)]]()
+        
+        // Basic
         
         let type: String
         let plastic: String?
@@ -259,103 +223,47 @@ struct DiscDetailView: View {
             // 2x2 grid
             VStack {
                 
-                // Row 1
-                HStack {
+                // TODO: See if there is a better identifier to use here; it may not really matter in the end because the data is all manually constructed
+                // Loop through each attribute row
+                ForEach(attributeRows, id: \.first!.0) { row in
                     
-                    // Type
-                    ZStack(alignment: .bottomLeading) {
+                    // Row
+                    HStack {
                         
-                        // Background
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: geo.size.width * shapeWidthFactor)
-                        
-                        // Field name
-                        Text("Type")
-                            .font(.headline)
-                            .offset(x: 10, y: -10)
+                        // Loop through each attribute
+                        ForEach(row, id: \.0) { attribute in
+                            
+                            ZStack(alignment: .bottomLeading) {
+                                
+                                // Background
+                                RoundedRectangle(cornerRadius: 20)
+                                    .foregroundColor(.blue)
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .frame(width: geo.size.width * shapeWidthFactor)
+                                
+                                // Field name
+                                Text(attribute.0)
+                                    .font(.headline)
+                                    .offset(x: 10, y: -10)
+                            }
+                            .overlay(
+                                // Field value
+                                Text(attribute.1)
+                                    .font(.largeTitle.weight(.semibold)),
+                                alignment: .center
+                            )
+                            
+                            if attribute != row.last! {
+                                Spacer()
+                            }
+                        }
                     }
-                    .overlay(
-                        // Field value
-                        Text(type)
-                            .font(.largeTitle.weight(.semibold)),
-                        alignment: .center
-                    )
-                    
-                    Spacer()
-                    
-                    // Plastic
-                    ZStack(alignment: .bottomLeading) {
-                        
-                        // Background
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: geo.size.width * shapeWidthFactor)
-                        
-                        // Field name
-                        Text("Plastic")
-                            .font(.headline)
-                            .offset(x: 10, y: -10)
-                    }
-                    .overlay(
-                        // Field value
-                        Text(plastic ?? "Not specified")
-                            .font(.largeTitle.weight(.semibold)),
-                        alignment: .center
-                    )
                 }
-                
-                Spacer()
-                
-                // Row 2
-                HStack {
-                    
-                    // Weight
-                    ZStack(alignment: .bottomLeading) {
-                        
-                        // Background
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: geo.size.width * shapeWidthFactor)
-                        
-                        // Field name
-                        Text("Weight")
-                            .font(.headline)
-                            .offset(x: 10, y: -10)
-                    }
-                    .overlay(
-                        // Field value
-                        Text(weight ?? "Not specified")
-                            .font(.largeTitle.weight(.semibold)),
-                        alignment: .center
-                    )
-                    
-                    Spacer()
-                    
-                    // Condition
-                    ZStack(alignment: .bottomLeading) {
-                        
-                        // Background
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: geo.size.width * shapeWidthFactor)
-                        
-                        // Field name
-                        Text("Condition")
-                            .font(.headline)
-                            .offset(x: 10, y: -10)
-                    }
-                    .overlay(
-                        // Field value
-                        Text(condition ?? "Not specified")
-                            .font(.largeTitle.weight(.semibold)),
-                        alignment: .center
-                    )
-                }
+            }
+            .onAppear {
+                rowOneAttributes = [("Type", type), ("Plastic", plastic ?? "")]
+                rowTwoAttributes = [("Weight", weight ?? ""), ("Condition", condition ?? "")]
+                attributeRows = [rowOneAttributes, rowTwoAttributes]
             }
         }
     }
