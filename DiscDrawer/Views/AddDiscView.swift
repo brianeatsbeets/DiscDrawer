@@ -27,7 +27,7 @@ struct AddDiscView: View {
             
             // Template search
             NavigationLink {
-                DiscTemplateList(showingAddView: $showingAddView)
+                DiscTemplateList(showingAddView: $showingAddView, inDiscFinder: false)
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)

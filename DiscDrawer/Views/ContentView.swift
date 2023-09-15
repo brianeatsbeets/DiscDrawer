@@ -140,7 +140,7 @@ struct ContentView: View {
                 
                 // Tab item for disc finder
                 NavigationView {
-                    DiscTemplateList()
+                    DiscTemplateList(inDiscFinder: true)
                 }
                 .tabItem {
                     Label("Finder", systemImage: "magnifyingglass")

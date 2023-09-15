@@ -32,19 +32,29 @@ struct DiscTemplateList: View {
     // Optional binding used to dismiss multiple sheets at once
     var showingAddView: Binding<Bool>?
     
+    // Basic
+    
+    // Determine view context (selecting a disc template or viewing a disc in the finder)
+    let inDiscFinder: Bool
+    
     // MARK: - Body view
     
     var body: some View {
         List {
-            ForEach(discTemplates) { disc in
+            ForEach(discTemplates) { discTemplate in
                 NavigationLink {
-                    AddEditDiscView(discTemplate: disc, showingAddView: showingAddView)
+                    
+                    if inDiscFinder {
+                        DiscDetailView(discTemplate: discTemplate)
+                    } else {
+                        AddEditDiscView(discTemplate: discTemplate, showingAddView: showingAddView)
+                    }
                 } label: {
-                    DiscTemplateItem(disc: disc)
+                    DiscTemplateItem(disc: discTemplate)
                 }
             }
         }
-        .navigationTitle("Select a Disc")
+        .navigationTitle(inDiscFinder ? "Disc Finder" : "Select a disc")
         .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Disc name")
         .autocorrectionDisabled(true) 
         .onChange(of: searchQuery) { newValue in
