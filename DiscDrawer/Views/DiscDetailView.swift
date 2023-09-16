@@ -21,6 +21,7 @@ struct DiscDetailView: View {
     
     // ObservedObject
     
+    //TODO: Should this be a binding instead?
     var disc: ObservedObject<Disc>?
     
     // Standard
@@ -84,54 +85,65 @@ struct DiscDetailView: View {
         
         GeometryReader { geo in
             
-            // Main VStack
-            VStack(spacing: 20) {
+            ScrollView {
                 
-                // Disc image
-                Circle()
-                    .foregroundColor(.red)
-                    .scaledToFit()
-                    .frame(width: geo.size.width * 0.45)
-                    .padding(.top, -50)
-                
-                // Disc name and manufacturer
+                // Main VStack
                 VStack {
-                    Text(name)
-                        .font(.title.weight(.semibold))
-                    Text(manufacturer)
-                        .font(.headline)
-                }
-                
-                // Flight numbers
-                DiscFlightNumbers(speed: speed, glide: glide, turn: turn, fade: fade, geo: geo)
-                    .frame(width: geo.size.width * 0.9)
-                
-                // Other information
-                DiscOtherInfo(type: type, plastic: plastic, weight: weight, condition: condition, geo: geo)
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: geo.size.width * 0.9)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .toolbar {
-                
-                // If we were passed a Disc, display these toolbar items
-                if disc != nil {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                        }
+                    
+                    // Disc image
+                    Circle()
+                        .foregroundColor(.red)
+                        .scaledToFit()
+                        .frame(width: geo.size.height * 0.25)
+                        .padding(.top, -30)
+                    
+                    // Disc name and manufacturer
+                    VStack {
+                        Text(name)
+                            .font(.title.weight(.semibold))
+                        Text(manufacturer)
+                            .font(.headline)
                     }
                     
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: AddEditDiscView(disc: disc!.wrappedValue)) {
-                            Text("Edit")
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    // Flight numbers
+                    DiscFlightNumbers(speed: speed, glide: glide, turn: turn, fade: fade, geo: geo)
+                        .frame(width: geo.size.width * 0.9)
+                    
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    // Other information
+                    DiscOtherInfo(type: type, plastic: plastic, weight: weight, condition: condition, geo: geo)
+                        .frame(width: geo.size.width * 0.9, height: geo.size.width * 0.9)
+                        .padding(.bottom)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .toolbar {
+                    
+                    // If we were passed a Disc, display these toolbar items
+                    if disc != nil {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Image(systemName: "xmark")
+                            }
                         }
-                        .buttonStyle(.automatic)
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            NavigationLink(destination: AddEditDiscView(disc: disc!.wrappedValue)) {
+                                Text("Edit")
+                            }
+                            .buttonStyle(.automatic)
+                        }
                     }
                 }
             }
+            // Enable scrolling on smaller screen sizes to maintain layout consistency
+            .scrollDisabled(UIScreen.main.bounds.height >= 812)
         }
     }
     
@@ -154,7 +166,6 @@ struct DiscDetailView: View {
         let fade: String
         
         let geo: GeometryProxy
-        let shapeWidthFactor = 0.2
         
         // MARK: - Initializers
         
@@ -183,7 +194,6 @@ struct DiscDetailView: View {
                         RoundedRectangle(cornerRadius: 12)
                             .foregroundColor(attribute.2)
                             .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: geo.size.width * shapeWidthFactor)
                         
                         // Text
                         VStack {
@@ -193,10 +203,7 @@ struct DiscDetailView: View {
                                 .font(.headline)
                         }
                     }
-                    
-                    if attribute != attributes.last! {
-                        Spacer()
-                    }
+                    .frame(minWidth: geo.size.width * 0.1)
                 }
             }
         }
@@ -243,7 +250,6 @@ struct DiscDetailView: View {
             // 2x2 grid
             VStack(spacing: geo.size.width * 0.05) {
                 
-                // TODO: See if there is a better identifier to use here; it may not really matter in the end because the data is all manually constructed
                 // Loop through each attribute row
                 ForEach(attributeRows, id: \.first!.0) { row in
                     
@@ -272,10 +278,6 @@ struct DiscDetailView: View {
                                     .font(.largeTitle.weight(.semibold)),
                                 alignment: .center
                             )
-                            
-                            if attribute != row.last! {
-                                //Spacer()
-                            }
                         }
                     }
                 }
