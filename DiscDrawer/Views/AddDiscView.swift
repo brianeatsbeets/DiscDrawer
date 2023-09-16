@@ -22,46 +22,52 @@ struct AddDiscView: View {
     
     var body: some View {
         
-        // Main VStack
-        VStack {
+        GeometryReader { geo in
             
-            // Template search
-            NavigationLink {
-                DiscTemplateList(showingAddView: $showingAddView, inDiscFinder: false)
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundColor(Color(white: 0.9))
-                    
-                    Text("Search for disc")
-                        .font(.title.bold())
-                    
+            // Main VStack
+            VStack(spacing: 30) {
+                
+                Spacer()
+                
+                // Template search
+                NavigationLink {
+                    DiscTemplateList(showingAddView: $showingAddView, inDiscFinder: false)
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(Color(white: 0.9))
+                        
+                        Text("Search for disc")
+                            .font(.title.bold())
+                            .padding()
+                    }
+                    .frame(width: geo.size.width * 0.7, height: geo.size.height * 0.4, alignment: .center)
                 }
-                .padding([.horizontal, .top], 50)
-                .padding(.bottom, 25)
-            }
-            
-            // Manual creation
-            NavigationLink {
-                AddEditDiscView(showingAddView: $showingAddView)
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundColor(Color(white: 0.9))
-                    
-                    Text("Manually create disc")
-                        .font(.title.bold())
-                        .padding()
+                
+                // Manual creation
+                NavigationLink {
+                    AddEditDiscView(showingAddView: $showingAddView)
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(Color(white: 0.9))
+                        
+                        Text("Manually create disc")
+                            .font(.title.bold())
+                            .padding()
+                    }
+                    .frame(width: geo.size.width * 0.7, height: geo.size.height * 0.4, alignment: .center)
                 }
-                .padding([.horizontal, .bottom], 50)
-                .padding(.top, 25)
+                
+                Spacer()
             }
-        }
-        .toolbar {
-            Button {
-                showingAddView = false
-            } label: {
-                Image(systemName: "xmark")
+            .frame(maxWidth: .infinity)
+            .toolbar {
+                Button {
+                    showingAddView = false
+                } label: {
+                    Image(systemName: "xmark")
+                }
             }
         }
     }
