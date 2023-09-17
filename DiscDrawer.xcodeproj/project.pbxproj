@@ -21,6 +21,7 @@
 		E13914002AB20BE000CD9502 /* Disc+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13913FE2AB20BE000CD9502 /* Disc+CoreDataClass.swift */; };
 		E13914012AB20BE000CD9502 /* Disc+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13913FF2AB20BE000CD9502 /* Disc+CoreDataProperties.swift */; };
 		E1570BAF2AB331B0007315C9 /* DiscDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */; };
+		E1A8E2262AB78A4400903543 /* DiscTemplateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */; };
 		E1CE52022AAF91B60044134D /* FilteredDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52012AAF91B60044134D /* FilteredDiscView.swift */; };
 		E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520C2AB094BA0044134D /* DiscList.swift */; };
 		E1CE52102AB098730044134D /* DiscGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520F2AB098730044134D /* DiscGrid.swift */; };
@@ -43,6 +44,7 @@
 		E13913FE2AB20BE000CD9502 /* Disc+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disc+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E13913FF2AB20BE000CD9502 /* Disc+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disc+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscDetailView.swift; sourceTree = "<group>"; };
+		E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateDetailView.swift; sourceTree = "<group>"; };
 		E1CE52012AAF91B60044134D /* FilteredDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredDiscView.swift; sourceTree = "<group>"; };
 		E1CE520C2AB094BA0044134D /* DiscList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscList.swift; sourceTree = "<group>"; };
 		E1CE520F2AB098730044134D /* DiscGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscGrid.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				E1CE52132AB0A5850044134D /* LogoView.swift */,
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
 				E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */,
+				E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */,
 				E13913DF2AB1065300CD9502 /* AddDiscView.swift */,
 				E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */,
 				E1CE520E2AB096B70044134D /* Disc Listings */,
@@ -224,6 +227,7 @@
 				E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */,
 				E13913E02AB1065300CD9502 /* AddDiscView.swift in Sources */,
 				E1CE52142AB0A5850044134D /* LogoView.swift in Sources */,
+				E1A8E2262AB78A4400903543 /* DiscTemplateDetailView.swift in Sources */,
 				E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */,
 				E13914002AB20BE000CD9502 /* Disc+CoreDataClass.swift in Sources */,
 				E13914012AB20BE000CD9502 /* Disc+CoreDataProperties.swift in Sources */,

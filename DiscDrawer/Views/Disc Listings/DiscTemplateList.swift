@@ -45,7 +45,7 @@ struct DiscTemplateList: View {
                 NavigationLink {
                     
                     if inDiscFinder {
-                        DiscDetailView(discTemplate: discTemplate)
+                        DiscTemplateDetailView(discTemplate: discTemplate)
                     } else {
                         AddEditDiscView(discTemplate: discTemplate, showingAddView: showingAddView)
                     }

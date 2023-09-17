@@ -21,63 +21,7 @@ struct DiscDetailView: View {
     
     // ObservedObject
     
-    //TODO: Should this be a binding instead?
-    var disc: ObservedObject<Disc>?
-    
-    // Standard
-    
-    let discTemplate: DiscTemplate?
-    
-    let name: String
-    let manufacturer: String
-    let type: String
-    let speed: String
-    let glide: String
-    let turn: String
-    let fade: String
-    
-    // These properties won't be used if we're passed a disc template
-    let plastic: String?
-    let weight: String?
-    let condition: String?
-    
-    // MARK: - Initializers
-    
-    // Init with disc
-    init(disc: Disc) {
-        self.disc = ObservedObject(initialValue: disc)
-        discTemplate = nil
-        
-        name = disc.wrappedName
-        type = disc.wrappedType
-        manufacturer = disc.wrappedManufacturer
-        speed = String(disc.speed)
-        glide = String(disc.glide)
-        turn = String(disc.turn)
-        fade = String(disc.fade)
-        
-        plastic = disc.wrappedPlastic
-        weight = String(disc.weight)
-        condition = disc.wrappedCondition
-    }
-
-    // Init with disc template
-    init(discTemplate: DiscTemplate) {
-        self.discTemplate = discTemplate
-        disc = nil
-        
-        name = discTemplate.wrappedName
-        type = discTemplate.wrappedType
-        manufacturer = discTemplate.wrappedManufacturer
-        speed = discTemplate.wrappedSpeed
-        glide = discTemplate.wrappedGlide
-        turn = discTemplate.wrappedTurn
-        fade = discTemplate.wrappedFade
-        
-        plastic = nil
-        weight = nil
-        condition = nil
-    }
+    @ObservedObject var disc: Disc
     
     // MARK: - Body view
     
@@ -99,9 +43,9 @@ struct DiscDetailView: View {
                     
                     // Disc name and manufacturer
                     VStack {
-                        Text(name)
+                        Text(disc.wrappedName)
                             .font(.title.weight(.semibold))
-                        Text(manufacturer)
+                        Text(disc.wrappedManufacturer)
                             .font(.headline)
                     }
                     
@@ -109,36 +53,32 @@ struct DiscDetailView: View {
                         .frame(height: 20)
                     
                     // Flight numbers
-                    DiscFlightNumbers(speed: speed, glide: glide, turn: turn, fade: fade, geo: geo)
+                    DiscFlightNumbers(disc: disc, geo: geo)
                         .frame(width: geo.size.width * 0.9)
                     
                     Spacer()
                         .frame(height: 20)
                     
                     // Other information
-                    DiscOtherInfo(type: type, plastic: plastic, weight: weight, condition: condition, geo: geo)
+                    DiscOtherInfo(disc: disc, geo: geo)
                         .frame(width: geo.size.width * 0.9, height: geo.size.width * 0.9)
                         .padding(.bottom)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
                     
-                    // If we were passed a Disc, display these toolbar items
-                    if disc != nil {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button {
-                                dismiss()
-                            } label: {
-                                Image(systemName: "xmark")
-                            }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: AddEditDiscView(disc: disc)) {
+                            Text("Edit")
                         }
-                        
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: AddEditDiscView(disc: disc!.wrappedValue)) {
-                                Text("Edit")
-                            }
-                            .buttonStyle(.automatic)
-                        }
+                        .buttonStyle(.automatic)
                     }
                 }
             }
@@ -154,29 +94,19 @@ struct DiscDetailView: View {
         
         // MARK: - Properties
         
-        // State
+        // ObservedObject
         
-        @State private var attributes = [(String, String, Color)]()
+        @ObservedObject var disc: Disc
         
         // Basic
-        
-        let speed: String
-        let glide: String
-        let turn: String
-        let fade: String
         
         let geo: GeometryProxy
         
         // MARK: - Initializers
         
-        init(speed: String, glide: String, turn: String, fade: String, geo: GeometryProxy) {
-            self.speed = speed
-            self.glide = glide
-            self.turn = turn
-            self.fade = fade
+        init(disc: Disc, geo: GeometryProxy) {
+            self.disc = disc
             self.geo = geo
-            
-            _attributes = State(initialValue: [("Speed", speed, .green), ("Glide", glide, .yellow), ("Turn", turn, .pink), ("Fade", fade, .blue)])
         }
         
         // MARK: - Body view
@@ -186,25 +116,77 @@ struct DiscDetailView: View {
             // Main HStack
             HStack {
                 
-                ForEach(attributes, id: \.0) { attribute in
+                // Speed
+                ZStack {
                     
-                    ZStack {
-                        
-                        // Background
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundColor(attribute.2)
-                            .aspectRatio(1.0, contentMode: .fit)
-                        
-                        // Text
-                        VStack {
-                            Text(attribute.1)
-                                .font(.largeTitle.weight(.semibold))
-                            Text(attribute.0)
-                                .font(.headline)
-                        }
+                    // Background
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(.green)
+                        .aspectRatio(1.0, contentMode: .fit)
+                    
+                    // Text
+                    VStack {
+                        Text(disc.speed.formatted())
+                            .font(.largeTitle.weight(.semibold))
+                        Text("Speed")
+                            .font(.headline)
                     }
-                    .frame(minWidth: geo.size.width * 0.1)
                 }
+                .frame(minWidth: geo.size.width * 0.1)
+                
+                // Glide
+                ZStack {
+                    
+                    // Background
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(.yellow)
+                        .aspectRatio(1.0, contentMode: .fit)
+                    
+                    // Text
+                    VStack {
+                        Text(disc.glide.formatted())
+                            .font(.largeTitle.weight(.semibold))
+                        Text("Glide")
+                            .font(.headline)
+                    }
+                }
+                .frame(minWidth: geo.size.width * 0.1)
+                
+                // Turn
+                ZStack {
+                    
+                    // Background
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(.pink)
+                        .aspectRatio(1.0, contentMode: .fit)
+                    
+                    // Text
+                    VStack {
+                        Text(disc.turn.formatted())
+                            .font(.largeTitle.weight(.semibold))
+                        Text("Turn")
+                            .font(.headline)
+                    }
+                }
+                .frame(minWidth: geo.size.width * 0.1)
+                
+                // Fade
+                ZStack {
+                    
+                    // Background
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(.blue)
+                        .aspectRatio(1.0, contentMode: .fit)
+                    
+                    // Text
+                    VStack {
+                        Text(disc.fade.formatted())
+                            .font(.largeTitle.weight(.semibold))
+                        Text("Fade")
+                            .font(.headline)
+                    }
+                }
+                .frame(minWidth: geo.size.width * 0.1)
             }
         }
     }
@@ -214,33 +196,19 @@ struct DiscDetailView: View {
         
         // MARK: - Properties
         
-        // State
+        // ObservedObject
         
-        @State private var rowOneAttributes = [(String, String)]()
-        @State private var rowTwoAttributes = [(String, String)]()
-        @State private var attributeRows = [[(String, String)]]()
+        @ObservedObject var disc: Disc
         
         // Basic
-        
-        let type: String
-        let plastic: String?
-        let weight: String?
-        let condition: String?
         
         let geo: GeometryProxy
         
         // MARK: - Initializers
         
-        init(type: String, plastic: String?, weight: String?, condition: String?, geo: GeometryProxy) {
-            self.type = type
-            self.plastic = plastic
-            self.weight = weight
-            self.condition = condition
+        init(disc: Disc, geo: GeometryProxy) {
+            self.disc = disc
             self.geo = geo
-            
-            _rowOneAttributes = State(initialValue: [("Type", type), ("Plastic", plastic ?? "")])
-            _rowTwoAttributes = State(initialValue: [("Weight", weight ?? ""), ("Condition", condition ?? "")])
-            _attributeRows = State(initialValue: [rowOneAttributes, rowTwoAttributes])
         }
         
         // MARK: - Body view
@@ -249,37 +217,97 @@ struct DiscDetailView: View {
                 
             // 2x2 grid
             VStack(spacing: geo.size.width * 0.05) {
-                
-                // Loop through each attribute row
-                ForEach(attributeRows, id: \.first!.0) { row in
                     
-                    // Row
-                    HStack(spacing: geo.size.width * 0.05) {
+                // Row 1
+                HStack(spacing: geo.size.width * 0.05) {
+                    
+                    // Type
+                    ZStack(alignment: .bottomLeading) {
                         
-                        // Loop through each attribute
-                        ForEach(row, id: \.0) { attribute in
-                            
-                            ZStack(alignment: .bottomLeading) {
-                                
-                                // Background
-                                RoundedRectangle(cornerRadius: 20)
-                                    .foregroundColor(.blue)
-                                    .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(maxWidth: .infinity)
-                                
-                                // Field name
-                                Text(attribute.0)
-                                    .font(.headline)
-                                    .offset(x: 10, y: -10)
-                            }
-                            .overlay(
-                                // Field value
-                                Text(attribute.1)
-                                    .font(.largeTitle.weight(.semibold)),
-                                alignment: .center
-                            )
-                        }
+                        // Background
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(.blue)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(maxWidth: .infinity)
+                        
+                        // Field name
+                        Text("Type")
+                            .font(.headline)
+                            .offset(x: 10, y: -10)
                     }
+                    .overlay(
+                        // Field value
+                        Text(disc.wrappedType)
+                            .font(.largeTitle.weight(.semibold)),
+                        alignment: .center
+                    )
+                    
+                    // Plastic
+                    ZStack(alignment: .bottomLeading) {
+                        
+                        // Background
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(.blue)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(maxWidth: .infinity)
+                        
+                        // Field name
+                        Text("Plastic")
+                            .font(.headline)
+                            .offset(x: 10, y: -10)
+                    }
+                    .overlay(
+                        // Field value
+                        Text(disc.wrappedPlastic)
+                            .font(.largeTitle.weight(.semibold)),
+                        alignment: .center
+                    )
+                }
+                
+                // Row 2
+                HStack(spacing: geo.size.width * 0.05) {
+                    
+                    // Weight
+                    ZStack(alignment: .bottomLeading) {
+                        
+                        // Background
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(.blue)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(maxWidth: .infinity)
+                        
+                        // Field name
+                        Text("Weight")
+                            .font(.headline)
+                            .offset(x: 10, y: -10)
+                    }
+                    .overlay(
+                        // Field value
+                        Text("\(disc.weight.formatted())g")
+                            .font(.largeTitle.weight(.semibold)),
+                        alignment: .center
+                    )
+                    
+                    // Condition
+                    ZStack(alignment: .bottomLeading) {
+                        
+                        // Background
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(.blue)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(maxWidth: .infinity)
+                        
+                        // Field name
+                        Text("Condition")
+                            .font(.headline)
+                            .offset(x: 10, y: -10)
+                    }
+                    .overlay(
+                        // Field value
+                        Text(disc.wrappedCondition)
+                            .font(.largeTitle.weight(.semibold)),
+                        alignment: .center
+                    )
                 }
             }
         }

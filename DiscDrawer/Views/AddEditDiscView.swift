@@ -48,7 +48,6 @@ struct AddEditDiscView: View {
     // Basic
     
     var disc: Disc?
-    var discTemplate: DiscTemplate?
     
     let types = ["Putter", "Midrange", "Fairway", "Driver"]
     let conditions = ["Great", "Good", "Fair", "Bad"]
@@ -77,11 +76,13 @@ struct AddEditDiscView: View {
         // Check if we were provided a disc
         guard let disc else { return }
         
+        self.disc = disc
+        
         // Initialize state values
-        _name = State(initialValue: disc.name ?? "")
+        _name = State(initialValue: disc.wrappedName)
         _type = State(initialValue: disc.wrappedType)
-        _manufacturer = State(initialValue: disc.manufacturer ?? "")
-        _plastic = State(initialValue: disc.plastic ?? "")
+        _manufacturer = State(initialValue: disc.wrappedManufacturer)
+        _plastic = State(initialValue: disc.wrappedPlastic)
         _weight = State(initialValue: Int(disc.weight))
         _speed = State(initialValue: Double(disc.speed))
         _glide = State(initialValue: Double(disc.glide))
@@ -89,14 +90,14 @@ struct AddEditDiscView: View {
         _fade = State(initialValue: Double(disc.fade))
         _condition = State(initialValue: disc.wrappedCondition)
         _inBag = State(initialValue: disc.inBag)
-        
-        self.disc = disc
     }
     
     // Init with disc template
     init(discTemplate: DiscTemplate, showingAddView: Binding<Bool>? = nil) {
         
         self.showingAddView = showingAddView ?? nil
+        
+        disc = nil
         
         // Initialize state values
         _name = State(initialValue: discTemplate.name ?? "")
@@ -118,6 +119,7 @@ struct AddEditDiscView: View {
             // Basic info
             Section {
                 TextField("Name", text: $name)
+                //TextField("Name", text: disc!.projectedValue.wrappedName)
                 TextField("Manufacturer", text: $manufacturer)
                 TextField("Plastic", text: $plastic)
                 
