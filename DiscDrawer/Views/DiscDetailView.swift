@@ -123,6 +123,8 @@ struct DiscDetailView: View {
         
         let geo: GeometryProxy
         let minWidthFactor = 0.1
+        let backgroundOpacityFactor = 0.4
+        let foregroundOpacityFactor = 0.65
         
         // MARK: - Initializers
         
@@ -143,16 +145,17 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.green)
+                        .foregroundColor(.green.opacity(backgroundOpacityFactor))
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack {
+                    VStack(spacing: -5) {
                         Text(disc.speed.formatted())
-                            .font(.largeTitle.weight(.semibold))
+                            .font(.largeTitle.bold())
                         Text("Speed")
-                            .font(.headline)
+                            .font(.subheadline.bold())
                     }
+                    .opacity(foregroundOpacityFactor)
                 }
                 
                 // Glide
@@ -160,16 +163,17 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.yellow)
+                        .foregroundColor(.yellow.opacity(backgroundOpacityFactor))
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack {
+                    VStack(spacing: -5) {
                         Text(disc.glide.formatted())
-                            .font(.largeTitle.weight(.semibold))
+                            .font(.largeTitle.bold())
                         Text("Glide")
-                            .font(.headline)
+                            .font(.subheadline.bold())
                     }
+                    .opacity(foregroundOpacityFactor)
                 }
                 
                 // Turn
@@ -177,16 +181,17 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.pink)
+                        .foregroundColor(.pink.opacity(backgroundOpacityFactor))
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack {
+                    VStack(spacing: -5) {
                         Text(disc.turn.formatted())
-                            .font(.largeTitle.weight(.semibold))
+                            .font(.largeTitle.bold())
                         Text("Turn")
-                            .font(.headline)
+                            .font(.subheadline.bold())
                     }
+                    .opacity(foregroundOpacityFactor)
                 }
                 
                 // Fade
@@ -194,16 +199,17 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.indigo.opacity(backgroundOpacityFactor))
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack {
+                    VStack(spacing: -5) {
                         Text(disc.fade.formatted())
-                            .font(.largeTitle.weight(.semibold))
+                            .font(.largeTitle.bold())
                         Text("Fade")
-                            .font(.headline)
+                            .font(.subheadline.bold())
                     }
+                    .opacity(foregroundOpacityFactor)
                 }
             }
             .frame(minWidth: geo.size.width * minWidthFactor)
@@ -223,6 +229,7 @@ struct DiscDetailView: View {
         
         let geo: GeometryProxy
         let spacing = 0.06
+        let foregroundColor = Color.blue.opacity(0.2)
         
         // MARK: - Initializers
         
@@ -246,7 +253,7 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
+                            .foregroundColor(foregroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
@@ -267,7 +274,7 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
+                            .foregroundColor(foregroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
@@ -292,7 +299,7 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
+                            .foregroundColor(foregroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
@@ -313,7 +320,7 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.blue)
+                            .foregroundColor(foregroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
