@@ -56,15 +56,22 @@ struct DiscDetailView: View {
                         // Disc name and manufacturer
                         VStack {
                             Text(disc.wrappedName)
-                                .font(.title.weight(.semibold))
+                                .font(.largeTitle.bold())
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
                             Text(disc.wrappedManufacturer)
-                                .font(.headline)
+                                .font(.headline.bold())
+                                .lineLimit(2)
+                                .multilineTextAlignment(.center)
+                                .lineSpacing(-1)
+                                .foregroundColor(Color(white: 0.25))
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         
                         // In bag
                         VStack {
                             Text("In bag")
+                                .font(.callout).bold()
                             Image(systemName: disc.inBag ? "checkmark.circle" : "xmark.circle")
                                 .imageScale(.large)
                         }
@@ -123,7 +130,7 @@ struct DiscDetailView: View {
         
         // Basic
         
-        let geo: GeometryProxy
+        //let geo: GeometryProxy
         let minWidthFactor = 0.1
         let backgroundOpacityFactor = 0.4
         let foregroundOpacityFactor = 0.65
@@ -132,18 +139,18 @@ struct DiscDetailView: View {
         
         init(disc: Disc, geo: GeometryProxy) {
             self.disc = disc
-            self.geo = geo
+            //self.geo = geo
         }
         
         // MARK: - Body view
         
         var body: some View {
-            
+                
             // Main HStack
             HStack(spacing: 20) {
                 
                 // Speed
-                ZStack {
+                ZStack(alignment: .bottom) {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
@@ -151,17 +158,27 @@ struct DiscDetailView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack(spacing: -5) {
-                        Text(disc.speed.formatted())
-                            .font(.largeTitle.bold())
-                        Text("Speed")
-                            .font(.subheadline.bold())
-                    }
-                    .opacity(foregroundOpacityFactor)
+                    Text("Speed")
+                        .font(.subheadline.bold())
+                        .offset(y: -5)
+                        .padding(.horizontal, 5)
+                        .opacity(foregroundOpacityFactor)
                 }
+                .overlay(
+                    
+                    // Field value
+                    Text(disc.speed.formatted())
+                        .font(.largeTitle.bold())
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.horizontal, 7)
+                        .opacity(foregroundOpacityFactor)
+                        .offset(y: -8),
+                    alignment: .center
+                )
                 
                 // Glide
-                ZStack {
+                ZStack(alignment: .bottom) {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
@@ -169,17 +186,27 @@ struct DiscDetailView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack(spacing: -5) {
-                        Text(disc.glide.formatted())
-                            .font(.largeTitle.bold())
-                        Text("Glide")
-                            .font(.subheadline.bold())
-                    }
-                    .opacity(foregroundOpacityFactor)
+                    Text("Glide")
+                        .font(.subheadline.bold())
+                        .offset(y: -5)
+                        .padding(.horizontal, 5)
+                        .opacity(foregroundOpacityFactor)
                 }
+                .overlay(
+                    
+                    // Field value
+                    Text(disc.glide.formatted())
+                        .font(.largeTitle.bold())
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.horizontal, 7)
+                        .opacity(foregroundOpacityFactor)
+                        .offset(y: -8),
+                    alignment: .center
+                )
                 
                 // Turn
-                ZStack {
+                ZStack(alignment: .bottom) {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
@@ -187,17 +214,27 @@ struct DiscDetailView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack(spacing: -5) {
-                        Text(disc.turn.formatted())
-                            .font(.largeTitle.bold())
-                        Text("Turn")
-                            .font(.subheadline.bold())
-                    }
-                    .opacity(foregroundOpacityFactor)
+                    Text("Turn")
+                        .font(.subheadline.bold())
+                        .offset(y: -5)
+                        .padding(.horizontal, 5)
+                        .opacity(foregroundOpacityFactor)
                 }
+                .overlay(
+                    
+                    // Field value
+                    Text(disc.turn.formatted())
+                        .font(.largeTitle.bold())
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.horizontal, 7)
+                        .opacity(foregroundOpacityFactor)
+                        .offset(y: -8),
+                    alignment: .center
+                )
                 
                 // Fade
-                ZStack {
+                ZStack(alignment: .bottom) {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
@@ -205,16 +242,25 @@ struct DiscDetailView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
-                    VStack(spacing: -5) {
-                        Text(disc.fade.formatted())
-                            .font(.largeTitle.bold())
-                        Text("Fade")
-                            .font(.subheadline.bold())
-                    }
-                    .opacity(foregroundOpacityFactor)
+                    Text("Fade")
+                        .font(.subheadline.bold())
+                        .offset(y: -5)
+                        .padding(.horizontal, 5)
+                        .opacity(foregroundOpacityFactor)
                 }
+                .overlay(
+                    
+                    // Field value
+                    Text(disc.fade.formatted())
+                        .font(.largeTitle.bold())
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.horizontal, 7)
+                        .opacity(foregroundOpacityFactor)
+                        .offset(y: -8),
+                    alignment: .center
+                )
             }
-            .frame(minWidth: geo.size.width * minWidthFactor)
         }
     }
     
