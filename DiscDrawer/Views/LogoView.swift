@@ -5,6 +5,8 @@
 //  Created by Aguirre, Brian P. on 9/12/23.
 //
 
+// TODO: Fix hiccup going into final bounce up
+
 // MARK: - Imported libraries
 
 import SwiftUI

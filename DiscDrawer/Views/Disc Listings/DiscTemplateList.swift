@@ -68,7 +68,9 @@ struct DiscTemplateList: View {
         if query.isEmpty {
             return nil
         } else {
-            return NSPredicate(format: "name BEGINSWITH[cd] %@", query)
+            let partOne = NSPredicate(format: "name BEGINSWITH[c] %@", query)
+            let partTwo = NSPredicate(format: "manufacturer BEGINSWITH[c] %@", query)
+            return NSCompoundPredicate(orPredicateWithSubpredicates: [partOne, partTwo])
         }
     }
     
