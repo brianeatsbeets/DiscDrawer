@@ -5,6 +5,8 @@
 //  Created by Aguirre, Brian P. on 9/14/23.
 //
 
+// TODO: Select specific colors instead of just relying on opacity
+
 // MARK: - Imported libraries
 
 import SwiftUI
@@ -229,7 +231,8 @@ struct DiscDetailView: View {
         
         let geo: GeometryProxy
         let spacing = 0.06
-        let foregroundColor = Color.blue.opacity(0.2)
+        let backgroundColor = Color.cyan.opacity(0.2)
+        let foregroundOpacityFactor = 0.65
         
         // MARK: - Initializers
         
@@ -253,19 +256,21 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(foregroundColor)
+                            .foregroundColor(backgroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
                         // Field name
                         Text("Type")
                             .font(.headline)
+                            .opacity(foregroundOpacityFactor)
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
                         // Field value
                         Text(disc.wrappedType)
-                            .font(.largeTitle.weight(.semibold)),
+                            .font(.largeTitle.bold())
+                            .opacity(foregroundOpacityFactor),
                         alignment: .center
                     )
                     
@@ -274,19 +279,21 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(foregroundColor)
+                            .foregroundColor(backgroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
                         // Field name
                         Text("Plastic")
                             .font(.headline)
+                            .opacity(foregroundOpacityFactor)
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
                         // Field value
                         Text(disc.wrappedPlastic)
-                            .font(.largeTitle.weight(.semibold)),
+                            .font(.largeTitle.bold())
+                            .opacity(foregroundOpacityFactor),
                         alignment: .center
                     )
                 }
@@ -299,19 +306,21 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(foregroundColor)
+                            .foregroundColor(backgroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
                         // Field name
                         Text("Weight")
                             .font(.headline)
+                            .opacity(foregroundOpacityFactor)
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
                         // Field value
                         Text("\(disc.weight.formatted())g")
-                            .font(.largeTitle.weight(.semibold)),
+                            .font(.largeTitle.bold())
+                            .opacity(foregroundOpacityFactor),
                         alignment: .center
                     )
                     
@@ -320,19 +329,21 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(foregroundColor)
+                            .foregroundColor(backgroundColor)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
                         // Field name
                         Text("Condition")
                             .font(.headline)
+                            .opacity(foregroundOpacityFactor)
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
                         // Field value
                         Text(disc.wrappedCondition)
-                            .font(.largeTitle.weight(.semibold)),
+                            .font(.largeTitle.bold())
+                            .opacity(foregroundOpacityFactor),
                         alignment: .center
                     )
                 }
