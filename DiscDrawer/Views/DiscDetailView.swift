@@ -316,7 +316,10 @@ struct DiscDetailView: View {
                         // Field value
                         Text(disc.wrappedType)
                             .font(.largeTitle.bold())
-                            .opacity(foregroundOpacityFactor),
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                            .opacity(foregroundOpacityFactor)
+                            .padding(.horizontal, 10),
                         alignment: .center
                     )
                     
@@ -339,7 +342,11 @@ struct DiscDetailView: View {
                         // Field value
                         Text(disc.wrappedPlastic)
                             .font(.largeTitle.bold())
-                            .opacity(foregroundOpacityFactor),
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.5)
+                            .opacity(foregroundOpacityFactor)
+                            .padding(.horizontal, 10),
                         alignment: .center
                     )
                 }
