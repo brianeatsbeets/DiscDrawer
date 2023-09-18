@@ -23,6 +23,10 @@ struct DiscDetailView: View {
     
     @ObservedObject var disc: Disc
     
+    // Basic
+    
+    let widthFactor = 0.85
+    
     // MARK: - Body view
     
     var body: some View {
@@ -41,27 +45,44 @@ struct DiscDetailView: View {
                         .frame(width: geo.size.height * 0.25)
                         .padding(.top, -30)
                     
-                    // Disc name and manufacturer
-                    VStack {
-                        Text(disc.wrappedName)
-                            .font(.title.weight(.semibold))
-                        Text(disc.wrappedManufacturer)
-                            .font(.headline)
+                    HStack {
+                        
+                        // Spacer to mirror in bag stack
+                        Spacer()
+                            .frame(maxWidth: geo.size.width * 0.15)
+                        
+                        // Disc name and manufacturer
+                        VStack {
+                            Text(disc.wrappedName)
+                                .font(.title.weight(.semibold))
+                            Text(disc.wrappedManufacturer)
+                                .font(.headline)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        // In bag
+                        VStack {
+                            Text("In bag")
+                            Image(systemName: disc.inBag ? "checkmark.circle" : "xmark.circle")
+                                .imageScale(.large)
+                        }
+                        .frame(maxWidth: geo.size.width * 0.15, alignment: .trailing)
                     }
+                    .frame(width: geo.size.width * widthFactor)
                     
                     Spacer()
-                        .frame(height: 20)
+                        .frame(height: geo.size.height * 0.05)
                     
                     // Flight numbers
                     DiscFlightNumbers(disc: disc, geo: geo)
-                        .frame(width: geo.size.width * 0.9)
+                        .frame(width: geo.size.width * widthFactor)
                     
                     Spacer()
-                        .frame(height: 20)
+                        .frame(height: geo.size.height * 0.05)
                     
                     // Other information
                     DiscOtherInfo(disc: disc, geo: geo)
-                        .frame(width: geo.size.width * 0.9, height: geo.size.width * 0.9)
+                        .frame(width: geo.size.width * widthFactor, height: geo.size.width * widthFactor)
                         .padding(.bottom)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -101,6 +122,7 @@ struct DiscDetailView: View {
         // Basic
         
         let geo: GeometryProxy
+        let minWidthFactor = 0.1
         
         // MARK: - Initializers
         
@@ -114,7 +136,7 @@ struct DiscDetailView: View {
         var body: some View {
             
             // Main HStack
-            HStack {
+            HStack(spacing: 20) {
                 
                 // Speed
                 ZStack {
@@ -132,7 +154,6 @@ struct DiscDetailView: View {
                             .font(.headline)
                     }
                 }
-                .frame(minWidth: geo.size.width * 0.1)
                 
                 // Glide
                 ZStack {
@@ -150,7 +171,6 @@ struct DiscDetailView: View {
                             .font(.headline)
                     }
                 }
-                .frame(minWidth: geo.size.width * 0.1)
                 
                 // Turn
                 ZStack {
@@ -168,7 +188,6 @@ struct DiscDetailView: View {
                             .font(.headline)
                     }
                 }
-                .frame(minWidth: geo.size.width * 0.1)
                 
                 // Fade
                 ZStack {
@@ -186,8 +205,8 @@ struct DiscDetailView: View {
                             .font(.headline)
                     }
                 }
-                .frame(minWidth: geo.size.width * 0.1)
             }
+            .frame(minWidth: geo.size.width * minWidthFactor)
         }
     }
     
@@ -203,6 +222,7 @@ struct DiscDetailView: View {
         // Basic
         
         let geo: GeometryProxy
+        let spacing = 0.06
         
         // MARK: - Initializers
         
@@ -216,10 +236,10 @@ struct DiscDetailView: View {
         var body: some View {
                 
             // 2x2 grid
-            VStack(spacing: geo.size.width * 0.05) {
+            VStack(spacing: geo.size.width * spacing) {
                     
                 // Row 1
-                HStack(spacing: geo.size.width * 0.05) {
+                HStack(spacing: geo.size.width * spacing) {
                     
                     // Type
                     ZStack(alignment: .bottomLeading) {
@@ -265,7 +285,7 @@ struct DiscDetailView: View {
                 }
                 
                 // Row 2
-                HStack(spacing: geo.size.width * 0.05) {
+                HStack(spacing: geo.size.width * spacing) {
                     
                     // Weight
                     ZStack(alignment: .bottomLeading) {

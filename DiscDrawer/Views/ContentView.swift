@@ -35,7 +35,7 @@ struct ContentView: View {
     // Basic
     
     // Dev property to choose whether or not to display the logo view
-    var splashScreenEnabled = true
+    var splashScreenEnabled = false
     
     // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
