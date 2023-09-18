@@ -26,62 +26,98 @@ struct DiscTemplateDetailView: View {
     var body: some View {
         
         GeometryReader { geo in
-            
-            ScrollView {
                 
-                // Main VStack
+            // Main VStack
+            VStack {
+                
+                Spacer()
+                
+                // Disc name and manufacturer
                 VStack {
-                    
-                    // Disc name and manufacturer
-                    VStack {
-                        Text(discTemplate.wrappedName)
-                            .font(.title.weight(.semibold))
-                        Text(discTemplate.wrappedManufacturer)
-                            .font(.headline)
-                    }
-                    
-                    Spacer()
-                        .frame(height: 20)
-                    
-                    // Flight numbers
-                    DiscFlightNumbers(speed: discTemplate.wrappedSpeed,
-                                      glide: discTemplate.wrappedGlide,
-                                      turn: discTemplate.wrappedTurn,
-                                      fade: discTemplate.wrappedFade,
-                                      geo: geo)
-                        .frame(width: geo.size.width * 0.9)
-                    
-                    Spacer()
-                        .frame(height: 20)
-                    
-                    // Other information
-                    DiscOtherInfo(type: discTemplate.wrappedType,
-                                  plastic: "Plastic",
-                                  weight: "Weight",
-                                  condition: "Condition",
-                                  geo: geo)
-                        .frame(width: geo.size.width * 0.9, height: geo.size.width * 0.9)
-                        .padding(.bottom)
+                    Text(discTemplate.wrappedName)
+                        .font(.title.weight(.semibold))
+                    Text(discTemplate.wrappedManufacturer)
+                        .font(.headline)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                // Flight numbers
+                DiscType(type: discTemplate.wrappedType,
+                                  geo: geo)
+                .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.12)
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                // Other information
+                DiscFlightNumbers(speed: discTemplate.wrappedSpeed,
+                              glide: discTemplate.wrappedGlide,
+                              turn: discTemplate.wrappedTurn,
+                              fade: discTemplate.wrappedFade,
+                              geo: geo)
+                    .frame(width: geo.size.width * 0.9, height: geo.size.width * 0.9)
+                    .padding(.bottom)
+                
+                Spacer()
             }
-            // Enable scrolling on smaller screen sizes to maintain layout consistency
-            .scrollDisabled(UIScreen.main.bounds.height >= 812)
+            .frame(maxWidth: .infinity)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
     // MARK: - Nested structs
     
     // This struct provides a view that displays flight numbers for a Disc
-    struct DiscFlightNumbers: View {
+    struct DiscType: View {
         
         // MARK: - Properties
         
-        // State
+        let type: String
+        let geo: GeometryProxy
         
-        @State private var attributes = [(String, String, Color)]()
+        // MARK: - Initializers
         
-        // Basic
+        init(type: String, geo: GeometryProxy) {
+            self.type = type
+            self.geo = geo
+        }
+        
+        // MARK: - Body view
+        
+        var body: some View {
+            
+            // Main HStack
+            HStack {
+                    
+                ZStack(alignment: .bottomLeading) {
+                    
+                    // Background
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(.green)
+                    
+                    // Text
+                    VStack {
+                        Text("Type")
+                            .font(.headline)
+                            .offset(x: 10, y: -10)
+                    }
+                }
+                .overlay(
+                    // Field value
+                    Text(type)
+                        .font(.largeTitle.weight(.semibold)),
+                    alignment: .center
+                )
+            }
+        }
+    }
+    
+    // This struct provides a view that displays additional disc information about a Disc
+    struct DiscFlightNumbers: View {
+        
+        // MARK: - Properties
         
         let speed: String
         let glide: String
@@ -89,6 +125,10 @@ struct DiscTemplateDetailView: View {
         let fade: String
         
         let geo: GeometryProxy
+        
+        var rowOneAttributes: [(String, String)]
+        var rowTwoAttributes: [(String, String)]
+        var attributeRows: [[(String, String)]]
         
         // MARK: - Initializers
         
@@ -99,71 +139,9 @@ struct DiscTemplateDetailView: View {
             self.fade = fade
             self.geo = geo
             
-            _attributes = State(initialValue: [("Speed", speed, .green), ("Glide", glide, .yellow), ("Turn", turn, .pink), ("Fade", fade, .blue)])
-        }
-        
-        // MARK: - Body view
-        
-        var body: some View {
-            
-            // Main HStack
-            HStack {
-                
-                ForEach(attributes, id: \.0) { attribute in
-                    
-                    ZStack {
-                        
-                        // Background
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundColor(attribute.2)
-                            .aspectRatio(1.0, contentMode: .fit)
-                        
-                        // Text
-                        VStack {
-                            Text(attribute.1)
-                                .font(.largeTitle.weight(.semibold))
-                            Text(attribute.0)
-                                .font(.headline)
-                        }
-                    }
-                    .frame(minWidth: geo.size.width * 0.1)
-                }
-            }
-        }
-    }
-    
-    // This struct provides a view that displays additional disc information about a Disc
-    struct DiscOtherInfo: View {
-        
-        // MARK: - Properties
-        
-        // State
-        
-        @State private var rowOneAttributes = [(String, String)]()
-        @State private var rowTwoAttributes = [(String, String)]()
-        @State private var attributeRows = [[(String, String)]]()
-        
-        // Basic
-        
-        let type: String
-        let plastic: String?
-        let weight: String?
-        let condition: String?
-        
-        let geo: GeometryProxy
-        
-        // MARK: - Initializers
-        
-        init(type: String, plastic: String?, weight: String?, condition: String?, geo: GeometryProxy) {
-            self.type = type
-            self.plastic = plastic
-            self.weight = weight
-            self.condition = condition
-            self.geo = geo
-            
-            _rowOneAttributes = State(initialValue: [("Type", type), ("Plastic", plastic ?? "")])
-            _rowTwoAttributes = State(initialValue: [("Weight", weight ?? ""), ("Condition", condition ?? "")])
-            _attributeRows = State(initialValue: [rowOneAttributes, rowTwoAttributes])
+            rowOneAttributes = [("Speed", speed), ("Glide", glide)]
+            rowTwoAttributes = [("Turn", turn), ("Fade", fade)]
+            attributeRows = [rowOneAttributes, rowTwoAttributes]
         }
         
         // MARK: - Body view
