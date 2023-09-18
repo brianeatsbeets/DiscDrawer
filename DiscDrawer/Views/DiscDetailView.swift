@@ -13,12 +13,13 @@ import SwiftUI
 
 // MARK: - Main struct
 
-// This struct provides a view that displays information about a disc or disc template
+// This struct provides a view that displays information about a disc
 struct DiscDetailView: View {
     
     // MARK: - Properties
     
     // Environment
+    
     @Environment(\.dismiss) var dismiss
     
     // ObservedObject
@@ -130,7 +131,6 @@ struct DiscDetailView: View {
         
         // Basic
         
-        //let geo: GeometryProxy
         let minWidthFactor = 0.1
         let backgroundOpacityFactor = 0.4
         let foregroundOpacityFactor = 0.65
@@ -139,7 +139,6 @@ struct DiscDetailView: View {
         
         init(disc: Disc, geo: GeometryProxy) {
             self.disc = disc
-            //self.geo = geo
         }
         
         // MARK: - Body view
@@ -313,6 +312,7 @@ struct DiscDetailView: View {
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
+                        
                         // Field value
                         Text(disc.wrappedType)
                             .font(.largeTitle.bold())
@@ -339,6 +339,7 @@ struct DiscDetailView: View {
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
+                        
                         // Field value
                         Text(disc.wrappedPlastic)
                             .font(.largeTitle.bold())
@@ -370,6 +371,7 @@ struct DiscDetailView: View {
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
+                        
                         // Field value
                         Text("\(disc.weight.formatted())g")
                             .font(.largeTitle.bold())

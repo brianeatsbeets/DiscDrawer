@@ -11,15 +11,19 @@ import SwiftUI
 
 // MARK: - Main struct
 
-// This struct provides a view that displays information about a disc or disc template
+// This struct provides a view that displays information about a disc template
 struct DiscTemplateDetailView: View {
     
     // MARK: - Properties
     
     // Environment
+    
     @Environment(\.dismiss) var dismiss
     
-    var discTemplate: DiscTemplate
+    // Basic
+    
+    let discTemplate: DiscTemplate
+    let widthFactor = 0.85
     
     // MARK: - Body view
     
@@ -35,29 +39,30 @@ struct DiscTemplateDetailView: View {
                 // Disc name and manufacturer
                 VStack {
                     Text(discTemplate.wrappedName)
-                        .font(.title.weight(.semibold))
+                        .font(.largeTitle.bold())
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                     Text(discTemplate.wrappedManufacturer)
-                        .font(.headline)
+                        .font(.headline.bold())
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(-1)
+                        .foregroundColor(Color(white: 0.25))
                 }
                 
                 Spacer()
                     .frame(height: 20)
                 
-                // Flight numbers
-                DiscType(type: discTemplate.wrappedType,
-                                  geo: geo)
-                .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.12)
+                // Disc type
+                DiscType(type: discTemplate.wrappedType)
+                .frame(width: geo.size.width * widthFactor, height: geo.size.height * 0.12)
                 
                 Spacer()
                     .frame(height: 20)
                 
-                // Other information
-                DiscFlightNumbers(speed: discTemplate.wrappedSpeed,
-                              glide: discTemplate.wrappedGlide,
-                              turn: discTemplate.wrappedTurn,
-                              fade: discTemplate.wrappedFade,
-                              geo: geo)
-                    .frame(width: geo.size.width * 0.9, height: geo.size.width * 0.9)
+                // Flight numbers
+                DiscFlightNumbers(discTemplate: discTemplate, geo: geo)
+                    .frame(width: geo.size.width * widthFactor, height: geo.size.width * widthFactor)
                     .padding(.bottom)
                 
                 Spacer()
@@ -75,14 +80,6 @@ struct DiscTemplateDetailView: View {
         // MARK: - Properties
         
         let type: String
-        let geo: GeometryProxy
-        
-        // MARK: - Initializers
-        
-        init(type: String, geo: GeometryProxy) {
-            self.type = type
-            self.geo = geo
-        }
         
         // MARK: - Body view
         
@@ -95,19 +92,22 @@ struct DiscTemplateDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.green)
+                        .foregroundColor(.green.opacity(0.4))
                     
                     // Text
                     VStack {
                         Text("Type")
-                            .font(.headline)
+                            .font(.headline.bold())
                             .offset(x: 10, y: -10)
+                            .opacity(0.65)
                     }
                 }
                 .overlay(
+                    
                     // Field value
                     Text(type)
-                        .font(.largeTitle.weight(.semibold)),
+                        .font(.largeTitle.bold())
+                        .opacity(0.65),
                     alignment: .center
                 )
             }
@@ -119,28 +119,22 @@ struct DiscTemplateDetailView: View {
         
         // MARK: - Properties
         
-        let speed: String
-        let glide: String
-        let turn: String
-        let fade: String
-        
         let geo: GeometryProxy
         
         var rowOneAttributes: [(String, String)]
         var rowTwoAttributes: [(String, String)]
         var attributeRows: [[(String, String)]]
         
+        let backgroundColor = Color.cyan.opacity(0.2)
+        let foregroundOpacityFactor = 0.65
+        
         // MARK: - Initializers
         
-        init(speed: String, glide: String, turn: String, fade: String, geo: GeometryProxy) {
-            self.speed = speed
-            self.glide = glide
-            self.turn = turn
-            self.fade = fade
+        init(discTemplate: DiscTemplate, geo: GeometryProxy) {
             self.geo = geo
             
-            rowOneAttributes = [("Speed", speed), ("Glide", glide)]
-            rowTwoAttributes = [("Turn", turn), ("Fade", fade)]
+            rowOneAttributes = [("Speed", discTemplate.wrappedSpeed), ("Glide", discTemplate.wrappedGlide)]
+            rowTwoAttributes = [("Turn", discTemplate.wrappedTurn), ("Fade", discTemplate.wrappedFade)]
             attributeRows = [rowOneAttributes, rowTwoAttributes]
         }
         
@@ -164,19 +158,22 @@ struct DiscTemplateDetailView: View {
                                 
                                 // Background
                                 RoundedRectangle(cornerRadius: 20)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(backgroundColor)
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(maxWidth: .infinity)
                                 
                                 // Field name
                                 Text(attribute.0)
                                     .font(.headline)
+                                    .opacity(foregroundOpacityFactor)
                                     .offset(x: 10, y: -10)
                             }
                             .overlay(
+                                
                                 // Field value
                                 Text(attribute.1)
-                                    .font(.largeTitle.weight(.semibold)),
+                                    .font(SwiftUI.Font.system(size: 50).bold())
+                                    .opacity(foregroundOpacityFactor),
                                 alignment: .center
                             )
                         }
