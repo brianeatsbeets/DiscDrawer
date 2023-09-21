@@ -133,7 +133,6 @@ struct DiscDetailView: View {
         
         let minWidthFactor = 0.1
         let backgroundOpacityFactor = 0.4
-        let foregroundOpacityFactor = 0.65
         
         // MARK: - Initializers
         
@@ -161,7 +160,8 @@ struct DiscDetailView: View {
                         .font(.subheadline.bold())
                         .offset(y: -5)
                         .padding(.horizontal, 5)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.green)
+                        .colorMultiply(Color(white: 0.5))
                 }
                 .overlay(
                     
@@ -171,7 +171,8 @@ struct DiscDetailView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                         .padding(.horizontal, 7)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.green)
+                        .colorMultiply(Color(white: 0.5))
                         .offset(y: -8),
                     alignment: .center
                 )
@@ -189,7 +190,8 @@ struct DiscDetailView: View {
                         .font(.subheadline.bold())
                         .offset(y: -5)
                         .padding(.horizontal, 5)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.yellow)
+                        .colorMultiply(Color(white: 0.5))
                 }
                 .overlay(
                     
@@ -199,7 +201,8 @@ struct DiscDetailView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                         .padding(.horizontal, 7)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.yellow)
+                        .colorMultiply(Color(white: 0.5))
                         .offset(y: -8),
                     alignment: .center
                 )
@@ -217,7 +220,8 @@ struct DiscDetailView: View {
                         .font(.subheadline.bold())
                         .offset(y: -5)
                         .padding(.horizontal, 5)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.pink)
+                        .colorMultiply(Color(white: 0.5))
                 }
                 .overlay(
                     
@@ -227,7 +231,8 @@ struct DiscDetailView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                         .padding(.horizontal, 7)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.pink)
+                        .colorMultiply(Color(white: 0.5))
                         .offset(y: -8),
                     alignment: .center
                 )
@@ -245,7 +250,8 @@ struct DiscDetailView: View {
                         .font(.subheadline.bold())
                         .offset(y: -5)
                         .padding(.horizontal, 5)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.indigo)
+                        .colorMultiply(Color(white: 0.5))
                 }
                 .overlay(
                     
@@ -255,7 +261,8 @@ struct DiscDetailView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                         .padding(.horizontal, 7)
-                        .opacity(foregroundOpacityFactor)
+                        .foregroundColor(.indigo)
+                        .colorMultiply(Color(white: 0.5))
                         .offset(y: -8),
                     alignment: .center
                 )
@@ -277,7 +284,6 @@ struct DiscDetailView: View {
         let geo: GeometryProxy
         let spacing = 0.06
         let backgroundColor = Color.cyan.opacity(0.2)
-        let foregroundOpacityFactor = 0.65
         
         // MARK: - Initializers
         
@@ -308,7 +314,8 @@ struct DiscDetailView: View {
                         // Field name
                         Text("Type")
                             .font(.headline)
-                            .opacity(foregroundOpacityFactor)
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5))
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
@@ -318,7 +325,8 @@ struct DiscDetailView: View {
                             .font(.largeTitle.bold())
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
-                            .opacity(foregroundOpacityFactor)
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5))
                             .padding(.horizontal, 10),
                         alignment: .center
                     )
@@ -335,7 +343,8 @@ struct DiscDetailView: View {
                         // Field name
                         Text("Plastic")
                             .font(.headline)
-                            .opacity(foregroundOpacityFactor)
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5))
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
@@ -346,7 +355,8 @@ struct DiscDetailView: View {
                             .lineLimit(2)
                             .multilineTextAlignment(.center)
                             .minimumScaleFactor(0.5)
-                            .opacity(foregroundOpacityFactor)
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5))
                             .padding(.horizontal, 10),
                         alignment: .center
                     )
@@ -367,7 +377,8 @@ struct DiscDetailView: View {
                         // Field name
                         Text("Weight")
                             .font(.headline)
-                            .opacity(foregroundOpacityFactor)
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5))
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
@@ -375,7 +386,8 @@ struct DiscDetailView: View {
                         // Field value
                         Text("\(disc.weight.formatted())g")
                             .font(.largeTitle.bold())
-                            .opacity(foregroundOpacityFactor),
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5)),
                         alignment: .center
                     )
                     
@@ -391,14 +403,16 @@ struct DiscDetailView: View {
                         // Field name
                         Text("Condition")
                             .font(.headline)
-                            .opacity(foregroundOpacityFactor)
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5))
                             .offset(x: 10, y: -10)
                     }
                     .overlay(
                         // Field value
                         Text(disc.wrappedCondition)
                             .font(.largeTitle.bold())
-                            .opacity(foregroundOpacityFactor),
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5)),
                         alignment: .center
                     )
                 }

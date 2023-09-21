@@ -59,7 +59,7 @@ struct ContentView: View {
                 NavigationView {
                     
                     // Main VStack
-                    VStack {
+                    VStack(spacing: 0) {
                         
                         // Sort and filter elements
                         HStack {
@@ -79,6 +79,7 @@ struct ContentView: View {
                             .pickerStyle(.segmented)
                         }
                         .padding(.horizontal)
+                        .padding(.bottom, 10)
                         
                         // Only display the disc list if it's not empty
                         if discs.isEmpty {

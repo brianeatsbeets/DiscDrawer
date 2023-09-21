@@ -92,14 +92,15 @@ struct DiscTemplateDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.green.opacity(0.4))
+                        .foregroundColor(.cyan.opacity(0.2))
                     
                     // Text
                     VStack {
                         Text("Type")
                             .font(.headline.bold())
                             .offset(x: 10, y: -10)
-                            .opacity(0.65)
+                            .foregroundColor(.cyan)
+                            .colorMultiply(Color(white: 0.5))
                     }
                 }
                 .overlay(
@@ -107,7 +108,8 @@ struct DiscTemplateDetailView: View {
                     // Field value
                     Text(type)
                         .font(.largeTitle.bold())
-                        .opacity(0.65),
+                        .foregroundColor(.cyan)
+                        .colorMultiply(Color(white: 0.5)),
                     alignment: .center
                 )
             }
@@ -121,20 +123,19 @@ struct DiscTemplateDetailView: View {
         
         let geo: GeometryProxy
         
-        var rowOneAttributes: [(String, String)]
-        var rowTwoAttributes: [(String, String)]
-        var attributeRows: [[(String, String)]]
+        var rowOneAttributes: [(String, String, Color)]
+        var rowTwoAttributes: [(String, String, Color)]
+        var attributeRows: [[(String, String, Color)]]
         
-        let backgroundColor = Color.cyan.opacity(0.2)
-        let foregroundOpacityFactor = 0.65
+        let backgroundOpacityFactor = 0.4
         
         // MARK: - Initializers
         
         init(discTemplate: DiscTemplate, geo: GeometryProxy) {
             self.geo = geo
             
-            rowOneAttributes = [("Speed", discTemplate.wrappedSpeed), ("Glide", discTemplate.wrappedGlide)]
-            rowTwoAttributes = [("Turn", discTemplate.wrappedTurn), ("Fade", discTemplate.wrappedFade)]
+            rowOneAttributes = [("Speed", discTemplate.wrappedSpeed, .green), ("Glide", discTemplate.wrappedGlide, .yellow)]
+            rowTwoAttributes = [("Turn", discTemplate.wrappedTurn, .red), ("Fade", discTemplate.wrappedFade, .indigo)]
             attributeRows = [rowOneAttributes, rowTwoAttributes]
         }
         
@@ -158,14 +159,15 @@ struct DiscTemplateDetailView: View {
                                 
                                 // Background
                                 RoundedRectangle(cornerRadius: 20)
-                                    .foregroundColor(backgroundColor)
+                                    .foregroundColor(attribute.2.opacity(backgroundOpacityFactor))
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(maxWidth: .infinity)
                                 
                                 // Field name
                                 Text(attribute.0)
                                     .font(.headline)
-                                    .opacity(foregroundOpacityFactor)
+                                    .foregroundColor(attribute.2)
+                                    .colorMultiply(Color(white: 0.5))
                                     .offset(x: 10, y: -10)
                             }
                             .overlay(
@@ -173,7 +175,8 @@ struct DiscTemplateDetailView: View {
                                 // Field value
                                 Text(attribute.1)
                                     .font(SwiftUI.Font.system(size: 50).bold())
-                                    .opacity(foregroundOpacityFactor),
+                                    .foregroundColor(attribute.2)
+                                    .colorMultiply(Color(white: 0.5)),
                                 alignment: .center
                             )
                         }

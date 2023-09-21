@@ -37,11 +37,23 @@ extension Disc {
     }
 
     public var wrappedManufacturer: String {
-        manufacturer ?? "Unknown manufacturer"
+        if manufacturer == nil {
+            return "Unknown manufacturer"
+        } else if manufacturer == "" {
+            return "N/A"
+        } else {
+            return manufacturer!
+        }
     }
     
     public var wrappedPlastic: String {
-        plastic ?? "Unknown plastic"
+        if plastic == nil {
+            return "Unknown plastic"
+        } else if plastic == "" {
+            return "N/A"
+        } else {
+            return plastic!
+        }
     }
     
     public var wrappedType: String {
