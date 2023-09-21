@@ -92,7 +92,14 @@ struct DiscTemplateDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.cyan.opacity(0.2))
+                        .strokeBorder(.cyan, lineWidth: 3)
+                        .background(
+                            Color.cyan
+                                .brightness(0.3)
+                                .clipShape(
+                                    RoundedRectangle(cornerRadius: 20)
+                                )
+                        )
                     
                     // Text
                     VStack {
@@ -159,7 +166,14 @@ struct DiscTemplateDetailView: View {
                                 
                                 // Background
                                 RoundedRectangle(cornerRadius: 20)
-                                    .foregroundColor(attribute.2.opacity(backgroundOpacityFactor))
+                                    .strokeBorder(attribute.2, lineWidth: 3)
+                                    .background(
+                                        attribute.2
+                                            .brightness(0.3)
+                                            .clipShape(
+                                                RoundedRectangle(cornerRadius: 20)
+                                            )
+                                    )
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(maxWidth: .infinity)
                                 

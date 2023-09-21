@@ -152,7 +152,14 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.green.opacity(backgroundOpacityFactor))
+                        .strokeBorder(.green, lineWidth: 3)
+                        .background(
+                            Color.green
+                                .brightness(0.3)
+                                .clipShape(
+                                    RoundedRectangle(cornerRadius: 12)
+                                )
+                        )
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
@@ -182,7 +189,14 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.yellow.opacity(backgroundOpacityFactor))
+                        .strokeBorder(.yellow, lineWidth: 3)
+                        .background(
+                            Color.yellow
+                                .brightness(0.3)
+                                .clipShape(
+                                    RoundedRectangle(cornerRadius: 12)
+                                )
+                        )
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
@@ -212,7 +226,14 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.pink.opacity(backgroundOpacityFactor))
+                        .strokeBorder(.pink, lineWidth: 3)
+                        .background(
+                            Color.pink
+                                .brightness(0.3)
+                                .clipShape(
+                                    RoundedRectangle(cornerRadius: 12)
+                                )
+                        )
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
@@ -242,7 +263,14 @@ struct DiscDetailView: View {
                     
                     // Background
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.indigo.opacity(backgroundOpacityFactor))
+                        .strokeBorder(.blue, lineWidth: 3)
+                        .background(
+                            Color.blue
+                                .brightness(0.3)
+                                .clipShape(
+                                    RoundedRectangle(cornerRadius: 12)
+                                )
+                        )
                         .aspectRatio(1.0, contentMode: .fit)
                     
                     // Text
@@ -307,7 +335,14 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(backgroundColor)
+                            .strokeBorder(.cyan, lineWidth: 3)
+                            .background(
+                                Color.cyan
+                                    .brightness(0.3)
+                                    .clipShape(
+                                        RoundedRectangle(cornerRadius: 20)
+                                    )
+                            )
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
@@ -336,7 +371,14 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(backgroundColor)
+                            .strokeBorder(.cyan, lineWidth: 3)
+                            .background(
+                                Color.cyan
+                                    .brightness(0.3)
+                                    .clipShape(
+                                        RoundedRectangle(cornerRadius: 20)
+                                    )
+                            )
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
@@ -370,7 +412,14 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(backgroundColor)
+                            .strokeBorder(.cyan, lineWidth: 3)
+                            .background(
+                                Color.cyan
+                                    .brightness(0.3)
+                                    .clipShape(
+                                        RoundedRectangle(cornerRadius: 20)
+                                    )
+                            )
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
@@ -396,7 +445,14 @@ struct DiscDetailView: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(backgroundColor)
+                            .strokeBorder(.cyan, lineWidth: 3)
+                            .background(
+                                Color.cyan
+                                    .brightness(0.3)
+                                    .clipShape(
+                                        RoundedRectangle(cornerRadius: 20)
+                                    )
+                            )
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(maxWidth: .infinity)
                         
