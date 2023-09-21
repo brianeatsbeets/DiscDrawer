@@ -128,13 +128,14 @@ struct DiscList: View {
                 
                 // Background/border
                 RoundedRectangle(cornerRadius: 20)
-                    .strokeBorder(.black, lineWidth: 3)
-//                    .background(
-//                        Color(white: 0.9)
-//                            .clipShape(
-//                                RoundedRectangle(cornerRadius: 20)
-//                            )
-//                    )
+                    .strokeBorder(.gray, lineWidth: 3)
+                    .background(
+                        Color.mint
+                            .brightness(0.8)
+                            .clipShape(
+                                RoundedRectangle(cornerRadius: 20)
+                            )
+                    )
                     .frame(height: frameHeight)
                 
                 // Content stack
@@ -145,7 +146,14 @@ struct DiscList: View {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.cyan.opacity(0.2))
+                            .strokeBorder(.mint, lineWidth: 2)
+                            .background(
+                                Color.mint
+                                    .brightness(0.45)
+                                    .clipShape(
+                                        RoundedRectangle(cornerRadius: 15)
+                                    )
+                            )
                         
                         // Text
                         VStack(alignment: .trailing) {
@@ -172,13 +180,13 @@ struct DiscList: View {
                                 .clipShape(Circle())
                                 .aspectRatio(contentMode: .fit)
                             Circle()
-                                .stroke(.white, lineWidth: 5)
+                                .stroke(.white, lineWidth: 3)
                         }
                         .frame(height: 95)
                         
                         // Disc name
                         Text(disc.wrappedName)
-                            .frame(width: 85)
+                            .frame(width: 85, height: 20)
                             .bold()
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
@@ -229,13 +237,11 @@ struct DiscList: View {
             var rowTwoAttributes: [(String, String, Color)]
             var attributeRows: [[(String, String, Color)]]
             
-            let backgroundOpacityFactor = 0.4
-            
             // MARK: - Initializers
             
             init(disc: Disc) {
                 rowOneAttributes = [("Speed", disc.speed.formatted(), .green), ("Glide", disc.glide.formatted(), .yellow)]
-                rowTwoAttributes = [("Turn", disc.turn.formatted(), .red), ("Fade", disc.fade.formatted(), .indigo)]
+                rowTwoAttributes = [("Turn", disc.turn.formatted(), .red), ("Fade", disc.fade.formatted(), .blue)]
                 attributeRows = [rowOneAttributes, rowTwoAttributes]
             }
             
@@ -259,13 +265,22 @@ struct DiscList: View {
                                     
                                     // Background
                                     RoundedRectangle(cornerRadius: 5)
-                                        .foregroundColor(attribute.2.opacity(backgroundOpacityFactor))
+                                        .strokeBorder(attribute.2, lineWidth: 2)
+                                        .background(
+                                            attribute.2
+                                                .brightness(0.3)
+                                                .clipShape(
+                                                    RoundedRectangle(cornerRadius: 5)
+                                                )
+                                        )
                                     
                                     // Field value
-                                    Text(attribute.1)
+                                    Text("\(attribute.0.first!)" + "\(attribute.1)")
+                                        .minimumScaleFactor(0.5)
                                         .fontWeight(.heavy)
                                         .foregroundColor(attribute.2)
                                         .colorMultiply(Color(white: 0.5))
+                                        .padding(.horizontal, 3)
                                 }
                             }
                         }
