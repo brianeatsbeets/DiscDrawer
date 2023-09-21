@@ -57,9 +57,24 @@ struct DiscList: View {
                         }
                         .onDelete(perform: deleteDiscs)
                     } header: {
-                        Text(type)
-                            .font(.title2.bold())
-                            .foregroundColor(.accentColor)
+                        
+                        ZStack(alignment: .bottomLeading) {
+                            Text(type)
+                                .font(.title2.bold())
+                                .foregroundColor(.accentColor)
+                                .padding(.horizontal, 7)
+                                .padding(.vertical, 3)
+                                .background(
+                                    Color.black
+                                        .clipShape(
+                                            UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 8, bottomLeading: 0, bottomTrailing: 0, topTrailing: 8))
+                                        )
+                                )
+                            
+                            Rectangle()
+                                .fill(.black)
+                                .frame(height: 3)
+                        }
                     }
                 }
             }
@@ -114,24 +129,29 @@ struct DiscList: View {
                 // Background/border
                 RoundedRectangle(cornerRadius: 20)
                     .strokeBorder(.black, lineWidth: 3)
-                    .background(.white)
+//                    .background(
+//                        Color(white: 0.9)
+//                            .clipShape(
+//                                RoundedRectangle(cornerRadius: 20)
+//                            )
+//                    )
                     .frame(height: frameHeight)
                 
                 // Content stack
                 HStack {
                     
                     // Disc info
-                    ZStack(alignment: .leading) {
+                    ZStack(alignment: .trailing) {
                         
                         // Background
                         RoundedRectangle(cornerRadius: 15)
                             .fill(Color.cyan.opacity(0.2))
                         
                         // Text
-                        VStack(alignment: .leading) {
-                            Text("M: \(abbreviatedManufacturer())")
-                            Text("P: \(disc.wrappedPlastic)")
-                            Text("W: \(disc.weight)g")
+                        VStack(alignment: .trailing) {
+                            Text(abbreviatedManufacturer())
+                            Text(disc.wrappedPlastic)
+                            Text("\(disc.weight)g")
                         }
                         .font(.system(size: 15).bold())
                         .minimumScaleFactor(0.5)
@@ -160,6 +180,8 @@ struct DiscList: View {
                         Text(disc.wrappedName)
                             .frame(width: 85)
                             .bold()
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
                             .foregroundColor(.white)
                             .padding(.horizontal, 7)
                             .padding(.vertical, 3)
