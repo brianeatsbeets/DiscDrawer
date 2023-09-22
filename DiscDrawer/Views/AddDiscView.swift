@@ -35,7 +35,7 @@ struct AddDiscView: View {
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(Color(white: 0.9))
+                            .fill(Color(uiColor: UIColor.quaternaryLabel))
                         
                         Text("Search for disc")
                             .font(.title.bold())
@@ -50,7 +50,7 @@ struct AddDiscView: View {
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(Color(white: 0.9))
+                            .fill(Color(uiColor: UIColor.quaternaryLabel))
                         
                         Text("Manually create disc")
                             .font(.title.bold())

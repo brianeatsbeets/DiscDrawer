@@ -43,10 +43,10 @@ struct DiscTemplateDetailView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                     Text(discTemplate.wrappedManufacturer)
-                        .font(.headline.bold())
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(-1)
+                        .font(.title3.bold())
+                        .foregroundStyle(Color.secondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                         .foregroundColor(Color(white: 0.25))
                 }
                 

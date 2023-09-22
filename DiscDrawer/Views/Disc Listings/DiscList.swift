@@ -110,6 +110,8 @@ struct DiscList: View {
     // This struct provides a view that displays a single disc styled for a list
     struct DiscListItem: View {
         
+        // Environment
+        
         @Environment(\.colorScheme) var colorScheme
         
         // MARK: - Properties
@@ -159,9 +161,15 @@ struct DiscList: View {
                         
                         // Text
                         VStack(alignment: .trailing) {
-                            Text(abbreviatedManufacturer())
-                            Text(disc.wrappedPlastic)
-                            Text("\(disc.weight)g")
+                            if disc.wrappedManufacturer != "N/A" {
+                                Text(abbreviatedManufacturer())
+                            }
+                            if disc.wrappedPlastic != "N/A" {
+                                Text(disc.wrappedPlastic)
+                            }
+                            if disc.weight > 0 {
+                                Text("\(disc.weight)g")
+                            }
                         }
                         .font(.system(size: 15).bold())
                         .minimumScaleFactor(0.5)

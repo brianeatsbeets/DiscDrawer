@@ -33,12 +33,12 @@ extension Disc {
     // Convenience computed properties
     
     public var wrappedName: String {
-        name ?? "Unknown name"
+        name ?? "N/A"
     }
 
     public var wrappedManufacturer: String {
         if manufacturer == nil {
-            return "Unknown manufacturer"
+            return "N/A"
         } else if manufacturer == "" {
             return "N/A"
         } else {
@@ -48,7 +48,7 @@ extension Disc {
     
     public var wrappedPlastic: String {
         if plastic == nil {
-            return "Unknown plastic"
+            return "N/A"
         } else if plastic == "" {
             return "N/A"
         } else {

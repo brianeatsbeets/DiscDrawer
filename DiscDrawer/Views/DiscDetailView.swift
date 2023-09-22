@@ -61,10 +61,10 @@ struct DiscDetailView: View {
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.5)
                             Text(disc.wrappedManufacturer)
-                                .font(.headline.bold())
-                                .lineLimit(2)
-                                .multilineTextAlignment(.center)
-                                .lineSpacing(-1)
+                                .font(.title3.bold())
+                                .foregroundStyle(Color.secondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
                                 .foregroundColor(Color(white: 0.25))
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -433,7 +433,7 @@ struct DiscDetailView: View {
                     .overlay(
                         
                         // Field value
-                        Text("\(disc.weight.formatted())g")
+                        Text(disc.weight != 0 ? "\(disc.weight.formatted())g" : "N/A")
                             .font(.largeTitle.bold())
                             .foregroundColor(.cyan)
                             .colorMultiply(Color(white: 0.5)),

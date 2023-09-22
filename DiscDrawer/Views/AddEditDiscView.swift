@@ -35,7 +35,7 @@ struct AddEditDiscView: View {
     @State private var type = "Putter"
     @State private var manufacturer = ""
     @State private var plastic = ""
-    @State private var weight = 0
+    @State private var weight = ""
     @State private var speed = 0.0
     @State private var glide = 0.0
     @State private var turn = 0.0
@@ -83,7 +83,7 @@ struct AddEditDiscView: View {
         _type = State(initialValue: disc.wrappedType)
         _manufacturer = State(initialValue: disc.wrappedManufacturer)
         _plastic = State(initialValue: disc.wrappedPlastic)
-        _weight = State(initialValue: Int(disc.weight))
+        _weight = State(initialValue: disc.weight != 0 ? String(Int(disc.weight)) : "")
         _speed = State(initialValue: Double(disc.speed))
         _glide = State(initialValue: Double(disc.glide))
         _turn = State(initialValue: Double(disc.turn))
@@ -132,7 +132,7 @@ struct AddEditDiscView: View {
                 
                 HStack {
                     Text("Weight (g)")
-                    TextField("Weight (g)", value: $weight, format: .number)
+                    TextField("Weight (g)", text: $weight)
                         .multilineTextAlignment(.trailing)
                 }
             }
@@ -238,7 +238,7 @@ struct AddEditDiscView: View {
             disc.type = type
             disc.manufacturer = manufacturer
             disc.plastic = plastic
-            disc.weight = Int16(weight)
+            disc.weight = Int16(weight) ?? 0
             disc.speed = Double(speed)
             disc.glide = Double(glide)
             disc.turn = Double(turn)
@@ -253,7 +253,7 @@ struct AddEditDiscView: View {
             newDisc.type = type
             newDisc.manufacturer = manufacturer
             newDisc.plastic = plastic
-            newDisc.weight = Int16(weight)
+            newDisc.weight = Int16(weight) ?? 0
             newDisc.speed = Double(speed)
             newDisc.glide = Double(glide)
             newDisc.turn = Double(turn)
