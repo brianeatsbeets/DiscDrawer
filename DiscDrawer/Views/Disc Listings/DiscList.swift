@@ -65,14 +65,14 @@ struct DiscList: View {
                                 .padding(.horizontal, 7)
                                 .padding(.vertical, 3)
                                 .background(
-                                    Color.black
+                                    Color("DiscListSectionHeader")
                                         .clipShape(
                                             UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 8, bottomLeading: 0, bottomTrailing: 0, topTrailing: 8))
                                         )
                                 )
                             
                             Rectangle()
-                                .fill(.black)
+                                .fill(Color("DiscListSectionHeader"))
                                 .frame(height: 3)
                         }
                     }
@@ -110,6 +110,8 @@ struct DiscList: View {
     // This struct provides a view that displays a single disc styled for a list
     struct DiscListItem: View {
         
+        @Environment(\.colorScheme) var colorScheme
+        
         // MARK: - Properties
         
         @ObservedObject var disc: Disc
@@ -128,10 +130,10 @@ struct DiscList: View {
                 
                 // Background/border
                 RoundedRectangle(cornerRadius: 20)
-                    .strokeBorder(.gray, lineWidth: 3)
+                    .strokeBorder(Color("DiscListItemBorder"), lineWidth: 3)
                     .background(
                         Color.mint
-                            .brightness(0.8)
+                            .brightness(colorScheme == .light ? 0.8 : 0)
                             .clipShape(
                                 RoundedRectangle(cornerRadius: 20)
                             )
@@ -201,7 +203,7 @@ struct DiscList: View {
                                         .stroke(.white, lineWidth: 3)
                                 }
                             )
-                            .offset(y: 33)
+                            .offset(y: 35)
                         }
                     
                     // Flight numbers
