@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E102BAB42ABF2C1800A58960 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E102BAB32ABF2C1800A58960 /* CameraView.swift */; };
 		E129A3312AA8B27900A9E255 /* DiscDrawerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3302AA8B27900A9E255 /* DiscDrawerApp.swift */; };
 		E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3322AA8B27900A9E255 /* ContentView.swift */; };
 		E129A3352AA8B27A00A9E255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E129A3342AA8B27A00A9E255 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E102BAB32ABF2C1800A58960 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		E129A32D2AA8B27900A9E255 /* DiscDrawer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscDrawer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E129A3302AA8B27900A9E255 /* DiscDrawerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscDrawerApp.swift; sourceTree = "<group>"; };
 		E129A3322AA8B27900A9E255 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,10 +105,9 @@
 			children = (
 				E1CE52132AB0A5850044134D /* LogoView.swift */,
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
-				E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */,
-				E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */,
 				E13913DF2AB1065300CD9502 /* AddDiscView.swift */,
-				E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */,
+				E14B6A702ABF3B4000A6894C /* Detail Views */,
+				E14B6A712ABF3B6100A6894C /* Editing Views */,
 				E1CE520E2AB096B70044134D /* Disc Listings */,
 			);
 			path = Views;
@@ -139,6 +140,24 @@
 				E13913FF2AB20BE000CD9502 /* Disc+CoreDataProperties.swift */,
 			);
 			path = "Disc+CoreData";
+			sourceTree = "<group>";
+		};
+		E14B6A702ABF3B4000A6894C /* Detail Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */,
+				E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */,
+			);
+			path = "Detail Views";
+			sourceTree = "<group>";
+		};
+		E14B6A712ABF3B6100A6894C /* Editing Views */ = {
+			isa = PBXGroup;
+			children = (
+				E129A3452AA8B4F700A9E255 /* AddEditDiscView.swift */,
+				E102BAB32ABF2C1800A58960 /* CameraView.swift */,
+			);
+			path = "Editing Views";
 			sourceTree = "<group>";
 		};
 		E1CE520E2AB096B70044134D /* Disc Listings */ = {
@@ -225,6 +244,7 @@
 				E1570BAF2AB331B0007315C9 /* DiscDetailView.swift in Sources */,
 				E13913FA2AB1E88E00CD9502 /* DiscTemplate+CoreDataProperties.swift in Sources */,
 				E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */,
+				E102BAB42ABF2C1800A58960 /* CameraView.swift in Sources */,
 				E13913E02AB1065300CD9502 /* AddDiscView.swift in Sources */,
 				E1CE52142AB0A5850044134D /* LogoView.swift in Sources */,
 				E1A8E2262AB78A4400903543 /* DiscTemplateDetailView.swift in Sources */,
@@ -370,6 +390,7 @@
 				DEVELOPMENT_TEAM = XUYSV472G3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is needed to take a photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -403,6 +424,7 @@
 				DEVELOPMENT_TEAM = XUYSV472G3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is needed to take a photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

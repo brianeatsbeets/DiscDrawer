@@ -5,6 +5,8 @@
 //  Created by Aguirre, Brian P. on 9/6/23.
 //
 
+// TODO: Save the captured image to Core Data
+
 // MARK: - Imported libraries
 
 import SwiftUI
@@ -42,8 +44,12 @@ struct AddEditDiscView: View {
     @State private var fade = 0.0
     @State private var condition = "Great"
     @State private var inBag = false
+    @State private var image: Image?
+    
+    @State private var inputImage: UIImage?
     
     @State private var showingDeleteAlert = false
+    @State private var showingImagePicker = false
     
     // Basic
     
@@ -137,6 +143,17 @@ struct AddEditDiscView: View {
                 }
             }
             
+            // Image
+            Section {
+                image?
+                    .resizable()
+                    .scaledToFit()
+                
+                Button("Take Picture") {
+                    showingImagePicker = true
+                }
+            }
+            
             // Flight numbers
             Section {
                 HStack {
@@ -216,6 +233,18 @@ struct AddEditDiscView: View {
                     .bold()
             }
             .disabled(!dataIsValid)
+        }
+        .fullScreenCover(isPresented: $showingImagePicker) {
+            
+            // Present a full screen camera view
+            CameraView(image: $inputImage)
+                .edgesIgnoringSafeArea(.all)
+            
+                // When a picture is taken, load the image here
+                .onChange(of: inputImage) { _ in
+                    guard let inputImage = inputImage else { return }
+                    image = Image(uiImage: inputImage)
+                }
         }
     }
     
