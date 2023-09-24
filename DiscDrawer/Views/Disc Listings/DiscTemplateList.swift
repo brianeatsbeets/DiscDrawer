@@ -32,11 +32,6 @@ struct DiscTemplateList: View {
     // Optional binding used to dismiss multiple sheets at once
     var showingAddView: Binding<Bool>?
     
-    // Basic
-    
-    // Determine view context (selecting a disc template or viewing a disc in the finder)
-    let inDiscFinder: Bool
-    
     // MARK: - Body view
     
     var body: some View {
@@ -44,21 +39,43 @@ struct DiscTemplateList: View {
             ForEach(discTemplates) { discTemplate in
                 NavigationLink {
                     
-                    if inDiscFinder {
-                        DiscTemplateDetailView(discTemplate: discTemplate)
-                    } else {
+                    // Show disc details or edit view depending on context
+                    if showingAddView != nil {
                         AddEditDiscView(discTemplate: discTemplate, showingAddView: showingAddView)
+                    } else {
+                        DiscTemplateDetailView(discTemplate: discTemplate)
                     }
                 } label: {
                     DiscTemplateItem(disc: discTemplate)
                 }
             }
         }
-        .navigationTitle(inDiscFinder ? "Disc Finder" : "Select a disc")
+        .navigationTitle(showingAddView != nil ? "Select a disc" : "Disc Finder")
         .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Disc name")
         .autocorrectionDisabled(true) 
         .onChange(of: searchQuery) { newValue in
             discTemplates.nsPredicate = searchPredicate(query: newValue)
+        }
+        .toolbar {
+            
+            // Display toolbar navigation buttons only if we're adding a disc
+            if showingAddView != nil {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showingAddView?.wrappedValue = false
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        AddEditDiscView(showingAddView: showingAddView)
+                    } label: {
+                        Text("Manually Create")
+                    }
+                }
+            }
         }
     }
     

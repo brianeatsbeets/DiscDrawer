@@ -35,7 +35,7 @@ struct ContentView: View {
     // Basic
     
     // Dev property to choose whether or not to display the logo view
-    var splashScreenEnabled = true
+    var splashScreenEnabled = false
     
     // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
@@ -126,11 +126,11 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .sheet(isPresented: $showingAddView) {
+                    .fullScreenCover(isPresented: $showingAddView) {
                         
                         // Manually add navigation view here to avoid adding a second navigation view when passing a disc
                         NavigationView {
-                            AddDiscView(showingAddView: $showingAddView)
+                            DiscTemplateList(showingAddView: $showingAddView)
                         }
                         .interactiveDismissDisabled()
                     }
@@ -141,7 +141,7 @@ struct ContentView: View {
                 
                 // Tab item for disc finder
                 NavigationView {
-                    DiscTemplateList(inDiscFinder: true)
+                    DiscTemplateList()
                 }
                 .tabItem {
                     Label("Finder", systemImage: "magnifyingglass")
