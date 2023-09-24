@@ -21,6 +21,7 @@
 		E13913FC2AB208B000CD9502 /* DiscTemplateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13913FB2AB208B000CD9502 /* DiscTemplateList.swift */; };
 		E13914002AB20BE000CD9502 /* Disc+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13913FE2AB20BE000CD9502 /* Disc+CoreDataClass.swift */; };
 		E13914012AB20BE000CD9502 /* Disc+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13913FF2AB20BE000CD9502 /* Disc+CoreDataProperties.swift */; };
+		E14B6A732ABFC36A00A6894C /* UIPickerController+CropFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14B6A722ABFC36A00A6894C /* UIPickerController+CropFix.swift */; };
 		E1570BAF2AB331B0007315C9 /* DiscDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */; };
 		E1A8E2262AB78A4400903543 /* DiscTemplateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */; };
 		E1CE52022AAF91B60044134D /* FilteredDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52012AAF91B60044134D /* FilteredDiscView.swift */; };
@@ -45,6 +46,7 @@
 		E13913FB2AB208B000CD9502 /* DiscTemplateList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateList.swift; sourceTree = "<group>"; };
 		E13913FE2AB20BE000CD9502 /* Disc+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disc+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E13913FF2AB20BE000CD9502 /* Disc+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disc+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E14B6A722ABFC36A00A6894C /* UIPickerController+CropFix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPickerController+CropFix.swift"; sourceTree = "<group>"; };
 		E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscDetailView.swift; sourceTree = "<group>"; };
 		E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateDetailView.swift; sourceTree = "<group>"; };
 		E1CE52012AAF91B60044134D /* FilteredDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredDiscView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				E129A3302AA8B27900A9E255 /* DiscDrawerApp.swift */,
 				E129A3422AA8B2D000A9E255 /* Models */,
 				E129A33E2AA8B29600A9E255 /* Views */,
+				E14B6A742ABFC3B100A6894C /* Extensions */,
 				E129A3342AA8B27A00A9E255 /* Assets.xcassets */,
 				E129A3362AA8B27A00A9E255 /* Preview Content */,
 			);
@@ -158,6 +161,14 @@
 				E102BAB32ABF2C1800A58960 /* CameraView.swift */,
 			);
 			path = "Editing Views";
+			sourceTree = "<group>";
+		};
+		E14B6A742ABFC3B100A6894C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E14B6A722ABFC36A00A6894C /* UIPickerController+CropFix.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E1CE520E2AB096B70044134D /* Disc Listings */ = {
@@ -241,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14B6A732ABFC36A00A6894C /* UIPickerController+CropFix.swift in Sources */,
 				E1570BAF2AB331B0007315C9 /* DiscDetailView.swift in Sources */,
 				E13913FA2AB1E88E00CD9502 /* DiscTemplate+CoreDataProperties.swift in Sources */,
 				E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */,

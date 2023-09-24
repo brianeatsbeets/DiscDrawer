@@ -20,6 +20,7 @@ extension Disc {
     @NSManaged public var fade: Double
     @NSManaged public var flightChartUrl: String?
     @NSManaged public var glide: Double
+    @NSManaged public var imageData: Data?
     @NSManaged public var inBag: Bool
     @NSManaged public var manufacturer: String?
     @NSManaged public var name: String?

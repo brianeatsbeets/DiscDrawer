@@ -42,11 +42,27 @@ struct DiscDetailView: View {
                 VStack {
                     
                     // Disc image
-                    Circle()
-                        .foregroundColor(.red)
-                        .scaledToFit()
-                        .frame(width: geo.size.height * 0.25)
-                        .padding(.top, -30)
+                    ZStack {
+                        
+                        // Image
+                        if let imageData = disc.imageData,
+                           let discImage = UIImage(data: imageData) {
+                            Image(uiImage: discImage)
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(Circle())
+                        } else {
+                            Circle()
+                                .foregroundColor(.red)
+                                .scaledToFit()
+                        }
+                        
+                        // Border
+                        Circle()
+                            .stroke(.white, lineWidth: 3)
+                    }
+                    .frame(width: geo.size.height * 0.25)
+                    .padding(.top, -30)
                     
                     HStack {
                         

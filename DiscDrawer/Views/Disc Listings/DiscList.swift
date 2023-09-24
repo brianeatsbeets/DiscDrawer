@@ -186,9 +186,18 @@ struct DiscList: View {
                         
                         // Disc image
                         ZStack {
-                            Color.red
-                                .clipShape(Circle())
-                                .aspectRatio(contentMode: .fit)
+                            if let imageData = disc.imageData,
+                               let discImage = UIImage(data: imageData) {
+                                Image(uiImage: discImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipShape(Circle())
+                            } else {
+                                Color.red
+                                    .clipShape(Circle())
+                                    .aspectRatio(contentMode: .fit)
+                            }
+                            
                             Circle()
                                 .stroke(.white, lineWidth: 3)
                         }

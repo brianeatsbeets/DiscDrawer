@@ -96,6 +96,12 @@ struct AddEditDiscView: View {
         _fade = State(initialValue: Double(disc.fade))
         _condition = State(initialValue: disc.wrappedCondition)
         _inBag = State(initialValue: disc.inBag)
+        
+        if let imageData = disc.imageData,
+           let discImage = UIImage(data: imageData) {
+            _inputImage = State(initialValue: discImage)
+            _image = State(initialValue: Image(uiImage: inputImage!))
+        }
     }
     
     // Init with disc template
@@ -123,9 +129,8 @@ struct AddEditDiscView: View {
         Form {
             
             // Basic info
-            Section {
+            Section("Basic Information") {
                 TextField("Name", text: $name)
-                //TextField("Name", text: disc!.projectedValue.wrappedName)
                 TextField("Manufacturer", text: $manufacturer)
                 TextField("Plastic", text: $plastic)
                 
@@ -144,14 +149,28 @@ struct AddEditDiscView: View {
             }
             
             // Image
-            Section {
-                image?
-                    .resizable()
-                    .scaledToFit()
-                
-                Button("Take Picture") {
-                    showingImagePicker = true
+            Section("Image") {
+                VStack {
+                    if let image {
+                        ZStack {
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(Circle())
+                            
+                            Circle()
+                                .stroke(.white, lineWidth: 3)
+                        }
+                        .frame(width: 175)
+                        .padding(.bottom, 20)
+                    }
+                    
+                    Button("Take Picture") {
+                        showingImagePicker = true
+                    }
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
             }
             
             // Flight numbers
@@ -274,6 +293,7 @@ struct AddEditDiscView: View {
             disc.fade = Double(fade)
             disc.condition = condition
             disc.inBag = inBag
+            disc.imageData = inputImage?.jpegData(compressionQuality: 1.0)
         } else {
             
             // Create new Disc and assign values
