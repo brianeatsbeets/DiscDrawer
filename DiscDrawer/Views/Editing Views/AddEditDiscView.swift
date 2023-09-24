@@ -233,7 +233,7 @@ struct AddEditDiscView: View {
                         Button("Delete Disc", role: .destructive) {
                             showingDeleteAlert = true
                         }
-                        .alert("Are you sure?", isPresented: $showingDeleteAlert) {
+                        .confirmationDialog("Are you sure?", isPresented: $showingDeleteAlert) {
                             Button("Delete", role: .destructive, action: deleteDisc)
                             Button("Cancel", role: .cancel) { }
                         } message: {
