@@ -45,11 +45,14 @@ public class DiscTemplate: NSManagedObject, Decodable {
 
         // Adjust some cases of type
         let type = try container.decode(String.self, forKey: .type)
-        if type == "Hybrid Driver" || type == "Distance Driver" {
+        switch type {
+        case "Hybrid Driver", "Distance Driver":
             self.type = "Driver"
-        } else if type == "Control Driver" {
+        case "Control Driver":
             self.type = "Fairway"
-        } else {
+        case "Approach":
+            self.type = "Putter"
+        default:
             self.type = type
         }
     }
