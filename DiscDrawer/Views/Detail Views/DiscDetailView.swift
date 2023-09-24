@@ -26,6 +26,10 @@ struct DiscDetailView: View {
     
     @ObservedObject var disc: Disc
     
+    // Binding
+    
+    @Binding var discDetailToShow: Disc?
+    
     // Basic
     
     let widthFactor = 0.85
@@ -122,10 +126,11 @@ struct DiscDetailView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: AddEditDiscView(disc: disc)) {
+                        NavigationLink {
+                            AddEditDiscView(disc: disc, discDetailToShow: $discDetailToShow)
+                        } label: {
                             Text("Edit")
                         }
-                        .buttonStyle(.automatic)
                     }
                 }
             }

@@ -23,7 +23,7 @@ struct DiscList: View {
     
     // State
     
-    @State private var showingDetailForDisc: Disc? = nil
+    @State private var discDetailToShow: Disc?
     
     // Basic
     
@@ -48,7 +48,7 @@ struct DiscList: View {
                                 
                                 // Link to AddEditDiscView
                                 Button {
-                                    showingDetailForDisc = disc
+                                    discDetailToShow = disc
                                 } label: {
                                     DiscListItem(disc: disc)
                                 }
@@ -80,11 +80,11 @@ struct DiscList: View {
             }
         }
         .listStyle(.plain)
-        .sheet(item: $showingDetailForDisc) { disc in
+        .sheet(item: $discDetailToShow) { disc in
 
             // Manually add navigation view here to avoid adding a second navigation view when passing a disc
             NavigationView {
-                DiscDetailView(disc: disc)
+                DiscDetailView(disc: disc, discDetailToShow: $discDetailToShow)
             }
             .interactiveDismissDisabled()
         }

@@ -28,8 +28,9 @@ struct AddEditDiscView: View {
     
     // Bindings
     
-    // Optional binding used to dismiss multiple sheets at once
+    // Optional bindings used to dismiss multiple sheets at once
     var showingAddView: Binding<Bool>?
+    @Binding var discDetailToShow: Disc?
     
     // State
     
@@ -75,9 +76,10 @@ struct AddEditDiscView: View {
     // MARK: - Initializers
     
     // Init with optional disc
-    init(disc: Disc? = nil, showingAddView: Binding<Bool>? = nil) {
+    init(disc: Disc? = nil, showingAddView: Binding<Bool>? = nil, discDetailToShow: Binding<Disc?> = .constant(nil)) {
         
         self.showingAddView = showingAddView ?? nil
+        _discDetailToShow = discDetailToShow
         
         // Check if we were provided a disc
         guard let disc else { return }
@@ -108,6 +110,7 @@ struct AddEditDiscView: View {
     init(discTemplate: DiscTemplate, showingAddView: Binding<Bool>? = nil) {
         
         self.showingAddView = showingAddView ?? nil
+        _discDetailToShow = .constant(nil)
         
         disc = nil
         
@@ -319,6 +322,8 @@ struct AddEditDiscView: View {
     func dismissFromContext() {
         if showingAddView != nil {
             showingAddView!.wrappedValue = false
+        } else if discDetailToShow != nil {
+            discDetailToShow = nil
         } else {
             dismiss()
         }
