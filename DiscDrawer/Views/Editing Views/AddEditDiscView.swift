@@ -312,6 +312,7 @@ struct AddEditDiscView: View {
             newDisc.fade = Double(fade)
             newDisc.condition = condition
             newDisc.inBag = inBag
+            newDisc.imageData = inputImage?.jpegData(compressionQuality: 1.0)
         }
         
         // Save disc to managed object context

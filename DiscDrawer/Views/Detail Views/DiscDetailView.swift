@@ -63,7 +63,7 @@ struct DiscDetailView: View {
                         
                         // Border
                         Circle()
-                            .stroke(.white, lineWidth: 3)
+                            .stroke(Color("DiscDetailImageBorder"), lineWidth: 3)
                     }
                     .frame(width: geo.size.height * 0.25)
                     .padding(.top, -30)
