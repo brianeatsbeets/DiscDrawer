@@ -14,6 +14,8 @@
 		E118E9992AC1B4C200BB2BAB /* DiscDetailOtherInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E9982AC1B4C200BB2BAB /* DiscDetailOtherInfo.swift */; };
 		E118E99C2AC1B54700BB2BAB /* DiscTemplateDetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E99B2AC1B54700BB2BAB /* DiscTemplateDetailType.swift */; };
 		E118E99E2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E99D2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift */; };
+		E118E9A02AC1B7E100BB2BAB /* DiscCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E99F2AC1B7E100BB2BAB /* DiscCollectionHeader.swift */; };
+		E118E9A32AC1B85600BB2BAB /* DiscGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E9A22AC1B85600BB2BAB /* DiscGridItem.swift */; };
 		E129A3312AA8B27900A9E255 /* DiscDrawerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3302AA8B27900A9E255 /* DiscDrawerApp.swift */; };
 		E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3322AA8B27900A9E255 /* ContentView.swift */; };
 		E129A3352AA8B27A00A9E255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E129A3342AA8B27A00A9E255 /* Assets.xcassets */; };
@@ -43,6 +45,8 @@
 		E118E9982AC1B4C200BB2BAB /* DiscDetailOtherInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscDetailOtherInfo.swift; sourceTree = "<group>"; };
 		E118E99B2AC1B54700BB2BAB /* DiscTemplateDetailType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateDetailType.swift; sourceTree = "<group>"; };
 		E118E99D2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateDetailFlightNumbers.swift; sourceTree = "<group>"; };
+		E118E99F2AC1B7E100BB2BAB /* DiscCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscCollectionHeader.swift; sourceTree = "<group>"; };
+		E118E9A22AC1B85600BB2BAB /* DiscGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscGridItem.swift; sourceTree = "<group>"; };
 		E129A32D2AA8B27900A9E255 /* DiscDrawer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscDrawer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E129A3302AA8B27900A9E255 /* DiscDrawerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscDrawerApp.swift; sourceTree = "<group>"; };
 		E129A3322AA8B27900A9E255 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,6 +108,15 @@
 				E118E99D2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift */,
 			);
 			path = DiscTemplateDetailView;
+			sourceTree = "<group>";
+		};
+		E118E9A12AC1B83F00BB2BAB /* Disc Grid */ = {
+			isa = PBXGroup;
+			children = (
+				E1CE520F2AB098730044134D /* DiscGrid.swift */,
+				E118E9A22AC1B85600BB2BAB /* DiscGridItem.swift */,
+			);
+			path = "Disc Grid";
 			sourceTree = "<group>";
 		};
 		E129A3242AA8B27900A9E255 = {
@@ -216,7 +229,8 @@
 				E13913FB2AB208B000CD9502 /* DiscTemplateList.swift */,
 				E1CE52012AAF91B60044134D /* FilteredDiscView.swift */,
 				E118E9902AC1B34A00BB2BAB /* Disc List */,
-				E1CE520F2AB098730044134D /* DiscGrid.swift */,
+				E118E9A12AC1B83F00BB2BAB /* Disc Grid */,
+				E118E99F2AC1B7E100BB2BAB /* DiscCollectionHeader.swift */,
 			);
 			path = "Disc Listings";
 			sourceTree = "<group>";
@@ -292,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E14B6A732ABFC36A00A6894C /* UIPickerController+CropFix.swift in Sources */,
+				E118E9A02AC1B7E100BB2BAB /* DiscCollectionHeader.swift in Sources */,
 				E118E9922AC1B35700BB2BAB /* DiscListItem.swift in Sources */,
 				E1570BAF2AB331B0007315C9 /* DiscDetailView.swift in Sources */,
 				E13913FA2AB1E88E00CD9502 /* DiscTemplate+CoreDataProperties.swift in Sources */,
@@ -311,6 +326,7 @@
 				E118E9972AC1B47300BB2BAB /* DiscDetailFlightNumbers.swift in Sources */,
 				E118E9992AC1B4C200BB2BAB /* DiscDetailOtherInfo.swift in Sources */,
 				E118E9942AC1B3DA00BB2BAB /* DiscListFlightNumbers.swift in Sources */,
+				E118E9A32AC1B85600BB2BAB /* DiscGridItem.swift in Sources */,
 				E13913F92AB1E88E00CD9502 /* DiscTemplate+CoreDataClass.swift in Sources */,
 				E1CE52022AAF91B60044134D /* FilteredDiscView.swift in Sources */,
 				E129A3442AA8B3A100A9E255 /* DataController.swift in Sources */,

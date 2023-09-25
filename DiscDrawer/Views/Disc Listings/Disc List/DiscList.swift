@@ -57,24 +57,7 @@ struct DiscList: View {
                         }
                         .onDelete(perform: deleteDiscs)
                     } header: {
-                        
-                        ZStack(alignment: .bottomLeading) {
-                            Text(type)
-                                .font(.title2.bold())
-                                .foregroundColor(.accentColor)
-                                .padding(.horizontal, 7)
-                                .padding(.vertical, 3)
-                                .background(
-                                    Color("DiscListSectionHeader")
-                                        .clipShape(
-                                            UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 8, bottomLeading: 0, bottomTrailing: 0, topTrailing: 8))
-                                        )
-                                )
-                            
-                            Rectangle()
-                                .fill(Color("DiscListSectionHeader"))
-                                .frame(height: 3)
-                        }
+                        DiscCollectionHeader(type: type)
                     }
                 }
             }
