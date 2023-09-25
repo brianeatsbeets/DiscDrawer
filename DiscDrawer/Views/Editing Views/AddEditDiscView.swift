@@ -224,19 +224,10 @@ struct AddEditDiscView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer()
+
+                        // Flip the polarity on the field that has focus
                         Button("+/-") {
-                            switch focusedField {
-                            case .speed:
-                                speed = -speed
-                            case .glide:
-                                glide = -glide
-                            case .turn:
-                                turn = -turn
-                            case .fade:
-                                fade = -fade
-                            case .none:
-                                break
-                            }
+                            updateFlightNumberPolarity()
                         }
                     }
                 }
@@ -311,6 +302,22 @@ struct AddEditDiscView: View {
     }
 
     // MARK: - Functions
+
+    // Flip the polarity on the field that has focus
+    func updateFlightNumberPolarity() {
+        switch focusedField {
+        case .speed:
+            speed = -speed
+        case .glide:
+            glide = -glide
+        case .turn:
+            turn = -turn
+        case .fade:
+            fade = -fade
+        case .none:
+            break
+        }
+    }
 
     // Delete the current disc
     func deleteDisc() {
