@@ -255,7 +255,21 @@ struct AddEditDiscView: View {
             }
 
             // Delete disc button (if we're editing an existing disc)
-            if disc != nil {
+            if let disc {
+                Section {
+                    HStack {
+                        Spacer()
+
+                        NavigationLink {
+                            MeasureThrowView(disc: disc)
+                        } label: {
+                            Text("Measure Throw")
+                        }
+
+                        Spacer()
+                    }
+                }
+
                 Section {
                     HStack {
                         Spacer()
