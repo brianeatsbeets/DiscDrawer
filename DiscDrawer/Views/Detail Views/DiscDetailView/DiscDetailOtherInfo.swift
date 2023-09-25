@@ -188,7 +188,3 @@ struct DiscDetailOtherInfo: View {
         }
     }
 }
-
-//#Preview {
-//    DiscDetailOtherInfo()
-//}

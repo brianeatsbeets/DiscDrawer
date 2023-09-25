@@ -16,11 +16,18 @@ struct DiscTemplateDetailFlightNumbers: View {
 
     // MARK: - Properties
 
+    // Helper struct to contain disc attribute data
+    struct Attribute {
+        let label: String
+        let value: String
+        let color: Color
+    }
+
     let geo: GeometryProxy
 
-    var rowOneAttributes: [(String, String, Color)]
-    var rowTwoAttributes: [(String, String, Color)]
-    var attributeRows: [[(String, String, Color)]]
+    var rowOneAttributes: [Attribute]
+    var rowTwoAttributes: [Attribute]
+    var attributeRows: [[Attribute]]
 
     let backgroundOpacityFactor = 0.4
 
@@ -28,9 +35,8 @@ struct DiscTemplateDetailFlightNumbers: View {
 
     init(discTemplate: DiscTemplate, geo: GeometryProxy) {
         self.geo = geo
-
-        rowOneAttributes = [("Speed", discTemplate.wrappedSpeed, .green), ("Glide", discTemplate.wrappedGlide, .yellow)]
-        rowTwoAttributes = [("Turn", discTemplate.wrappedTurn, .red), ("Fade", discTemplate.wrappedFade, .indigo)]
+        rowOneAttributes = [Attribute(label: "Speed", value: discTemplate.wrappedSpeed, color: .green), Attribute(label: "Glide", value: discTemplate.wrappedGlide, color: .yellow)]
+        rowTwoAttributes = [Attribute(label: "Turn", value: discTemplate.wrappedTurn, color: .red), Attribute(label: "Fade", value: discTemplate.wrappedFade, color: .blue)]
         attributeRows = [rowOneAttributes, rowTwoAttributes]
     }
 
@@ -42,21 +48,21 @@ struct DiscTemplateDetailFlightNumbers: View {
         VStack(spacing: geo.size.width * 0.05) {
 
             // Loop through each attribute row
-            ForEach(attributeRows, id: \.first!.0) { row in
+            ForEach(attributeRows, id: \.first!.label) { row in
 
                 // Row
                 HStack(spacing: geo.size.width * 0.05) {
 
                     // Loop through each attribute
-                    ForEach(row, id: \.0) { attribute in
+                    ForEach(row, id: \.label) { attribute in
 
                         ZStack(alignment: .bottomLeading) {
 
                             // Background
                             RoundedRectangle(cornerRadius: 20)
-                                .strokeBorder(attribute.2, lineWidth: 3)
+                                .strokeBorder(attribute.color, lineWidth: 3)
                                 .background(
-                                    attribute.2
+                                    attribute.color
                                         .brightness(0.3)
                                         .clipShape(
                                             RoundedRectangle(cornerRadius: 20)
@@ -66,18 +72,18 @@ struct DiscTemplateDetailFlightNumbers: View {
                                 .frame(maxWidth: .infinity)
 
                             // Field name
-                            Text(attribute.0)
+                            Text(attribute.label)
                                 .font(.headline)
-                                .foregroundColor(attribute.2)
+                                .foregroundColor(attribute.color)
                                 .colorMultiply(Color(white: 0.5))
                                 .offset(x: 10, y: -10)
                         }
                         .overlay(
 
                             // Field value
-                            Text(attribute.1)
+                            Text(attribute.value)
                                 .font(SwiftUI.Font.system(size: 50).bold())
-                                .foregroundColor(attribute.2)
+                                .foregroundColor(attribute.color)
                                 .colorMultiply(Color(white: 0.5)),
                             alignment: .center
                         )
@@ -87,7 +93,3 @@ struct DiscTemplateDetailFlightNumbers: View {
         }
     }
 }
-
-//#Preview {
-//    DiscTemplateDetailFlightNumbers()
-//}

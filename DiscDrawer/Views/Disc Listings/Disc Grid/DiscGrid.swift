@@ -81,9 +81,3 @@ struct DiscGrid: View {
         }
     }
 }
-
-//struct DiscGrid_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DiscGrid()
-//    }
-//}

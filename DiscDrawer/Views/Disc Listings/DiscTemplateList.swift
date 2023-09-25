@@ -122,9 +122,3 @@ struct DiscTemplateList: View {
         }
     }
 }
-
-//struct DiscTemplateList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DiscTemplateList()
-//    }
-//}

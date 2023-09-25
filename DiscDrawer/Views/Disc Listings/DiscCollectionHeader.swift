@@ -40,7 +40,3 @@ struct DiscCollectionHeader: View {
         }
     }
 }
-
-//#Preview {
-//    DiscCollectionHeader()
-//}

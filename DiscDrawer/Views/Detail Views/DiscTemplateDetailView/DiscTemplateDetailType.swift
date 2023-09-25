@@ -59,7 +59,3 @@ struct DiscTemplateDetailType: View {
         }
     }
 }
-
-//#Preview {
-//    DiscTemplateDetailType()
-//}

@@ -45,9 +45,3 @@ struct FilteredDiscView: View {
         }
     }
 }
-
-//struct FilteredList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FilteredDiscView()
-//    }
-//}

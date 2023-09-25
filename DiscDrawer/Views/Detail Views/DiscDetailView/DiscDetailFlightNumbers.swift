@@ -188,7 +188,3 @@ struct DiscDetailFlightNumbers: View {
         }
     }
 }
-
-//#Preview {
-//    DiscDetailFlightNumbers()
-//}

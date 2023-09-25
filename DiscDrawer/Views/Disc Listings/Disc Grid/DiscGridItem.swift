@@ -83,7 +83,3 @@ struct DiscGridItem: View {
         .frame(height: 150)
     }
 }
-
-//#Preview {
-//    DiscGridItem()
-//}

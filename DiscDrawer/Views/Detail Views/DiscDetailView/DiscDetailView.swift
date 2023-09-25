@@ -137,9 +137,3 @@ struct DiscDetailView: View {
         }
     }
 }
-
-//struct DiscDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DiscDetailView(disc: disc)
-//    }
-//}

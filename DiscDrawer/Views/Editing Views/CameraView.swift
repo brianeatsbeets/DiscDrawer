@@ -5,7 +5,6 @@
 //  Created by Aguirre, Brian P. on 9/23/23.
 //
 
-
 // MARK: - Imported libraries
 
 import SwiftUI
@@ -65,7 +64,7 @@ struct CameraView: UIViewControllerRepresentable {
         // MARK: - Functions
 
         // Delegate function to read image picker data
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
             // Dismiss the picker
             picker.dismiss(animated: true)

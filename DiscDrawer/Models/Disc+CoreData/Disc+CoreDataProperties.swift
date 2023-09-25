@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Disc {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Disc> {
@@ -70,6 +69,6 @@ extension Disc {
     }
 }
 
-extension Disc : Identifiable {
+extension Disc: Identifiable {
 
 }

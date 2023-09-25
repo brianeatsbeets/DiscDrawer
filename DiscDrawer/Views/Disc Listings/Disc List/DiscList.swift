@@ -88,9 +88,3 @@ struct DiscList: View {
         try? moc.save()
     }
 }
-
-//struct DiscList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DiscList()
-//    }
-//}

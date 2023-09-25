@@ -193,7 +193,3 @@ struct DiscListItem: View {
 //            }
 //        }
 //    }
-
-//#Preview {
-//    DiscListItem()
-//}

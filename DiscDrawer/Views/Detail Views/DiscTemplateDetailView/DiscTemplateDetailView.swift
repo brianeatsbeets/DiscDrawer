@@ -71,16 +71,4 @@ struct DiscTemplateDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-
-    // MARK: - Nested structs
-
-
-
-
 }
-
-//struct DiscTemplateDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DiscTemplateDetailView(disc: disc)
-//    }
-//}

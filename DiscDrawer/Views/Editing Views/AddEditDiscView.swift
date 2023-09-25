@@ -5,8 +5,6 @@
 //  Created by Aguirre, Brian P. on 9/6/23.
 //
 
-// TODO: Save the captured image to Core Data
-
 // MARK: - Imported libraries
 
 import SwiftUI
@@ -379,9 +377,3 @@ struct AddEditDiscView: View {
         }
     }
 }
-
-//struct AddEditDiscView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddEditDiscView(disc: nil)
-//    }
-//}
