@@ -39,10 +39,15 @@ struct ContentView: View {
     
     // Computed sort descriptor to pass to FilteredDiscView
     var sortDescriptor: SortDescriptor<Disc> {
-        if sortItemIndex == 0 {
+        switch sortItemIndex {
+        case 0:
+            return SortDescriptor(\.speed, order: sortAsc ? .forward : .reverse)
+        case 1:
             return SortDescriptor(\.name, order: sortAsc ? .forward : .reverse)
-        } else {
+        case 2:
             return SortDescriptor(\.manufacturer, order: sortAsc ? .forward : .reverse)
+        default:
+            return SortDescriptor(\.speed, order: sortAsc ? .forward : .reverse)
         }
     }
     
@@ -73,8 +78,9 @@ struct ContentView: View {
                             
                             // Filter picker
                             Picker("Filter Field", selection: $sortItemIndex) {
-                                Text("Name").tag(0)
-                                Text("Manufacturer").tag(1)
+                                Text("Speed").tag(0)
+                                Text("Name").tag(1)
+                                Text("Manufacturer").tag(2)
                             }
                             .pickerStyle(.segmented)
                         }
