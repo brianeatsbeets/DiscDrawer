@@ -56,6 +56,8 @@ struct AddEditDiscView: View {
     @State private var showingDeleteAlert = false
     @State private var showingImagePicker = false
     
+    @State private var discWasDeleted = false
+    
     // Basic
     
     var disc: Disc?
@@ -314,6 +316,7 @@ struct AddEditDiscView: View {
     
     // Delete the current disc
     func deleteDisc() {
+        discWasDeleted = true
         moc.delete(disc!)
         try? moc.save() // TODO: Catch errors
         dismissFromContext()
@@ -361,10 +364,16 @@ struct AddEditDiscView: View {
     
     // Dismiss the view and optionally dismiss additional parent views using a binding
     func dismissFromContext() {
+        
+        // Saving a new disc - return to disc list
         if showingAddView != nil {
             showingAddView!.wrappedValue = false
-        } else if discDetailToShow != nil {
+            
+            // Deleting an existing disc - return to disc list
+        } else if discDetailToShow != nil && discWasDeleted {
             discDetailToShow = nil
+            
+            // Saving an existing disc - return to disc detail view
         } else {
             dismiss()
         }
