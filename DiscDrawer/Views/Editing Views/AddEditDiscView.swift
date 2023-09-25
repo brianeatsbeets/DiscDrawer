@@ -26,6 +26,10 @@ struct AddEditDiscView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
+    // FocusState
+    
+    @FocusState private var focusedField: focusedFlightNumber?
+    
     // Bindings
     
     // Optional bindings used to dismiss multiple sheets at once
@@ -71,6 +75,11 @@ struct AddEditDiscView: View {
         } else {
             return "Add Disc"
         }
+    }
+    
+    // Enum to define which flight number field has focus
+    enum focusedFlightNumber {
+        case speed, glide, turn, fade
     }
     
     // MARK: - Initializers
@@ -133,9 +142,18 @@ struct AddEditDiscView: View {
             
             // Basic info
             Section("Basic Information") {
-                TextField("Name", text: $name)
-                TextField("Manufacturer", text: $manufacturer)
-                TextField("Plastic", text: $plastic)
+                LabeledContent("Name") {
+                    TextField("Name", text: $name)
+                        .multilineTextAlignment(.trailing)
+                }
+                LabeledContent("Manufacturer") {
+                    TextField("Manufacturer", text: $manufacturer)
+                        .multilineTextAlignment(.trailing)
+                }
+                LabeledContent("Plastic") {
+                    TextField("Plastic", text: $plastic)
+                        .multilineTextAlignment(.trailing)
+                }
                 
                 Picker("Type", selection: $type) {
                     ForEach(types, id: \.self) {
@@ -144,10 +162,10 @@ struct AddEditDiscView: View {
                 }
                 .pickerStyle(.segmented)
                 
-                HStack {
-                    Text("Weight (g)")
+                LabeledContent("Weight (g)") {
                     TextField("Weight (g)", text: $weight)
                         .multilineTextAlignment(.trailing)
+                        .keyboardType(.decimalPad)
                 }
             }
             
@@ -181,23 +199,45 @@ struct AddEditDiscView: View {
                 HStack {
                     VStack {
                         TextField("Speed", value: $speed, format: .number)
-                            .multilineTextAlignment(.center)
+                            .focused($focusedField, equals: .speed)
                         Text("Speed")
                     }
                     VStack {
                         TextField("Glide", value: $glide, format: .number)
-                            .multilineTextAlignment(.center)
+                            .focused($focusedField, equals: .glide)
                         Text("Glide")
                     }
                     VStack {
                         TextField("Turn", value: $turn, format: .number)
-                            .multilineTextAlignment(.center)
+                            .focused($focusedField, equals: .turn)
                         Text("Turn")
                     }
                     VStack {
                         TextField("Fade", value: $fade, format: .number)
-                            .multilineTextAlignment(.center)
+                            .focused($focusedField, equals: .fade)
+                            
                         Text("Fade")
+                    }
+                }
+                .multilineTextAlignment(.center)
+                .keyboardType(.decimalPad)
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("+/-") {
+                            switch focusedField {
+                            case .speed:
+                                speed = -speed
+                            case .glide:
+                                glide = -glide
+                            case .turn:
+                                turn = -turn
+                            case .fade:
+                                fade = -fade
+                            case .none:
+                                break
+                            }
+                        }
                     }
                 }
             } header: {
