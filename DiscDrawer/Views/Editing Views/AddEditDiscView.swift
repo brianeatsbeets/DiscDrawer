@@ -17,27 +17,27 @@ import SwiftUI
 
 // This struct provides a view that allows for editing of a current disc or creation of a new one
 struct AddEditDiscView: View {
-    
+
     // MARK: - Properties
-    
+
     // Environment
-    
+
     // Managed object context
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-    
+
     // FocusState
-    
-    @FocusState private var focusedField: focusedFlightNumber?
-    
+
+    @FocusState private var focusedField: FocusedFlightNumber?
+
     // Bindings
-    
+
     // Optional bindings used to dismiss multiple sheets at once
     var showingAddView: Binding<Bool>?
     @Binding var discDetailToShow: Disc?
-    
+
     // State
-    
+
     @State private var name = ""
     @State private var type = "Putter"
     @State private var manufacturer = ""
@@ -50,26 +50,26 @@ struct AddEditDiscView: View {
     @State private var condition = "Great"
     @State private var inBag = false
     @State private var image: Image?
-    
+
     @State private var inputImage: UIImage?
-    
+
     @State private var showingDeleteAlert = false
     @State private var showingImagePicker = false
-    
+
     @State private var discWasDeleted = false
-    
+
     // Basic
-    
+
     var disc: Disc?
-    
+
     let types = ["Putter", "Midrange", "Fairway", "Driver"]
     let conditions = ["Great", "Good", "Fair", "Bad"]
-    
+
     // Property to contain data validation
     var dataIsValid: Bool {
         name != ""
     }
-    
+
     // Contextual navigation title
     var navigationTitle: String {
         if disc != nil {
@@ -78,25 +78,25 @@ struct AddEditDiscView: View {
             return "Add Disc"
         }
     }
-    
+
     // Enum to define which flight number field has focus
-    enum focusedFlightNumber {
+    enum FocusedFlightNumber {
         case speed, glide, turn, fade
     }
-    
+
     // MARK: - Initializers
-    
+
     // Init with optional disc
     init(disc: Disc? = nil, showingAddView: Binding<Bool>? = nil, discDetailToShow: Binding<Disc?> = .constant(nil)) {
-        
+
         self.showingAddView = showingAddView ?? nil
         _discDetailToShow = discDetailToShow
-        
+
         // Check if we were provided a disc
         guard let disc else { return }
-        
+
         self.disc = disc
-        
+
         // Initialize state values
         _name = State(initialValue: disc.wrappedName)
         _type = State(initialValue: disc.wrappedType)
@@ -109,22 +109,22 @@ struct AddEditDiscView: View {
         _fade = State(initialValue: Double(disc.fade))
         _condition = State(initialValue: disc.wrappedCondition)
         _inBag = State(initialValue: disc.inBag)
-        
+
         if let imageData = disc.imageData,
            let discImage = UIImage(data: imageData) {
             _inputImage = State(initialValue: discImage)
             _image = State(initialValue: Image(uiImage: inputImage!))
         }
     }
-    
+
     // Init with disc template
     init(discTemplate: DiscTemplate, showingAddView: Binding<Bool>? = nil) {
-        
+
         self.showingAddView = showingAddView ?? nil
         _discDetailToShow = .constant(nil)
-        
+
         disc = nil
-        
+
         // Initialize state values
         _name = State(initialValue: discTemplate.name ?? "")
         _type = State(initialValue: discTemplate.wrappedType)
@@ -134,14 +134,14 @@ struct AddEditDiscView: View {
         _turn = State(initialValue: Double(discTemplate.turn ?? "") ?? 0)
         _fade = State(initialValue: Double(discTemplate.fade ?? "") ?? 0)
     }
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
-        
+
         // Main form
         Form {
-            
+
             // Basic info
             Section("Basic Information") {
                 LabeledContent("Name") {
@@ -156,21 +156,21 @@ struct AddEditDiscView: View {
                     TextField("Plastic", text: $plastic)
                         .multilineTextAlignment(.trailing)
                 }
-                
+
                 Picker("Type", selection: $type) {
                     ForEach(types, id: \.self) {
                         Text($0)
                     }
                 }
                 .pickerStyle(.segmented)
-                
+
                 LabeledContent("Weight (g)") {
                     TextField("Weight (g)", text: $weight)
                         .multilineTextAlignment(.trailing)
                         .keyboardType(.decimalPad)
                 }
             }
-            
+
             // Image
             Section("Image") {
                 VStack {
@@ -180,14 +180,14 @@ struct AddEditDiscView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .clipShape(Circle())
-                            
+
                             Circle()
                                 .stroke(.white, lineWidth: 3)
                         }
                         .frame(width: 175)
                         .padding(.bottom, 20)
                     }
-                    
+
                     Button("Take Picture") {
                         showingImagePicker = true
                     }
@@ -195,7 +195,7 @@ struct AddEditDiscView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 10)
             }
-            
+
             // Flight numbers
             Section {
                 HStack {
@@ -217,7 +217,7 @@ struct AddEditDiscView: View {
                     VStack {
                         TextField("Fade", value: $fade, format: .number)
                             .focused($focusedField, equals: .fade)
-                            
+
                         Text("Fade")
                     }
                 }
@@ -245,7 +245,7 @@ struct AddEditDiscView: View {
             } header: {
                 Text("Flight numbers")
             }
-            
+
             // Condition
             Section {
                 Picker("Condition", selection: $condition) {
@@ -257,20 +257,20 @@ struct AddEditDiscView: View {
             } header: {
                 Text("Condition")
             }
-            
+
             // In bag
             Section {
                 HStack {
                     Toggle("In bag", isOn: $inBag)
                 }
             }
-            
+
             // Delete disc button (if we're editing an existing disc)
             if disc != nil {
                 Section {
                     HStack {
                         Spacer()
-                        
+
                         // Display a confirmation alert
                         Button("Delete Disc", role: .destructive) {
                             showingDeleteAlert = true
@@ -281,7 +281,7 @@ struct AddEditDiscView: View {
                         } message: {
                             Text("All data for this disc will be permanently deleted.")
                         }
-                        
+
                         Spacer()
                     }
                 }
@@ -299,11 +299,11 @@ struct AddEditDiscView: View {
             .disabled(!dataIsValid)
         }
         .fullScreenCover(isPresented: $showingImagePicker) {
-            
+
             // Present a full screen camera view
             CameraView(image: $inputImage)
                 .edgesIgnoringSafeArea(.all)
-            
+
                 // When a picture is taken, load the image here
                 .onChange(of: inputImage) { _ in
                     guard let inputImage = inputImage else { return }
@@ -311,9 +311,9 @@ struct AddEditDiscView: View {
                 }
         }
     }
-    
+
     // MARK: - Functions
-    
+
     // Delete the current disc
     func deleteDisc() {
         discWasDeleted = true
@@ -321,13 +321,13 @@ struct AddEditDiscView: View {
         try? moc.save() // TODO: Catch errors
         dismissFromContext()
     }
-    
+
     // Save the disc information
     func saveDisc() {
-        
+
         // If we're editing an existing disc, update it
         if let disc {
-            
+
             disc.name = name
             disc.type = type
             disc.manufacturer = manufacturer
@@ -341,7 +341,7 @@ struct AddEditDiscView: View {
             disc.inBag = inBag
             disc.imageData = inputImage?.jpegData(compressionQuality: 1.0)
         } else {
-            
+
             // Create new Disc and assign values
             let newDisc = Disc(context: moc)
             newDisc.name = name
@@ -357,22 +357,22 @@ struct AddEditDiscView: View {
             newDisc.inBag = inBag
             newDisc.imageData = inputImage?.jpegData(compressionQuality: 1.0)
         }
-        
+
         // Save disc to managed object context
         try? moc.save() // TODO: Catch errors
     }
-    
+
     // Dismiss the view and optionally dismiss additional parent views using a binding
     func dismissFromContext() {
-        
+
         // Saving a new disc - return to disc list
         if showingAddView != nil {
             showingAddView!.wrappedValue = false
-            
+
             // Deleting an existing disc - return to disc list
         } else if discDetailToShow != nil && discWasDeleted {
             discDetailToShow = nil
-            
+
             // Saving an existing disc - return to disc detail view
         } else {
             dismiss()

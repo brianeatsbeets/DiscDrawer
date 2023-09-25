@@ -13,31 +13,31 @@ import SwiftUI
 
 // This struct provides a view that displays a single disc styled for a list
 struct DiscListItem: View {
-    
+
     // MARK: - Properties
-    
+
     // Environment
-    
+
     @Environment(\.colorScheme) var colorScheme
-    
+
     // Observed objects
-    
+
     @ObservedObject var disc: Disc
-    
+
     // Basic
-    
+
     let frameHeight = 80.0
     var contentHeight: Double {
         frameHeight - 15
     }
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
-        
+
         // Main stack
         ZStack {
-            
+
             // Background/border
             RoundedRectangle(cornerRadius: 20)
                 .strokeBorder(Color("DiscListItemBorder"), lineWidth: 3)
@@ -49,13 +49,13 @@ struct DiscListItem: View {
                         )
                 )
                 .frame(height: frameHeight)
-            
+
             // Content stack
             HStack {
-                
+
                 // Disc info
                 ZStack(alignment: .trailing) {
-                    
+
                     // Background
                     RoundedRectangle(cornerRadius: 15)
                         .strokeBorder(.mint, lineWidth: 2)
@@ -66,7 +66,7 @@ struct DiscListItem: View {
                                     RoundedRectangle(cornerRadius: 15)
                                 )
                         )
-                    
+
                     // Text
                     VStack(alignment: .trailing) {
                         if disc.wrappedManufacturer != "N/A" {
@@ -88,10 +88,10 @@ struct DiscListItem: View {
                     .padding(.vertical, 3)
                 }
                 .frame(maxWidth: .infinity, maxHeight: contentHeight)
-                
+
                 // Disc image/name
                 ZStack {
-                    
+
                     // Disc image
                     ZStack {
                         if let imageData = disc.imageData,
@@ -105,12 +105,12 @@ struct DiscListItem: View {
                                 .clipShape(Circle())
                                 .aspectRatio(contentMode: .fit)
                         }
-                        
+
                         Circle()
                             .stroke(.white, lineWidth: 3)
                     }
                     .frame(height: 95)
-                    
+
                     // Disc name
                     Text(disc.wrappedName)
                         .frame(width: 85, height: 20)
@@ -130,18 +130,18 @@ struct DiscListItem: View {
                         )
                         .offset(y: 35)
                 }
-                
+
                 // Flight numbers
                 DiscListFlightNumbers(disc: disc)
                     .frame(maxWidth: .infinity, maxHeight: contentHeight)
                     .padding(.horizontal, 8)
-                
+
             }
             .padding(.horizontal, 10)
             .frame(height: frameHeight)
         }
     }
-    
+
     // Helper function to abbreviate long manufacturer names
     func abbreviatedManufacturer() -> String {
         let components = disc.wrappedManufacturer.components(separatedBy: " ")

@@ -13,13 +13,13 @@ import SwiftUI
 
 // This struct provides a header view for a disc list or grid
 struct DiscCollectionHeader: View {
-    
+
     // MARK: - Properties
-    
+
     let type: String
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             Text(type)
@@ -33,7 +33,7 @@ struct DiscCollectionHeader: View {
                             UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 8, bottomLeading: 0, bottomTrailing: 0, topTrailing: 8))
                         )
                 )
-            
+
             Rectangle()
                 .fill(Color("DiscListSectionHeader"))
                 .frame(height: 3)

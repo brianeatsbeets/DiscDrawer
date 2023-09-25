@@ -13,45 +13,45 @@ import SwiftUI
 
 // This struct provides a view that displays discs in a grid
 struct DiscGrid: View {
-    
+
     // MARK: - Properties
-    
+
     // Environment
-    
+
     // Managed object context
     @Environment(\.managedObjectContext) var moc
-    
+
     // State
-    
+
     @State private var discDetailToShow: Disc?
-    
+
     // Basic
-    
+
     let discs: FetchedResults<Disc>
     let types = ["Putter", "Midrange", "Fairway", "Driver"]
-    
+
     // Grid layout
     let columns = [
         GridItem(.adaptive(minimum: 100))
     ]
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                
+
                 // Create sections for disc types
                 ForEach(types, id: \.self) { type in
-                    
+
                     // Only create a type section if it has matching discs
                     if discs.contains(where: { $0.type == type }) {
                         Section {
-                            
+
                             // Display discs that match the section type
                             ForEach(discs) { disc in
                                 if disc.type == type {
-                                    
+
                                     // Link to AddEditDiscView
                                     Button {
                                         discDetailToShow = disc
@@ -76,7 +76,7 @@ struct DiscGrid: View {
                 }
                 .interactiveDismissDisabled()
             }
-            
+
             Spacer()
         }
     }

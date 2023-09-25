@@ -13,20 +13,20 @@ import SwiftUI
 
 // This struct provides a view that displays flight numbers for a Disc
 struct DiscTemplateDetailType: View {
-    
+
     // MARK: - Properties
-    
+
     let type: String
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
-        
+
         // Main HStack
         HStack {
-                
+
             ZStack(alignment: .bottomLeading) {
-                
+
                 // Background
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(.cyan, lineWidth: 3)
@@ -37,7 +37,7 @@ struct DiscTemplateDetailType: View {
                                 RoundedRectangle(cornerRadius: 20)
                             )
                     )
-                
+
                 // Text
                 VStack {
                     Text("Type")
@@ -48,7 +48,7 @@ struct DiscTemplateDetailType: View {
                 }
             }
             .overlay(
-                
+
                 // Field value
                 Text(type)
                     .font(.largeTitle.bold())

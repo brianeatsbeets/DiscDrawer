@@ -11,7 +11,7 @@ import CoreData
 
 @objc(DiscTemplate)
 public class DiscTemplate: NSManagedObject, Decodable {
-    
+
     enum CodingKeys: String, CodingKey {
         case name = "name"
         case manufacturer = "brand"
@@ -23,16 +23,16 @@ public class DiscTemplate: NSManagedObject, Decodable {
         case stability = "stability"
         case flightChartUrl = "pic"
     }
-    
+
     required public convenience init(from decoder: Decoder) throws {
-        
+
         guard let context = decoder.userInfo[.managedObjectContext] as? NSManagedObjectContext else {
             print("Failed to assign context")
             throw DecoderConfigurationError.missingManagedObjectContext
         }
-        
+
         self.init(context: context)
-        
+
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.manufacturer = try container.decode(String.self, forKey: .manufacturer)

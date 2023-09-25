@@ -25,9 +25,9 @@ extension DiscTemplate {
     @NSManaged public var fade: String?
     @NSManaged public var stability: String?
     @NSManaged public var flightChartUrl: String?
-    
+
     // Convenience computed properties
-    
+
     public var wrappedName: String {
         name ?? "Unknown name"
     }
@@ -35,27 +35,27 @@ extension DiscTemplate {
     public var wrappedManufacturer: String {
         manufacturer ?? "Unknown manufacturer"
     }
-    
+
     public var wrappedType: String {
         type ?? "Putter"
     }
-    
+
     public var wrappedSpeed: String {
         speed ?? "?"
     }
-    
+
     public var wrappedGlide: String {
         glide ?? "?"
     }
-    
+
     public var wrappedTurn: String {
         turn ?? "?"
     }
-    
+
     public var wrappedFade: String {
         fade ?? "?"
     }
-    
+
     public var wrappedStability: String {
         stability ?? "Stable"
     }

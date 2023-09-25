@@ -13,19 +13,19 @@ import SwiftUI
 
 // This struct provides a view that displays a single disc styled for a grid
 struct DiscGridItem: View {
-    
+
     // MARK: - Properties
-    
+
     @ObservedObject var disc: Disc
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
         Group {
-            
+
             // Main VStack
             VStack {
-                
+
                 // Disc image
                 ZStack {
                     if let imageData = disc.imageData,
@@ -39,24 +39,24 @@ struct DiscGridItem: View {
                             .clipShape(Circle())
                             .aspectRatio(contentMode: .fit)
                     }
-                    
+
                     Circle()
                         .stroke(.white, lineWidth: 3)
                 }
                 .frame(height: 70)
                 .padding(.top, 10)
-                
+
                 Spacer()
-                
+
                 // Disc info
                 VStack(spacing: 3) {
-                    
+
                     // Disc name
                     Text(disc.wrappedName)
                         .font(.headline)
                         .foregroundColor(.black)
                         .minimumScaleFactor(0.8)
-                    
+
                     // Disc manufacturer
                     if disc.manufacturer != "" {
                         Text(disc.wrappedManufacturer)
@@ -84,6 +84,6 @@ struct DiscGridItem: View {
     }
 }
 
-#Preview {
-    DiscGridItem()
-}
+//#Preview {
+//    DiscGridItem()
+//}

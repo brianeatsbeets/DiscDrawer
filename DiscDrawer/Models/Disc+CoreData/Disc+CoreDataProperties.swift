@@ -30,9 +30,9 @@ extension Disc {
     @NSManaged public var turn: Double
     @NSManaged public var type: String?
     @NSManaged public var weight: Int16
-    
+
     // Convenience computed properties
-    
+
     public var wrappedName: String {
         name ?? "N/A"
     }
@@ -46,7 +46,7 @@ extension Disc {
             return manufacturer!
         }
     }
-    
+
     public var wrappedPlastic: String {
         if plastic == nil {
             return "N/A"
@@ -56,15 +56,15 @@ extension Disc {
             return plastic!
         }
     }
-    
+
     public var wrappedType: String {
         type ?? "Putter"
     }
-    
+
     public var wrappedCondition: String {
         condition ?? "Great"
     }
-    
+
     public var wrappedStability: String {
         stability ?? "Stable"
     }

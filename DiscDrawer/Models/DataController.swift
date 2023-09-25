@@ -13,12 +13,12 @@ import CoreData
 
 // This class implements a controller for a Core Data container
 class DataController: ObservableObject {
-    
+
     // MARK: - Properties
-    
+
     // Core Data container
     let container = NSPersistentContainer(name: "DiscDrawer")
-    
+
     // Init access to data
     init() {
         container.loadPersistentStores { description, error in

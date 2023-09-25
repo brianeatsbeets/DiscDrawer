@@ -13,32 +13,32 @@ import SwiftUI
 
 // This struct provides a sorted list of disc templates
 struct DiscTemplateList: View {
-    
+
     // MARK: - Properties
-    
+
     // Environment
-    
+
     @Environment(\.managedObjectContext) var moc
-    
+
     // Fetch requests
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var discTemplates: FetchedResults<DiscTemplate>
-    
+
     // State
-    
+
     @State private var searchQuery = ""
-    
+
     // Bindings
-    
+
     // Optional binding used to dismiss multiple sheets at once
     var showingAddView: Binding<Bool>?
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
         List {
             ForEach(discTemplates) { discTemplate in
                 NavigationLink {
-                    
+
                     // Show disc details or edit view depending on context
                     if showingAddView != nil {
                         AddEditDiscView(discTemplate: discTemplate, showingAddView: showingAddView)
@@ -52,12 +52,12 @@ struct DiscTemplateList: View {
         }
         .navigationTitle(showingAddView != nil ? "Select a disc" : "Disc Finder")
         .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Disc name")
-        .autocorrectionDisabled(true) 
+        .autocorrectionDisabled(true)
         .onChange(of: searchQuery) { newValue in
             discTemplates.nsPredicate = searchPredicate(query: newValue)
         }
         .toolbar {
-            
+
             // Display toolbar navigation buttons only if we're adding a disc
             if showingAddView != nil {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -67,7 +67,7 @@ struct DiscTemplateList: View {
                         Image(systemName: "xmark")
                     }
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
                         AddEditDiscView(showingAddView: showingAddView)
@@ -78,9 +78,9 @@ struct DiscTemplateList: View {
             }
         }
     }
-    
+
     // MARK: - Functions
-    
+
     func searchPredicate(query: String) -> NSPredicate? {
         if query.isEmpty {
             return nil
@@ -90,18 +90,18 @@ struct DiscTemplateList: View {
             return NSCompoundPredicate(orPredicateWithSubpredicates: [partOne, partTwo])
         }
     }
-    
+
     // MARK: - Nested structs
-    
+
     // This struct provides a view that displays a single disc template styled for a list
     struct DiscTemplateItem: View {
-        
+
         // MARK: - Properties
-        
+
         var disc: DiscTemplate
-        
+
         // MARK: - Body view
-        
+
         var body: some View {
             HStack {
                 VStack(alignment: .leading) {
@@ -110,9 +110,9 @@ struct DiscTemplateList: View {
                     Text(disc.wrappedManufacturer)
                         .font(.subheadline)
                 }
-                
+
                 Spacer()
-                
+
                 VStack(alignment: .trailing) {
                     Text(disc.wrappedType)
                         .font(.headline)

@@ -13,39 +13,39 @@ import SwiftUI
 
 // This struct provides a view that displays discs in a list
 struct DiscList: View {
-    
+
     // MARK: - Properties
-    
+
     // Environment
-    
+
     // Managed object context
     @Environment(\.managedObjectContext) var moc
-    
+
     // State
-    
+
     @State private var discDetailToShow: Disc?
-    
+
     // Basic
-    
+
     let discs: FetchedResults<Disc>
     let types = ["Putter", "Midrange", "Fairway", "Driver"]
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
         List {
-            
+
             // Create sections for disc types
             ForEach(types, id: \.self) { type in
-                
+
                 // Only create a type section if it has matching discs
                 if discs.contains(where: { $0.type == type }) {
                     Section {
-                        
+
                         // Display discs that match the section type
                         ForEach(discs) { disc in
                             if disc.type == type {
-                                
+
                                 // Link to AddEditDiscView
                                 Button {
                                     discDetailToShow = disc
@@ -72,12 +72,12 @@ struct DiscList: View {
             .interactiveDismissDisabled()
         }
     }
-    
+
     // MARK: - Functions
-    
+
     // Delete specified discs
     func deleteDiscs(at offsets: IndexSet) {
-        
+
         // Loop through each offset and delete the disc
         for offset in offsets {
             moc.delete(discs[offset])

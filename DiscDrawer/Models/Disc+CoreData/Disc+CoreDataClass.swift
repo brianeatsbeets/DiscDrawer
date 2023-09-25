@@ -11,5 +11,5 @@ import CoreData
 
 @objc(Disc)
 public class Disc: NSManagedObject {
-    
+
 }

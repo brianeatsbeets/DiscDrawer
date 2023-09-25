@@ -13,34 +13,34 @@ import SwiftUI
 
 // This struct provides a view that displays flight numbers for a Disc
 struct DiscDetailFlightNumbers: View {
-    
+
     // MARK: - Properties
-    
+
     // ObservedObject
-    
+
     @ObservedObject var disc: Disc
-    
+
     // Basic
-    
+
     let minWidthFactor = 0.1
     let backgroundOpacityFactor = 0.4
-    
+
     // MARK: - Initializers
-    
+
     init(disc: Disc, geo: GeometryProxy) {
         self.disc = disc
     }
-    
+
     // MARK: - Body view
-    
+
     var body: some View {
-            
+
         // Main HStack
         HStack(spacing: 20) {
-            
+
             // Speed
             ZStack(alignment: .bottom) {
-                
+
                 // Background
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(.green, lineWidth: 3)
@@ -52,7 +52,7 @@ struct DiscDetailFlightNumbers: View {
                             )
                     )
                     .aspectRatio(1.0, contentMode: .fit)
-                
+
                 // Text
                 Text("Speed")
                     .font(.subheadline.bold())
@@ -62,7 +62,7 @@ struct DiscDetailFlightNumbers: View {
                     .colorMultiply(Color(white: 0.5))
             }
             .overlay(
-                
+
                 // Field value
                 Text(disc.speed.formatted())
                     .font(.largeTitle.bold())
@@ -74,10 +74,10 @@ struct DiscDetailFlightNumbers: View {
                     .offset(y: -8),
                 alignment: .center
             )
-            
+
             // Glide
             ZStack(alignment: .bottom) {
-                
+
                 // Background
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(.yellow, lineWidth: 3)
@@ -89,7 +89,7 @@ struct DiscDetailFlightNumbers: View {
                             )
                     )
                     .aspectRatio(1.0, contentMode: .fit)
-                
+
                 // Text
                 Text("Glide")
                     .font(.subheadline.bold())
@@ -99,7 +99,7 @@ struct DiscDetailFlightNumbers: View {
                     .colorMultiply(Color(white: 0.5))
             }
             .overlay(
-                
+
                 // Field value
                 Text(disc.glide.formatted())
                     .font(.largeTitle.bold())
@@ -111,10 +111,10 @@ struct DiscDetailFlightNumbers: View {
                     .offset(y: -8),
                 alignment: .center
             )
-            
+
             // Turn
             ZStack(alignment: .bottom) {
-                
+
                 // Background
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(.pink, lineWidth: 3)
@@ -126,7 +126,7 @@ struct DiscDetailFlightNumbers: View {
                             )
                     )
                     .aspectRatio(1.0, contentMode: .fit)
-                
+
                 // Text
                 Text("Turn")
                     .font(.subheadline.bold())
@@ -136,7 +136,7 @@ struct DiscDetailFlightNumbers: View {
                     .colorMultiply(Color(white: 0.5))
             }
             .overlay(
-                
+
                 // Field value
                 Text(disc.turn.formatted())
                     .font(.largeTitle.bold())
@@ -148,10 +148,10 @@ struct DiscDetailFlightNumbers: View {
                     .offset(y: -8),
                 alignment: .center
             )
-            
+
             // Fade
             ZStack(alignment: .bottom) {
-                
+
                 // Background
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(.blue, lineWidth: 3)
@@ -163,7 +163,7 @@ struct DiscDetailFlightNumbers: View {
                             )
                     )
                     .aspectRatio(1.0, contentMode: .fit)
-                
+
                 // Text
                 Text("Fade")
                     .font(.subheadline.bold())
@@ -173,7 +173,7 @@ struct DiscDetailFlightNumbers: View {
                     .colorMultiply(Color(white: 0.5))
             }
             .overlay(
-                
+
                 // Field value
                 Text(disc.fade.formatted())
                     .font(.largeTitle.bold())
