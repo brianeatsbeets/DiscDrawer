@@ -12,7 +12,7 @@ struct DiscDrawerApp: App {
 
     // Core Data data controller object
     @StateObject private var dataController = DataController()
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

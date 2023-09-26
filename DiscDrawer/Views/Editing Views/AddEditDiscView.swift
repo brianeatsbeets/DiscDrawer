@@ -308,7 +308,7 @@ struct AddEditDiscView: View {
                 .edgesIgnoringSafeArea(.all)
 
                 // When a picture is taken, load the image here
-                .onChange(of: inputImage) { _ in
+                .onChange(of: inputImage, initial: false) {
                     guard let inputImage = inputImage else { return }
                     image = Image(uiImage: inputImage)
                 }

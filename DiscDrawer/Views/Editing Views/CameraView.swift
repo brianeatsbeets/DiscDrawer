@@ -16,7 +16,6 @@ struct CameraView: UIViewControllerRepresentable {
 
     // MARK: - Properties
 
-    // Hold the user selection
     @Binding var image: UIImage?
 
     // MARK: - Functions

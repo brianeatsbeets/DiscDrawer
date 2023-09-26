@@ -53,7 +53,7 @@ struct DiscTemplateList: View {
         .navigationTitle(showingAddView != nil ? "Select a disc" : "Disc Finder")
         .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Disc name")
         .autocorrectionDisabled(true)
-        .onChange(of: searchQuery) { newValue in
+        .onChange(of: searchQuery, initial: false) { _, newValue  in
             discTemplates.nsPredicate = searchPredicate(query: newValue)
         }
         .toolbar {
