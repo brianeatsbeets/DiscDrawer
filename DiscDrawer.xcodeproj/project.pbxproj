@@ -33,6 +33,7 @@
 		E16034EE2AC2227600151F8F /* MeasureThrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16034ED2AC2227600151F8F /* MeasureThrowView.swift */; };
 		E16034F02AC2252E00151F8F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16034EF2AC2252E00151F8F /* LocationManager.swift */; };
 		E17D3C2E2AC3C0F2009FFA86 /* MeasuredThrowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17D3C2D2AC3C0F2009FFA86 /* MeasuredThrowList.swift */; };
+		E17D3C302AC46FC9009FFA86 /* MeasuredThrowListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17D3C2F2AC46FC9009FFA86 /* MeasuredThrowListItem.swift */; };
 		E1A8E2262AB78A4400903543 /* DiscTemplateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */; };
 		E1CE52022AAF91B60044134D /* FilteredDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52012AAF91B60044134D /* FilteredDiscView.swift */; };
 		E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520C2AB094BA0044134D /* DiscList.swift */; };
@@ -69,6 +70,7 @@
 		E16034EF2AC2252E00151F8F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E1608DC52AC3256C008336BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E17D3C2D2AC3C0F2009FFA86 /* MeasuredThrowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasuredThrowList.swift; sourceTree = "<group>"; };
+		E17D3C2F2AC46FC9009FFA86 /* MeasuredThrowListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasuredThrowListItem.swift; sourceTree = "<group>"; };
 		E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateDetailView.swift; sourceTree = "<group>"; };
 		E1CE52012AAF91B60044134D /* FilteredDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredDiscView.swift; sourceTree = "<group>"; };
 		E1CE520C2AB094BA0044134D /* DiscList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscList.swift; sourceTree = "<group>"; };
@@ -169,10 +171,10 @@
 			children = (
 				E1CE52132AB0A5850044134D /* LogoView.swift */,
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
-				E17D3C2D2AC3C0F2009FFA86 /* MeasuredThrowList.swift */,
 				E14B6A702ABF3B4000A6894C /* Detail Views */,
 				E14B6A712ABF3B6100A6894C /* Editing Views */,
 				E1CE520E2AB096B70044134D /* Disc Listings */,
+				E17D3C312AC4708B009FFA86 /* Measured Throw List */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +242,15 @@
 				E16034EF2AC2252E00151F8F /* LocationManager.swift */,
 			);
 			path = "Map Stuff";
+			sourceTree = "<group>";
+		};
+		E17D3C312AC4708B009FFA86 /* Measured Throw List */ = {
+			isa = PBXGroup;
+			children = (
+				E17D3C2D2AC3C0F2009FFA86 /* MeasuredThrowList.swift */,
+				E17D3C2F2AC46FC9009FFA86 /* MeasuredThrowListItem.swift */,
+			);
+			path = "Measured Throw List";
 			sourceTree = "<group>";
 		};
 		E1CE520E2AB096B70044134D /* Disc Listings */ = {
@@ -371,6 +382,7 @@
 				E118E9A32AC1B85600BB2BAB /* DiscGridItem.swift in Sources */,
 				E13913F92AB1E88E00CD9502 /* DiscTemplate+CoreDataClass.swift in Sources */,
 				E16034EE2AC2227600151F8F /* MeasureThrowView.swift in Sources */,
+				E17D3C302AC46FC9009FFA86 /* MeasuredThrowListItem.swift in Sources */,
 				E16034F02AC2252E00151F8F /* LocationManager.swift in Sources */,
 				E1CE52022AAF91B60044134D /* FilteredDiscView.swift in Sources */,
 				E129A3442AA8B3A100A9E255 /* DataController.swift in Sources */,
