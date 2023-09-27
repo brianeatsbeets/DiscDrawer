@@ -68,7 +68,7 @@ struct DiscGrid: View {
                 }
             }
             .padding()
-            .sheet(item: $discDetailToShow) { disc in
+            .fullScreenCover(item: $discDetailToShow) { disc in
 
                 // Manually add navigation view here to avoid adding a second navigation view when passing a disc
                 NavigationView {
