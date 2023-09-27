@@ -183,7 +183,7 @@ struct ContentView: View {
             if splashScreenEnabled {
 
                 // Logo view dismiss animation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
                     withAnimation(.easeIn(duration: 0.2)) {
                         showingLogoView.toggle()
                     }
