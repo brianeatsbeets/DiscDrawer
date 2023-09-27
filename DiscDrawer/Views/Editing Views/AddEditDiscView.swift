@@ -260,20 +260,6 @@ struct AddEditDiscView: View {
                     HStack {
                         Spacer()
 
-                        NavigationLink {
-                            MeasureThrowView(disc: disc)
-                        } label: {
-                            Text("Measure Throw")
-                        }
-
-                        Spacer()
-                    }
-                }
-
-                Section {
-                    HStack {
-                        Spacer()
-
                         // Display a confirmation alert
                         Button("Delete Disc", role: .destructive) {
                             showingDeleteAlert = true

@@ -35,6 +35,10 @@ struct MeasureThrowView: View {
     @State private var buttonTitle = "Mark Starting Location"
     @State private var distance = 0.0
     @State private var mapInteractionModes: MapInteractionModes = .all
+    
+    // Binding
+    
+    @Binding var showingSelectDiscView: Bool
 
     // Basic
 
@@ -136,6 +140,7 @@ struct MeasureThrowView: View {
             }
         }
         .navigationTitle("Measure Throw")
+        .navigationBarTitleDisplayMode(.inline)
         
         // When the user's location is updated, calculate the distance between the user and the starting point
         .onReceive(locationManager.$currentLocation, perform: { _ in
@@ -187,7 +192,7 @@ struct MeasureThrowView: View {
         
         try? moc.save() // TODO: Catch errors
         
-        dismiss()
+        showingSelectDiscView = false
     }
     
     // MARK: - Nested structs

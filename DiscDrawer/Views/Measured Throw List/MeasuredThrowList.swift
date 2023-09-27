@@ -20,7 +20,14 @@ struct MeasuredThrowList: View {
 
     // Managed object context
     @Environment(\.managedObjectContext) var moc
+    
+    // Fetch request
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.distance, order: .reverse)]) var measuredThrows: FetchedResults<MeasuredThrow>
+    
+    // State
+    
+    @State private var showingSelectDiscView = false
     
     // MARK: - Body view
     
@@ -32,6 +39,22 @@ struct MeasuredThrowList: View {
             .onDelete(perform: deleteThrows)
         }
         .navigationTitle("Measured Throws")
+        .toolbar {
+            
+            // Measure new throw button
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showingSelectDiscView.toggle()
+                } label: {
+                    Label("Measure Throw", systemImage: "plus")
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showingSelectDiscView) {
+            NavigationView {
+                SelectDiscView(showingSelectDiscView: $showingSelectDiscView)
+            }
+        }
     }
     
     // MARK: - Functions
