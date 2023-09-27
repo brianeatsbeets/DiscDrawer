@@ -49,14 +49,20 @@ struct MeasuredThrowList: View {
                     // Throw info
                     VStack(alignment: .leading) {
                         
-                        // Distance
-                        Text("\((measuredThrow.distance * 3.28084), specifier: "%.2f") feet")
-                            .font(.title.bold())
-                        
                         // Disc name
                         Text(measuredThrow.disc?.wrappedName ?? "Unknown disc")
-                            .font(.headline)
+                            .font(.title3.bold())
+                        
+                        // Date
+                        Text(measuredThrow.date?.formatted(date: .abbreviated, time: .omitted) ?? "Unknown date")
+                            .font(.subheadline)
                     }
+                    
+                    Spacer()
+                    
+                    // Distance
+                    Text("\((measuredThrow.distance * 3.28084), specifier: "%.2f") ft")
+                        .font(.title.bold())
                 }
             }
         }

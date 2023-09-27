@@ -17,7 +17,6 @@ struct DiscDrawerApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
-                .tint(.mint)
         }
     }
 }
