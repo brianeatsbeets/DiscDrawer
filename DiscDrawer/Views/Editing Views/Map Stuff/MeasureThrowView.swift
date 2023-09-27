@@ -16,6 +16,12 @@ import SwiftUI
 struct MeasureThrowView: View {
 
     // MARK: - Properties
+    
+    // Environment
+
+    // Managed object context
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
 
     // State object
     
@@ -102,11 +108,12 @@ struct MeasureThrowView: View {
                         // Make sure we have the user's current location
                         if let currentLocation = locationManager.currentLocation {
                             
-                            // Set throw start location
                             if throwStartLocation == nil {
                                 setStartLocation(currentLocation)
-                            } else {
+                            } else if throwEndLocation == nil {
                                 setEndLocation(currentLocation)
+                            } else {
+                                saveThrow()
                             }
                         } else {
                             print("Unable to get current location.")
@@ -121,7 +128,6 @@ struct MeasureThrowView: View {
                                     .fill(Color.accentColor)
                             )
                     }
-                    .disabled(throwStartLocation != nil && throwEndLocation != nil)
                     .padding(.top)
                     
                     Spacer()
@@ -166,6 +172,22 @@ struct MeasureThrowView: View {
         withAnimation {
             locationManager.mapCameraPosition = .automatic
         }
+        
+        buttonTitle = "Save Throw"
+    }
+    
+    // Save the throw to Core Data
+    func saveThrow() {
+        
+        // Create new Disc and assign values
+        let newThrow = MeasuredThrow(context: moc)
+        newThrow.date = Date.now
+        newThrow.disc = disc
+        newThrow.distance = distance
+        
+        try? moc.save() // TODO: Catch errors
+        
+        dismiss()
     }
     
     // MARK: - Nested structs

@@ -152,6 +152,14 @@ struct ContentView: View {
                 .tabItem {
                     Label("Finder", systemImage: "magnifyingglass")
                 }
+                
+                // Tab item for measured throws
+                NavigationView {
+                    MeasuredThrowList()
+                }
+                .tabItem {
+                    Label("Throws", systemImage: "list.number")
+                }
             }
 
             if splashScreenEnabled {

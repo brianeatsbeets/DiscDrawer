@@ -32,6 +32,7 @@
 		E1570BAF2AB331B0007315C9 /* DiscDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1570BAE2AB331B0007315C9 /* DiscDetailView.swift */; };
 		E16034EE2AC2227600151F8F /* MeasureThrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16034ED2AC2227600151F8F /* MeasureThrowView.swift */; };
 		E16034F02AC2252E00151F8F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16034EF2AC2252E00151F8F /* LocationManager.swift */; };
+		E17D3C2E2AC3C0F2009FFA86 /* MeasuredThrowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17D3C2D2AC3C0F2009FFA86 /* MeasuredThrowList.swift */; };
 		E1A8E2262AB78A4400903543 /* DiscTemplateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */; };
 		E1CE52022AAF91B60044134D /* FilteredDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE52012AAF91B60044134D /* FilteredDiscView.swift */; };
 		E1CE520D2AB094BA0044134D /* DiscList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CE520C2AB094BA0044134D /* DiscList.swift */; };
@@ -67,6 +68,7 @@
 		E16034ED2AC2227600151F8F /* MeasureThrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureThrowView.swift; sourceTree = "<group>"; };
 		E16034EF2AC2252E00151F8F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E1608DC52AC3256C008336BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E17D3C2D2AC3C0F2009FFA86 /* MeasuredThrowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasuredThrowList.swift; sourceTree = "<group>"; };
 		E1A8E2252AB78A4400903543 /* DiscTemplateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateDetailView.swift; sourceTree = "<group>"; };
 		E1CE52012AAF91B60044134D /* FilteredDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredDiscView.swift; sourceTree = "<group>"; };
 		E1CE520C2AB094BA0044134D /* DiscList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscList.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				E1CE52132AB0A5850044134D /* LogoView.swift */,
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
+				E17D3C2D2AC3C0F2009FFA86 /* MeasuredThrowList.swift */,
 				E14B6A702ABF3B4000A6894C /* Detail Views */,
 				E14B6A712ABF3B6100A6894C /* Editing Views */,
 				E1CE520E2AB096B70044134D /* Disc Listings */,
@@ -244,9 +247,9 @@
 			children = (
 				E13913FB2AB208B000CD9502 /* DiscTemplateList.swift */,
 				E1CE52012AAF91B60044134D /* FilteredDiscView.swift */,
+				E118E99F2AC1B7E100BB2BAB /* DiscCollectionHeader.swift */,
 				E118E9902AC1B34A00BB2BAB /* Disc List */,
 				E118E9A12AC1B83F00BB2BAB /* Disc Grid */,
-				E118E99F2AC1B7E100BB2BAB /* DiscCollectionHeader.swift */,
 			);
 			path = "Disc Listings";
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				E14B6A732ABFC36A00A6894C /* UIPickerController+CropFix.swift in Sources */,
 				E118E9A02AC1B7E100BB2BAB /* DiscCollectionHeader.swift in Sources */,
 				E118E9922AC1B35700BB2BAB /* DiscListItem.swift in Sources */,
+				E17D3C2E2AC3C0F2009FFA86 /* MeasuredThrowList.swift in Sources */,
 				E1570BAF2AB331B0007315C9 /* DiscDetailView.swift in Sources */,
 				E13913FA2AB1E88E00CD9502 /* DiscTemplate+CoreDataProperties.swift in Sources */,
 				E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */,

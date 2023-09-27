@@ -15,6 +15,7 @@
         <attribute name="turn" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="measuredThrow" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeasuredThrow" inverseName="disc" inverseEntity="MeasuredThrow"/>
     </entity>
     <entity name="DiscTemplate" representedClassName="DiscTemplate" syncable="YES">
         <attribute name="fade" optional="YES" attributeType="String"/>
@@ -26,5 +27,10 @@
         <attribute name="stability" optional="YES" attributeType="String"/>
         <attribute name="turn" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="MeasuredThrow" representedClassName="MeasuredThrow" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="disc" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Disc" inverseName="measuredThrow" inverseEntity="Disc"/>
     </entity>
 </model>
