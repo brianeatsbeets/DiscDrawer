@@ -255,7 +255,7 @@ struct AddEditDiscView: View {
             }
 
             // Delete disc button (if we're editing an existing disc)
-            if let disc {
+            if disc != nil {
                 Section {
                     HStack {
                         Spacer()

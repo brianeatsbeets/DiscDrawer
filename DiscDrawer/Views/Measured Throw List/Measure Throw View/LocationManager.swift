@@ -20,7 +20,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     // Published
 
     @Published var mapCameraPosition = MapCameraPosition.automatic
-    @Published var currentLocation: CLLocationCoordinate2D?
+    @Published var currentLocation: CLLocation?
 
     // Basic
 
@@ -45,7 +45,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         // Make sure we have a usable location
-        guard let currentLocation = locations.last?.coordinate else { return }
+        guard let currentLocation = locations.last else { return }
         
         // Update the stored current location
         self.currentLocation = currentLocation
@@ -53,7 +53,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
         // Set the initial map camera position based on the user's location
         if !didSetInitialLocation {
-            mapCameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpan()))
+            mapCameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: currentLocation.coordinate, span: MKCoordinateSpan()))
             didSetInitialLocation = true
         }
     }

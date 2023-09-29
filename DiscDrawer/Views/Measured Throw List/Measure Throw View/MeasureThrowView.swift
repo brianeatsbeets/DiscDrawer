@@ -43,13 +43,21 @@ struct MeasureThrowView: View {
     // Basic
 
     let disc: Disc
+    
+    var locationAccuracy: String {
+        if let accuracy = locationManager.currentLocation?.horizontalAccuracy {
+            return Int((accuracy * 3.28084).rounded()).description
+        } else {
+            return "Unknown"
+        }
+    }
 
     // MARK: - Body view
 
     var body: some View {
 
         // Main stack
-        VStack {
+        ZStack(alignment: .bottomTrailing) {
             
             // Map view
             Map(position: $locationManager.mapCameraPosition, interactionModes: mapInteractionModes) {
@@ -66,7 +74,7 @@ struct MeasureThrowView: View {
                     
                     // Line from throw start to current location
                     if let currentLocation = locationManager.currentLocation {
-                        MapPolyline(coordinates: [throwStartLocation.coordinate, currentLocation])
+                        MapPolyline(coordinates: [throwStartLocation.coordinate, currentLocation.coordinate])
                             .stroke(.white, lineWidth: 7)
                     }
                 }
@@ -80,92 +88,114 @@ struct MeasureThrowView: View {
             // Use satellite imagery
             .mapStyle(.imagery)
             
-            // Header view
-            .safeAreaInset(edge: .top) {
-                HStack {
-                    Spacer()
-                    
-                    // Header text
-                    if throwStartLocation == nil {
-                        Text("Set your starting point")
-                            .font(.title.bold())
-                            .padding()
-                    } else {
-                        Text("Distance: \((distance * 3.28084), specifier: "%.2f") feet")
-                            .font(.title.bold())
-                            .padding()
-                    }
-                    
-                    Spacer()
+            // Accuracy view
+            VStack(alignment: .trailing) {
+                Text("Accuracy")
+                    .fontWeight(.heavy)
+                
+                HStack(spacing: 0) {
+                    Image(systemName: "plusminus")
+                        .font(.body)
+                    Text("\(locationAccuracy)ft")
                 }
-                .background(Material.regular)
             }
-            
-            // Footer view
-            .safeAreaInset(edge: .bottom) {
-                HStack {
-                    Spacer()
-                    
-                    // Button to mark the throw locations
-                    Button {
-                        
-                        // Make sure we have the user's current location
-                        if let currentLocation = locationManager.currentLocation {
-                            
-                            if throwStartLocation == nil {
-                                setStartLocation(currentLocation)
-                            } else if throwEndLocation == nil {
-                                setEndLocation(currentLocation)
-                            } else {
-                                saveThrow()
-                            }
-                        } else {
-                            print("Unable to get current location.")
-                        }
-                    } label: {
-                        Text(buttonTitle)
-                            .font(.title3.bold())
-                            .foregroundStyle(Color.primary)
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.accentColor)
-                            )
-                    }
-                    .padding(.top)
-                    
-                    Spacer()
-                }
-                .background(.thinMaterial)
-            }
+            .font(.headline)
+            .padding(12)
+            .background(Material.thick)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .offset(x: -20, y: -20)
         }
         .navigationTitle("Measure Throw")
         .navigationBarTitleDisplayMode(.inline)
-        
-        // When the user's location is updated, calculate the distance between the user and the starting point
+        .onAppear {
+            
+            // Prevent the device from auto-sleeping
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
+        .onDisappear {
+            
+            // Allow the device to auto-sleep
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
+        .safeAreaInset(edge: .top) {
+            
+            // Header view
+            HStack {
+                Spacer()
+                
+                // Header text
+                if throwStartLocation == nil {
+                    Text("Set your starting point")
+                        .font(.title.bold())
+                        .padding()
+                } else {
+                    Text("Distance: \((distance * 3.28084), specifier: "%.2f") feet")
+                        .font(.title.bold())
+                        .padding()
+                }
+                
+                Spacer()
+            }
+            .background(Material.thick)
+        }
+        .safeAreaInset(edge: .bottom) {
+            
+            // Footer view
+            HStack {
+                Spacer()
+                
+                // Button to mark the throw locations
+                Button {
+                    
+                    // Make sure we have the user's current location
+                    if let currentLocation = locationManager.currentLocation {
+                        
+                        if throwStartLocation == nil {
+                            setStartLocation(currentLocation)
+                        } else if throwEndLocation == nil {
+                            setEndLocation(currentLocation)
+                        } else {
+                            saveThrow()
+                        }
+                    } else {
+                        print("Unable to get current location.")
+                    }
+                } label: {
+                    Text(buttonTitle)
+                        .font(.title3.bold())
+                        .foregroundStyle(.black)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.accentColor)
+                        )
+                }
+                .padding(.top)
+                
+                Spacer()
+            }
+            .background(.thinMaterial)
+        }
         .onReceive(locationManager.$currentLocation, perform: { _ in
-            guard let throwStartLocation,
-                  let currentLocation = locationManager.currentLocation,
-                  throwEndLocation == nil else { return }
-            let startPoint = CLLocation(latitude: throwStartLocation.coordinate.latitude, longitude: throwStartLocation.coordinate.longitude)
-            let currentCLLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
-            distance = currentCLLocation.distance(from: startPoint)
+            
+            // When the user's location is updated, calculate the distance between the user and the starting point
+            calculateCurrentDistance()
         })
     }
     
     // MARK: - Functions
     
     // Set the throw starting location
-    func setStartLocation(_ location: CLLocationCoordinate2D) {
-        throwStartLocation = Location(name: "Start", coordinate: location)
+    func setStartLocation(_ location: CLLocation) {
+        throwStartLocation = Location(name: "Start", coordinate: location.coordinate)
         buttonTitle = "Mark Ending Location"
     }
     
     // Set the throw ending location
-    func setEndLocation(_ location: CLLocationCoordinate2D) {
+    func setEndLocation(_ location: CLLocation) {
         
         // Set throw end location
-        throwEndLocation = Location(name: "End", coordinate: location)
+        throwEndLocation = Location(name: "End", coordinate: location.coordinate)
         
         // Stop tracking user location
         locationManager.stopUpdatingLocation()
@@ -179,6 +209,16 @@ struct MeasureThrowView: View {
         }
         
         buttonTitle = "Save Throw"
+    }
+    
+    // Calculate the distance between the user and the starting point
+    func calculateCurrentDistance() {
+        guard let throwStartLocation,
+              let currentLocation = locationManager.currentLocation,
+              throwEndLocation == nil else { return }
+        let startPoint = CLLocation(latitude: throwStartLocation.coordinate.latitude, longitude: throwStartLocation.coordinate.longitude)
+        let currentCLLocation = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        distance = currentCLLocation.distance(from: startPoint)
     }
     
     // Save the throw to Core Data
