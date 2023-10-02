@@ -344,11 +344,7 @@ struct AddEditDiscView: View {
             disc.fade = Double(fade)
             disc.condition = condition
             disc.inBag = inBag
-            
-            if let imageData = inputImage?.jpegData(compressionQuality: 0.8) {
-                disc.imageData = imageData
-                disc.imageId = saveImageToDisk(imageData: imageData, imageId: disc.imageId)
-            }
+            disc.imageData = inputImage?.jpegData(compressionQuality: 0.8)
             
         } else {
 
@@ -365,46 +361,11 @@ struct AddEditDiscView: View {
             newDisc.fade = Double(fade)
             newDisc.condition = condition
             newDisc.inBag = inBag
-            
-            if let imageData = inputImage?.jpegData(compressionQuality: 0.8) {
-                newDisc.imageData = imageData
-                newDisc.imageId = saveImageToDisk(imageData: imageData)
-            }
+            newDisc.imageData = inputImage?.jpegData(compressionQuality: 0.8)
         }
 
         // Save disc to managed object context
         try? moc.save() // TODO: Catch errors
-    }
-    
-    // Save the disc image to disk and return the uuid file name to store in Core Data
-    // TODO: Fetch and load the image when loading disc from core data
-    func saveImageToDisk(imageData: Data, imageId: UUID? = nil) -> UUID {
-        
-        // Create the file path
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let uuid = imageId ?? UUID()
-        let filePath = documentsDirectory.appendingPathComponent("\(uuid.uuidString).jpg")
-        
-        // Write the data to disk
-        do {
-            try imageData.write(to: filePath, options: [.atomic, .completeFileProtection])
-            
-//            // Get the directory contents urls (including subfolders urls)
-//            let directoryContents = try FileManager.default.contentsOfDirectory(
-//                at: documentsDirectory,
-//                includingPropertiesForKeys: nil
-//            )
-//            print("directoryContents:")
-//            for url in directoryContents {
-//                print(url.absoluteString)
-//            }
-            
-        } catch {
-            print(error.localizedDescription) // TODO: Create an alert
-        }
-        
-        // Return the UUID to store in Core Data
-        return uuid
     }
 
     // Dismiss the view and optionally dismiss additional parent views using a binding
