@@ -13,7 +13,7 @@ import SwiftUI
 
 // This struct provides a view that serves as the base container for the app
 struct ContentView: View {
-
+        
     // MARK: - Properties
 
     // Environment
@@ -68,21 +68,16 @@ struct ContentView: View {
 
                         // Sort and filter elements
                         HStack {
-
+                            
                             // Sort button
                             Button {
                                 sortAsc.toggle()
                             } label: {
                                 Image(systemName: "arrow.up.arrow.down")
                             }
-
+                            
                             // Filter picker
-                            Picker("Filter Field", selection: $sortItemIndex) {
-                                Text("Speed").tag(0)
-                                Text("Name").tag(1)
-                                Text("Manufacturer").tag(2)
-                            }
-                            .pickerStyle(.segmented)
+                            FilterPicker(items: ["Speed", "Name", "Manufacturer"], selection: $sortItemIndex)
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 10)

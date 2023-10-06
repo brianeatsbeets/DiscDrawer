@@ -8,6 +8,7 @@
 // MARK: - Imported libraries
 
 import SwiftUI
+import UIKit
 
 // MARK: - Main struct
 
@@ -344,7 +345,7 @@ struct AddEditDiscView: View {
             disc.fade = Double(fade)
             disc.condition = condition
             disc.inBag = inBag
-            disc.imageData = inputImage?.jpegData(compressionQuality: 0.8)
+            disc.imageData = downsampledImageData(inputImage)
             
         } else {
 
@@ -361,11 +362,31 @@ struct AddEditDiscView: View {
             newDisc.fade = Double(fade)
             newDisc.condition = condition
             newDisc.inBag = inBag
-            newDisc.imageData = inputImage?.jpegData(compressionQuality: 0.8)
+            newDisc.imageData = downsampledImageData(inputImage)
         }
 
         // Save disc to managed object context
         try? moc.save() // TODO: Catch errors
+    }
+    
+    // Return an image that has been downsampled to reduce file size
+    func downsampledImageData(_ image: UIImage?) -> Data? {
+        
+        // Make sure we have an image
+        guard let image else { return nil }
+        
+        // Specify the new image size in points
+        let size = CGSize(width: 150, height: 150)
+        
+        // Create the image renderer
+        let renderer = UIGraphicsImageRenderer(size: size)
+        
+        // Redraw the image
+        let resizedImage = renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: size))
+        }
+        
+        return resizedImage.jpegData(compressionQuality: 0.8)
     }
 
     // Dismiss the view and optionally dismiss additional parent views using a binding

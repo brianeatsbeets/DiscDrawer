@@ -23,6 +23,8 @@ struct DiscListItem: View {
     // Observed objects
 
     @ObservedObject var disc: Disc
+    
+    @State private var uiImage: UIImage?
 
     // Basic
 
@@ -94,17 +96,16 @@ struct DiscListItem: View {
 
                     // Disc image
                     ZStack {
-                        if let imageData = disc.imageData,
-                           let discImage = UIImage(data: imageData) {
-                            Image(uiImage: discImage)
-                                .resizable()
-                                .scaledToFit()
-                                .clipShape(Circle())
-                        } else {
-                            Color.red
-                                .clipShape(Circle())
-                                .aspectRatio(contentMode: .fit)
-                        }
+                        
+                        Image(uiImage: (uiImage ?? UIImage(named: "red-disc")) ?? UIImage())
+                            .resizable()
+                            .scaledToFit()
+                            .clipShape(Circle())
+                            .onAppear {
+                                guard let imageData = disc.imageData,
+                                      let discImage = UIImage(data: imageData) else { return }
+                                uiImage = discImage
+                            }
 
                         Circle()
                             .stroke(.white, lineWidth: 3)
@@ -153,43 +154,3 @@ struct DiscListItem: View {
         }
     }
 }
-
-// Original layout
-
-//    // This struct provides a view that displays a single disc styled for a list
-//    struct DiscListItem: View {
-//
-//        // MARK: - Properties
-//
-//        @ObservedObject var disc: Disc
-//
-//        // MARK: - Body view
-//
-//        var body: some View {
-//
-//            // Main HStack
-//            HStack {
-//
-//                // Disc image
-//                Color.red
-//                    .clipShape(Circle())
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(height: 50)
-//
-//                // Disc info
-//                VStack(alignment: .leading) {
-//
-//                    // Disc name
-//                    Text(disc.wrappedName)
-//                        .font(.headline)
-//
-//                    // Disc manufacturer
-//                    if disc.manufacturer != "" {
-//                        Text(disc.wrappedManufacturer)
-//                            .foregroundColor(.secondary)
-//                    }
-//                }
-//                .padding(.leading, 5)
-//            }
-//        }
-//    }

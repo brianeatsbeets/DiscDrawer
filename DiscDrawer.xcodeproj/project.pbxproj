@@ -16,6 +16,7 @@
 		E118E99E2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E99D2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift */; };
 		E118E9A02AC1B7E100BB2BAB /* DiscCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E99F2AC1B7E100BB2BAB /* DiscCollectionHeader.swift */; };
 		E118E9A32AC1B85600BB2BAB /* DiscGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118E9A22AC1B85600BB2BAB /* DiscGridItem.swift */; };
+		E11D1C3B2AD02842007CFDD3 /* FilterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D1C3A2AD02842007CFDD3 /* FilterPicker.swift */; };
 		E129A3312AA8B27900A9E255 /* DiscDrawerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3302AA8B27900A9E255 /* DiscDrawerApp.swift */; };
 		E129A3332AA8B27900A9E255 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129A3322AA8B27900A9E255 /* ContentView.swift */; };
 		E129A3352AA8B27A00A9E255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E129A3342AA8B27A00A9E255 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		E118E99D2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTemplateDetailFlightNumbers.swift; sourceTree = "<group>"; };
 		E118E99F2AC1B7E100BB2BAB /* DiscCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscCollectionHeader.swift; sourceTree = "<group>"; };
 		E118E9A22AC1B85600BB2BAB /* DiscGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscGridItem.swift; sourceTree = "<group>"; };
+		E11D1C3A2AD02842007CFDD3 /* FilterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPicker.swift; sourceTree = "<group>"; };
 		E129A32D2AA8B27900A9E255 /* DiscDrawer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscDrawer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E129A3302AA8B27900A9E255 /* DiscDrawerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscDrawerApp.swift; sourceTree = "<group>"; };
 		E129A3322AA8B27900A9E255 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				E1CE52132AB0A5850044134D /* LogoView.swift */,
 				E129A3322AA8B27900A9E255 /* ContentView.swift */,
+				E150CA082AD0BA8F00D2C7DC /* Custom Controls */,
 				E14B6A702ABF3B4000A6894C /* Detail Views */,
 				E14B6A712ABF3B6100A6894C /* Editing Views */,
 				E1CE520E2AB096B70044134D /* Disc Listings */,
@@ -234,6 +237,14 @@
 				E14B6A722ABFC36A00A6894C /* UIPickerController+CropFix.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E150CA082AD0BA8F00D2C7DC /* Custom Controls */ = {
+			isa = PBXGroup;
+			children = (
+				E11D1C3A2AD02842007CFDD3 /* FilterPicker.swift */,
+			);
+			path = "Custom Controls";
 			sourceTree = "<group>";
 		};
 		E1608DC72AC331D9008336BA /* Measure Throw View */ = {
@@ -375,6 +386,7 @@
 				E13914002AB20BE000CD9502 /* Disc+CoreDataClass.swift in Sources */,
 				E13914012AB20BE000CD9502 /* Disc+CoreDataProperties.swift in Sources */,
 				E118E99E2AC1B5AC00BB2BAB /* DiscTemplateDetailFlightNumbers.swift in Sources */,
+				E11D1C3B2AD02842007CFDD3 /* FilterPicker.swift in Sources */,
 				E1CE52102AB098730044134D /* DiscGrid.swift in Sources */,
 				E17D3C332AC4747D009FFA86 /* SelectDiscView.swift in Sources */,
 				E13913F62AB1E84900CD9502 /* DiscDrawer.xcdatamodeld in Sources */,
