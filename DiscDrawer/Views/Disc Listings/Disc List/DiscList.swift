@@ -53,9 +53,24 @@ struct DiscList: View {
                                     DiscListItem(disc: disc)
                                 }
                                 .listRowSeparator(.hidden)
+                                .swipeActions(allowsFullSwipe: false) {
+                                    Button(role: .destructive) {
+                                        deleteDisc(disc)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash.fill")
+                                    }
+                                }
+                                .swipeActions(edge: .leading) {
+                                    Button {
+                                        disc.inBag.toggle()
+                                        try? moc.save()
+                                    } label: {
+                                        Label(disc.inBag ? "Remove from Bag" : "Add to Bag", systemImage: disc.inBag ? "bag.fill.badge.minus" : "bag.fill.badge.plus")
+                                    }
+                                    .tint(disc.inBag ? .orange : .blue)
+                                }
                             }
                         }
-                        .onDelete(perform: deleteDiscs)
                     } header: {
                         DiscCollectionHeader(type: type)
                     }
@@ -74,15 +89,11 @@ struct DiscList: View {
     }
 
     // MARK: - Functions
-
-    // Delete specified discs
-    func deleteDiscs(at offsets: IndexSet) {
-
-        // Loop through each offset and delete the disc
-        for offset in offsets {
-            moc.delete(discs[offset])
-        }
-
+    
+    // Delete specified disc
+    func deleteDisc(_ disc: Disc) {
+        moc.delete(disc)
+        
         // Save the context
         // TODO: Catch errors
         try? moc.save()
