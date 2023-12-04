@@ -1,5 +1,3 @@
-// [Home](../index.md) // [Portfolio](../portfolio.md) // DiscDrawer
-
 # DiscDrawer
 [GitHub Repo](https://github.com/brianeatsbeets/DiscDrawer)
 
